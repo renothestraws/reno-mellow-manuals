@@ -138,6 +138,9 @@ T["fr"] = dict(
         ("Icon", "Icône de piste. Browse ouvre Data/track_icons (133 icônes cs_tags_XXX fournies)."),
         ("Layout", "Layouts TCP et MCP du thème actif, ou layout par défaut du thème."),
         ("Record input", "Entrée mono, stéréo ou MIDI ; ou Record output stereo / mono / MIDI."),
+        ("Output", "Sorties de la piste : envoi master / parent (coché par défaut), une ou plusieurs sorties hardware audio "
+                   "(paires stéréo ou mono) et une sortie MIDI hardware (périphérique et canal). Remplace les sorties hardware de la piste ; "
+                   "les envois vers d'autres pistes sont gardés."),
         ("Pan mode", "Project default, Stereo balance / mono pan, Stereo pan, Dual pan, Balance (classic 3.x)."),
         ("Metering", "Stereo peaks, Multichannel peaks, Stereo RMS, Combined RMS, LUFS-M, LUFS-S, Meter disabled."),
         ("FX chain", "Fichier .RfxChain ajouté après les effets déjà présents. Browse ouvre FXChains."),
@@ -298,6 +301,9 @@ T["en"] = dict(
         ("Icon", "Track icon. Browse opens Data/track_icons (133 cs_tags_XXX icons included)."),
         ("Layout", "TCP and MCP layouts of the current theme, or the theme default."),
         ("Record input", "Mono, stereo or MIDI input; or Record output stereo / mono / MIDI."),
+        ("Output", "Track outputs: master / parent send (ticked by default), one or more hardware audio outputs "
+                   "(stereo pairs or mono) and a hardware MIDI output (device and channel). Replaces the track's hardware outputs; "
+                   "sends to other tracks are kept."),
         ("Pan mode", "Project default, Stereo balance / mono pan, Stereo pan, Dual pan, Balance (classic 3.x)."),
         ("Metering", "Stereo peaks, Multichannel peaks, Stereo RMS, Combined RMS, LUFS-M, LUFS-S, Meter disabled."),
         ("FX chain", ".RfxChain file added after the existing FX. Browse opens FXChains."),
