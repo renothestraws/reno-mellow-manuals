@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.20"
+VERSION = "1.21"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -125,6 +125,8 @@ T["fr"] = dict(
     s5="5. L'onglet Setup",
     s5p="Une ligne par strip, une colonne par réglage. <b>Une case vide est ignorée</b> quand le strip est appliqué. "
         "En haut : + Add strip, Load default strips, Export…, Import…, Clear all strips. "
+        "Juste en dessous, le <b>filtre</b> cache les lignes inutiles : <b>Show</b> choisit un dossier (le même que dans l'onglet Strips), "
+        "le champ texte garde les strips dont le nom, le nom de piste ou un tag contient le texte (x pour l'effacer). "
         "À droite de chaque ligne : flèches pour déplacer, Dup pour dupliquer, Del pour supprimer.",
     s5_head=["Colonne", "Ce que le strip fait à la piste"],
     s5_rows=[
@@ -288,6 +290,8 @@ T["en"] = dict(
     s5="5. The Setup tab",
     s5p="One row per strip, one column per setting. <b>An empty cell is ignored</b> when the strip is applied. "
         "At the top: + Add strip, Load default strips, Export…, Import…, Clear all strips. "
+        "Just below, the <b>filter</b> hides the rows you don't need: <b>Show</b> picks a folder (the same as in the Strips tab), "
+        "the text field keeps the strips whose name, track name or a tag contains the text (x clears it). "
         "At the right of each row: arrows to move it, Dup to duplicate, Del to delete.",
     s5_head=["Column", "What the strip does to the track"],
     s5_rows=[
