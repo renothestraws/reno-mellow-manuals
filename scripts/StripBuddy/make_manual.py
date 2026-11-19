@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Manuel ReNo Mellow - Custom Strips (FR + EN).
-Usage : python3 make_manual.py   -> CustomStrips_manuel_FR.pdf + CustomStrips_manual_EN.pdf
+"""Manuel ReNo Mellow - Strip Buddy (FR + EN).
+Usage : python3 make_manual.py   -> StripBuddy_manuel_FR.pdf + StripBuddy_manual_EN.pdf
 """
 import os
 from reportlab.lib.pagesizes import A4
@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.14"
+VERSION = "1.15"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -28,11 +28,11 @@ DARK = colors.HexColor("#222222")
 GREY = colors.HexColor("#666666")
 LIGHT = colors.HexColor("#F2F2F2")
 
-BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/CustomStrips/"
-URL_FR = BASE + "CustomStrips_manuel_FR.pdf"
-URL_EN = BASE + "CustomStrips_manual_EN.pdf"
+BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/StripBuddy/"
+URL_FR = BASE + "StripBuddy_manuel_FR.pdf"
+URL_EN = BASE + "StripBuddy_manual_EN.pdf"
 URL_INDEX = "https://raw.githubusercontent.com/renothestraws/reno-mellow-script/main/index.xml"
-URL_PKG = "https://github.com/renothestraws/reno-mellow-script/raw/main/packages/ReNo_Mellow_Custom_Strips.ReaperPkg"
+URL_PKG = "https://github.com/renothestraws/reno-mellow-script/raw/main/packages/ReNo_Mellow_Strip_Buddy.ReaperPkg"
 URL_REPO = "https://github.com/renothestraws/reno-mellow-script"
 
 ST = {
@@ -56,18 +56,18 @@ ST = {
 # ----------------------------------------------------------------------------------------------
 T = {}
 T["fr"] = dict(
-    file="CustomStrips_manuel_FR.pdf",
+    file="StripBuddy_manuel_FR.pdf",
     subtitle="Presets de pistes en un clic pour REAPER",
     manual="Manuel d'utilisation",
-    other='English version : <link href="%s" color="#C0392B">CustomStrips_manual_EN.pdf</link>' % URL_EN,
-    footer="ReNo Mellow – Custom Strips %s – manuel d'utilisation" % VERSION,
+    other='English version : <link href="%s" color="#C0392B">StripBuddy_manual_EN.pdf</link>' % URL_EN,
+    footer="ReNo Mellow – Strip Buddy %s – manuel d'utilisation" % VERSION,
     page="page",
     toc_title="Sommaire",
     toc=["1. Principe", "2. Installation", "3. Premiers pas", "4. L'onglet Strips", "5. L'onglet Setup",
-         "6. Fonctions avancées", "7. Fichiers, actions et raccourcis", "8. Questions fréquentes"],
+         "6. Fonctions avancées", "7. Le Display des tags", "8. Fichiers, actions et raccourcis", "9. Questions fréquentes"],
     s1="1. Principe",
     s1p=[
-        "Custom Strips enregistre des <b>presets de pistes</b>, appelés <i>strips</i>. Un strip réunit tout ce qu'on règle "
+        "Strip Buddy (anciennement Custom Strips) enregistre des <b>presets de pistes</b>, appelés <i>strips</i>. Un strip réunit tout ce qu'on règle "
         "d'habitude à la main en préparant une session : nom, tag, couleur, icône, layouts, entrée d'enregistrement, mode de "
         "panoramique, type de mètre, chaîne d'effets, enveloppes visibles, noms des items, normalisation et groupe.",
         "Un clic sur un strip l'applique à <b>toutes les pistes sélectionnées</b>, en une seule étape d'annulation. "
@@ -79,13 +79,13 @@ T["fr"] = dict(
     s2a="Avec ReaPack (recommandé, mises à jour automatiques)",
     s2a_steps=[
         "Extensions > ReaPack > <b>Import repositories…</b>, coller l'adresse ci-dessous, OK.",
-        "Extensions > ReaPack > <b>Browse packages</b>, chercher « Custom Strips », clic droit > Install, puis Apply.",
+        "Extensions > ReaPack > <b>Browse packages</b>, chercher « Strip Buddy », clic droit > Install, puis Apply.",
         "Installer aussi <b>ReaImGui</b> (même fenêtre) s'il manque, puis redémarrer REAPER.",
         "Mises à jour : Extensions > ReaPack > <b>Synchronize packages</b>.",
     ],
     s2b="Avec le paquet .ReaperPkg (REAPER 7.86 ou plus récent)",
     s2b_steps=[
-        "Télécharger le fichier <b>ReNo_Mellow_Custom_Strips.ReaperPkg</b> (lien ci-dessous).",
+        "Télécharger le fichier <b>ReNo_Mellow_Strip_Buddy.ReaperPkg</b> (lien ci-dessous).",
         "Le glisser dans la fenêtre de REAPER : le script, son icône et les icônes de pistes sont installés.",
         "Pas de mise à jour automatique : reprendre le nouveau paquet à chaque version.",
     ],
@@ -93,14 +93,14 @@ T["fr"] = dict(
     s2c_p=[
         "<b>ReaImGui</b> est obligatoire. Sans lui, le script prévient et ouvre la bonne page de ReaPack. "
         "<b>js_ReaScriptAPI</b> est facultatif : avec lui, les fenêtres de choix de fichiers filtrent les bons types de fichiers.",
-        "Pour un bouton : clic droit sur une barre d'outils > Customize toolbar > Add, action « ReNo Mellow - Custom Strips », "
-        "icône <b>ReNo_CustomStrips</b>. Le bouton reste allumé tant que la fenêtre est ouverte.",
+        "Pour un bouton : clic droit sur une barre d'outils > Customize toolbar > Add, action « ReNo Mellow - Strip Buddy », "
+        "icône <b>ReNo_StripBuddy</b>. Le bouton reste allumé tant que la fenêtre est ouverte.",
     ],
     links_head=["Lien", "Adresse"],
     links=[("Index ReaPack", URL_INDEX), ("Paquet .ReaperPkg", URL_PKG), ("Dépôt GitHub", URL_REPO)],
     s3="3. Premiers pas",
     s3_steps=[
-        "Lancer l'action <b>ReNo Mellow - Custom Strips</b> (liste d'actions ou bouton de barre d'outils).",
+        "Lancer l'action <b>ReNo Mellow - Strip Buddy</b> (liste d'actions ou bouton de barre d'outils).",
         "Au premier lancement, les 164 strips de base sont créés dans 15 dossiers (Drums, Bass, Vocals…).",
         "Sélectionner une ou plusieurs pistes dans REAPER.",
         "Dans l'onglet Strips, cliquer sur un strip, par exemple « Kick in » : la piste est renommée, taguée et reçoit son icône.",
@@ -159,22 +159,46 @@ T["fr"] = dict(
         ("Load default strips", "Ajoute les strips de base qui manquent (nom de piste, tag, icône, normalisation -15 dBFS Peak). "
                                 "Ne modifie jamais les strips existants ; peut être relancé sans créer de doublons."),
         ("Export… / Import…", "Export : tous les strips, un dossier ou les strips sans dossier, dans un fichier .rnstrips "
-                              "(par défaut Data/ReNo_CustomStrips/Exports). Import : en ajout (dossiers de même nom fusionnés, "
+                              "(par défaut Data/ReNo_StripBuddy/Exports). Import : en ajout (dossiers de même nom fusionnés, "
                               "doublons ignorés) ou en remplacement complet."),
         ("Clear all strips", "Efface tous les strips, et les dossiers si la case est cochée. Pas d'annulation : "
                              "faire un Export avant."),
     ],
-    s7="7. Fichiers, actions et raccourcis",
+    sd="7. Le Display des tags",
+    sdp=["Le Display est une petite barre flottante, sans titre, à placer où l'on veut. À gauche, quatre options "
+         "à allumer (une ou plusieurs) : <b>Zoom</b>, <b>View</b>, <b>Scroll</b>, <b>Select</b>. À droite, la liste "
+         "déroulante des tags du projet (les [ABC] en fin de nom de piste), précédée de <b>All</b>. Choisir un tag "
+         "applique d'un coup toutes les options allumées, dans l'ordre View, Select, Zoom, Scroll (une étape d'annulation).",
+         "Ouvrir : action « ReNo Mellow - Strip Buddy - Display », ou bouton « Open / close the Display » de l'onglet "
+         "Display. Relancer l'action ferme le Display."],
+    sd_head=["Option", "Avec un tag", "Avec All"],
+    sd_rows=[
+        ("View", "N'affiche que les pistes du tag ; leurs dossiers parents restent visibles.", "Réaffiche toutes les pistes."),
+        ("Zoom", "Agrandit les pistes du tag pour remplir la hauteur de l'arrangement.", "Remet les hauteurs par défaut."),
+        ("Scroll", "Amène la première piste du tag en haut (TCP) ou à gauche (mixer).", "Revient à la première piste."),
+        ("Select", "Sélectionne les pistes du tag (prêtes pour un strip).", "Sélectionne toutes les pistes."),
+    ],
+    sd_more=["<b>Molette</b> au-dessus de la liste : tag suivant / précédent, appliqué aussitôt. Chaque tag est affiché "
+             "avec la couleur de sa première piste. <b>Clic droit</b> sur la barre : taille du texte, réouverture au démarrage, Close.",
+             "Onglet <b>Display</b> de la fenêtre principale : <b>Display View</b> (TCP, MCP ou Both : où View cache les pistes), "
+             "<b>Display Scroll</b> (TCP, MCP ou Both : où Scroll fait défiler), et « Reopen the Display when REAPER starts ».",
+             "Zoom et Scroll précis utilisent js_ReaScriptAPI ; sans elle, le Zoom passe par SWS s'il est installé et le Scroll "
+             "par l'action native « Vertical scroll selected tracks into view »."],
+    callout_disp="Exemple : View et Scroll allumés, tag KIK choisi dans la liste.",
+    s7="8. Fichiers, actions et raccourcis",
     s7_rows=[
-        ("Action", "Une seule : « ReNo Mellow - Custom Strips » (ouvre / ferme la fenêtre)."),
+        ("Actions", "« ReNo Mellow - Strip Buddy » (ouvre / ferme la fenêtre) et « ReNo Mellow - Strip Buddy - Display » (ouvre / ferme le Display)."),
         ("Raccourci", "Aucun imposé : chacun choisit le sien dans la liste d'actions (ex. Ctrl+Shift+C, simple exemple)."),
-        ("Données", "Data/ReNo_CustomStrips/strips.lua, enregistré automatiquement à chaque modification."),
-        ("Exports", "Data/ReNo_CustomStrips/Exports/*.rnstrips"),
-        ("Icônes", "Data/track_icons/cs_tags_XXX.png (pistes), Data/toolbar_icons/ReNo_CustomStrips.png (barre d'outils)."),
+        ("Données", "Data/ReNo_StripBuddy/strips.lua, enregistré automatiquement à chaque modification."),
+        ("Exports", "Data/ReNo_StripBuddy/Exports/*.rnstrips"),
+        ("Icônes", "Data/track_icons/cs_tags_XXX.png (pistes), Data/toolbar_icons/ReNo_StripBuddy.png (barre d'outils)."),
     ],
     s7_head=["Élément", "Détail"],
-    s8="8. Questions fréquentes",
+    s8="9. Questions fréquentes",
     faq=[
+        ("J'utilisais Custom Strips.", "Dans ReaPack, désinstaller d'abord Custom Strips, puis installer Strip Buddy. "
+                                       "Au premier lancement, vos strips, dossiers, exports et réglages sont repris automatiquement. "
+                                       "Remplacer l'ancien bouton de barre d'outils par l'action « ReNo Mellow - Strip Buddy »."),
         ("Le script dit qu'il manque ReaImGui.", "Installer ReaImGui avec ReaPack (Browse packages), puis redémarrer REAPER."),
         ("Rien ne se passe au clic.", "Aucune piste n'est sélectionnée : le message « Select one or more tracks first. » "
                                       "s'affiche en bas de la fenêtre."),
@@ -189,18 +213,18 @@ T["fr"] = dict(
 )
 
 T["en"] = dict(
-    file="CustomStrips_manual_EN.pdf",
+    file="StripBuddy_manual_EN.pdf",
     subtitle="One-click track presets for REAPER",
     manual="User manual",
-    other='Version française : <link href="%s" color="#C0392B">CustomStrips_manuel_FR.pdf</link>' % URL_FR,
-    footer="ReNo Mellow – Custom Strips %s – user manual" % VERSION,
+    other='Version française : <link href="%s" color="#C0392B">StripBuddy_manuel_FR.pdf</link>' % URL_FR,
+    footer="ReNo Mellow – Strip Buddy %s – user manual" % VERSION,
     page="page",
     toc_title="Contents",
     toc=["1. Overview", "2. Installation", "3. Getting started", "4. The Strips tab", "5. The Setup tab",
-         "6. Advanced features", "7. Files, actions and shortcuts", "8. FAQ"],
+         "6. Advanced features", "7. The tag Display", "8. Files, actions and shortcuts", "9. FAQ"],
     s1="1. Overview",
     s1p=[
-        "Custom Strips stores <b>track presets</b>, called <i>strips</i>. A strip gathers everything you usually set by hand "
+        "Strip Buddy (formerly Custom Strips) stores <b>track presets</b>, called <i>strips</i>. A strip gathers everything you usually set by hand "
         "when preparing a session: name, tag, colour, icon, layouts, record input, pan mode, meter type, FX chain, visible "
         "envelopes, item names, normalization and group.",
         "One click on a strip applies it to <b>all selected tracks</b>, as a single undo step. "
@@ -212,13 +236,13 @@ T["en"] = dict(
     s2a="With ReaPack (recommended, automatic updates)",
     s2a_steps=[
         "Extensions > ReaPack > <b>Import repositories…</b>, paste the address below, OK.",
-        "Extensions > ReaPack > <b>Browse packages</b>, search for “Custom Strips”, right-click > Install, then Apply.",
+        "Extensions > ReaPack > <b>Browse packages</b>, search for “Strip Buddy”, right-click > Install, then Apply.",
         "Also install <b>ReaImGui</b> (same window) if it is missing, then restart REAPER.",
         "Updates: Extensions > ReaPack > <b>Synchronize packages</b>.",
     ],
     s2b="With the .ReaperPkg package (REAPER 7.86 or newer)",
     s2b_steps=[
-        "Download <b>ReNo_Mellow_Custom_Strips.ReaperPkg</b> (link below).",
+        "Download <b>ReNo_Mellow_Strip_Buddy.ReaperPkg</b> (link below).",
         "Drag it into the REAPER window: the script, its toolbar icon and the track icons are installed.",
         "No automatic updates: download the new package for each version.",
     ],
@@ -226,14 +250,14 @@ T["en"] = dict(
     s2c_p=[
         "<b>ReaImGui</b> is required. Without it, the script warns you and opens the right ReaPack page. "
         "<b>js_ReaScriptAPI</b> is optional: with it, file dialogs only show the right file types.",
-        "For a button: right-click a toolbar > Customize toolbar > Add, action “ReNo Mellow - Custom Strips”, "
-        "icon <b>ReNo_CustomStrips</b>. The button stays lit while the window is open.",
+        "For a button: right-click a toolbar > Customize toolbar > Add, action “ReNo Mellow - Strip Buddy”, "
+        "icon <b>ReNo_StripBuddy</b>. The button stays lit while the window is open.",
     ],
     links_head=["Link", "Address"],
     links=[("ReaPack index", URL_INDEX), (".ReaperPkg package", URL_PKG), ("GitHub repository", URL_REPO)],
     s3="3. Getting started",
     s3_steps=[
-        "Run the action <b>ReNo Mellow - Custom Strips</b> (action list or toolbar button).",
+        "Run the action <b>ReNo Mellow - Strip Buddy</b> (action list or toolbar button).",
         "On first run, the 164 default strips are created in 15 folders (Drums, Bass, Vocals…).",
         "Select one or more tracks in REAPER.",
         "In the Strips tab, click a strip, for example “Kick in”: the track is renamed, tagged and gets its icon.",
@@ -292,22 +316,46 @@ T["en"] = dict(
         ("Load default strips", "Adds the missing default strips (track name, tag, icon, -15 dBFS Peak normalization). "
                                 "Never changes existing strips; can be run again without creating duplicates."),
         ("Export… / Import…", "Export: all strips, one folder or the strips without folder, to a .rnstrips file "
-                              "(default Data/ReNo_CustomStrips/Exports). Import: added to your strips (folders with the same "
+                              "(default Data/ReNo_StripBuddy/Exports). Import: added to your strips (folders with the same "
                               "name merged, duplicates skipped) or replacing everything."),
         ("Clear all strips", "Deletes every strip, and the folders if the box is ticked. Cannot be undone: "
                              "Export first."),
     ],
-    s7="7. Files, actions and shortcuts",
+    sd="7. The tag Display",
+    sdp=["The Display is a small floating bar without a title, to place wherever you like. On the left, four options "
+         "to turn on (one or more): <b>Zoom</b>, <b>View</b>, <b>Scroll</b>, <b>Select</b>. On the right, the drop-down "
+         "list of the project's tags (the [ABC] at the end of track names), with <b>All</b> first. Picking a tag applies "
+         "every option that is on, in the order View, Select, Zoom, Scroll (one undo step).",
+         "Open it with the action “ReNo Mellow - Strip Buddy - Display”, or the “Open / close the Display” button of "
+         "the Display tab. Running the action again closes the Display."],
+    sd_head=["Option", "With a tag", "With All"],
+    sd_rows=[
+        ("View", "Shows only the tracks of the tag; their folder parents stay visible.", "Shows every track again."),
+        ("Zoom", "Enlarges the tag's tracks to fill the arrange height.", "Resets the track heights."),
+        ("Scroll", "Brings the tag's first track to the top (TCP) or to the left (mixer).", "Goes back to the first track."),
+        ("Select", "Selects the tag's tracks (ready for a strip).", "Selects every track."),
+    ],
+    sd_more=["<b>Mouse wheel</b> over the list: next / previous tag, applied at once. Each tag shows the colour of its first "
+             "track. <b>Right-click</b> the bar: text size, reopen at startup, Close.",
+             "<b>Display</b> tab of the main window: <b>Display View</b> (TCP, MCP or Both: where View hides tracks), "
+             "<b>Display Scroll</b> (TCP, MCP or Both: where Scroll scrolls), and “Reopen the Display when REAPER starts”.",
+             "Precise Zoom and Scroll use js_ReaScriptAPI; without it, Zoom goes through SWS if installed and Scroll through "
+             "the native action “Vertical scroll selected tracks into view”."],
+    callout_disp="Example: View and Scroll on, tag KIK picked in the list.",
+    s7="8. Files, actions and shortcuts",
     s7_rows=[
-        ("Action", "Only one: “ReNo Mellow - Custom Strips” (opens / closes the window)."),
+        ("Actions", "“ReNo Mellow - Strip Buddy” (opens / closes the window) and “ReNo Mellow - Strip Buddy - Display” (opens / closes the Display)."),
         ("Shortcut", "None imposed: choose your own in the action list (e.g. Ctrl+Shift+C, just an example)."),
-        ("Data", "Data/ReNo_CustomStrips/strips.lua, saved automatically after each change."),
-        ("Exports", "Data/ReNo_CustomStrips/Exports/*.rnstrips"),
-        ("Icons", "Data/track_icons/cs_tags_XXX.png (tracks), Data/toolbar_icons/ReNo_CustomStrips.png (toolbar)."),
+        ("Data", "Data/ReNo_StripBuddy/strips.lua, saved automatically after each change."),
+        ("Exports", "Data/ReNo_StripBuddy/Exports/*.rnstrips"),
+        ("Icons", "Data/track_icons/cs_tags_XXX.png (tracks), Data/toolbar_icons/ReNo_StripBuddy.png (toolbar)."),
     ],
     s7_head=["Item", "Detail"],
-    s8="8. FAQ",
+    s8="9. FAQ",
     faq=[
+        ("I was using Custom Strips.", "In ReaPack, first uninstall Custom Strips, then install Strip Buddy. "
+                                       "On first run, your strips, folders, exports and settings are brought over automatically. "
+                                       "Replace the old toolbar button with the action “ReNo Mellow - Strip Buddy”."),
         ("The script says ReaImGui is missing.", "Install ReaImGui with ReaPack (Browse packages), then restart REAPER."),
         ("Nothing happens when I click.", "No track is selected: the message “Select one or more tracks first.” "
                                           "appears at the bottom of the window."),
@@ -336,7 +384,7 @@ class StripsSchema(Flowable):
         c.setFillColor(colors.HexColor("#2B2B2B")); c.roundRect(0, 0, W, H, 4, fill=1, stroke=0)
         c.setFillColor(colors.HexColor("#3A3A3A")); c.rect(0, H - 9 * mm, W, 9 * mm, fill=1, stroke=0)
         c.setFont("DVB", 8); c.setFillColor(colors.white)
-        c.drawString(4 * mm, H - 6 * mm, "ReNo Mellow - Custom Strips " + VERSION)
+        c.drawString(4 * mm, H - 6 * mm, "ReNo Mellow - Strip Buddy " + VERSION)
         # tabs
         c.setFillColor(colors.HexColor("#555555")); c.rect(4 * mm, H - 16 * mm, 20 * mm, 6 * mm, fill=1, stroke=0)
         c.setFillColor(colors.HexColor("#333333")); c.rect(25 * mm, H - 16 * mm, 18 * mm, 6 * mm, fill=1, stroke=0)
@@ -401,6 +449,45 @@ class SetupSchema(Flowable):
         c.drawString(4 * mm, 3 * mm, self.t["callout_setup"])
 
 
+class DisplaySchema(Flowable):
+    def __init__(self, t, w=170 * mm, h=36 * mm):
+        super().__init__(); self.t, self.width, self.height = t, w, h
+
+    def draw(self):
+        c, W, H = self.canv, self.width, self.height
+        bx, by, bw, bh = 4 * mm, H - 16 * mm, 118 * mm, 12 * mm
+        c.setFillColor(colors.HexColor("#2B2B2B")); c.roundRect(bx, by, bw, bh, 3, fill=1, stroke=0)
+        x = bx + 2.5 * mm
+        for name, on in (("Zoom", False), ("View", True), ("Scroll", True), ("Select", False)):
+            w = c.stringWidth(name, "DV", 8) + 5 * mm
+            c.setFillColor(colors.HexColor("#2E7D32" if on else "#4A4A4A")); c.roundRect(x, by + 2.5 * mm, w, 7 * mm, 2, fill=1, stroke=0)
+            c.setFillColor(colors.white); c.setFont("DV", 8); c.drawCentredString(x + w / 2, by + 5 * mm, name); x += w + 1.5 * mm
+        c.setFillColor(colors.HexColor("#888888")); c.drawString(x + 1 * mm, by + 5 * mm, "|"); x += 5 * mm
+        c.setFillColor(colors.HexColor("#E74C3C")); c.rect(x, by + 3.5 * mm, 5 * mm, 5 * mm, fill=1, stroke=0); x += 6.5 * mm
+        c.setFillColor(colors.HexColor("#4A4A4A")); c.roundRect(x, by + 2.5 * mm, 26 * mm, 7 * mm, 2, fill=1, stroke=0)
+        c.setFillColor(colors.white); c.drawString(x + 2 * mm, by + 5 * mm, "KIK   v")
+        # open list
+        lx, ly = x, by - 18 * mm
+        c.setFillColor(colors.HexColor("#333333")); c.rect(lx, ly, 26 * mm, 17.5 * mm, fill=1, stroke=0)
+        for k, (n, col) in enumerate((("All", None), ("KIK", "#E74C3C"), ("SNR", "#E74C3C"), ("BSS", "#26BAAA"))):
+            yy = ly + 13.5 * mm - k * 4.2 * mm
+            if n == "KIK":
+                c.setFillColor(colors.HexColor("#3A6EA5")); c.rect(lx + 0.5 * mm, yy - 1 * mm, 25 * mm, 4 * mm, fill=1, stroke=0)
+            if col:
+                c.setFillColor(colors.HexColor(col)); c.rect(lx + 1.5 * mm, yy - 0.3 * mm, 2.6 * mm, 2.6 * mm, fill=1, stroke=0)
+            c.setFillColor(colors.white); c.setFont("DV", 7); c.drawString(lx + 5.5 * mm, yy, n)
+        c.setFillColor(GREY); c.setFont("DVI", 7.5)
+        words, line, lines = self.t["callout_disp"].split(), "", []
+        for wd in words:
+            if c.stringWidth(line + " " + wd, "DVI", 7.5) > 70 * mm and line:
+                lines.append(line); line = wd
+            else:
+                line = (line + " " + wd).strip()
+        lines.append(line)
+        for k, ln in enumerate(lines):
+            c.drawString(lx + 32 * mm, by - 6 * mm - k * 3.8 * mm, ln)
+
+
 T["fr"]["callout_strips"] = "Clic = appliquer · glisser = réordonner ou ranger · clic droit = menu"
 T["fr"]["callout_setup"] = "Lignes 2 et 3 sélectionnées (en bleu) : une modification dans l'une est copiée dans l'autre."
 T["en"]["callout_strips"] = "Click = apply · drag = reorder or file · right-click = menu"
@@ -441,7 +528,7 @@ def build(lang):
         c.restoreState()
 
     doc = BaseDocTemplate(out, pagesize=A4, leftMargin=18 * mm, rightMargin=18 * mm, topMargin=16 * mm,
-                          bottomMargin=18 * mm, title="ReNo Mellow - Custom Strips " + VERSION, author="ReNo Mellow")
+                          bottomMargin=18 * mm, title="ReNo Mellow - Strip Buddy " + VERSION, author="ReNo Mellow")
     frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="f")
     doc.addPageTemplates([PageTemplate(id="p", frames=[frame], onPage=on_page)])
     W = doc.width
@@ -451,7 +538,7 @@ def build(lang):
     s.append(Spacer(1, 45 * mm))
     s.append(Image(os.path.join(HERE, "icon_200.png"), width=60 * mm, height=20 * mm))
     s.append(Spacer(1, 12 * mm))
-    s.append(Paragraph("ReNo Mellow – Custom Strips", ST["title"]))
+    s.append(Paragraph("ReNo Mellow – Strip Buddy", ST["title"]))
     s.append(Spacer(1, 4 * mm))
     s.append(Paragraph(t["subtitle"], ST["sub"]))
     s.append(Spacer(1, 3 * mm))
@@ -493,7 +580,20 @@ def build(lang):
     s.append(Paragraph(t["s6"], ST["h1"]))
     for head, body in t["s6_items"]:
         s.append(KeepTogether([Paragraph(head, ST["h2"]), Paragraph(body, ST["p"])]))
-    # 7
+    # 7 Display
+    s.append(KeepTogether([Paragraph(t["sd"], ST["h1"])] + [Paragraph(p, ST["p"]) for p in t["sdp"]] +
+                          [DisplaySchema(t), Paragraph(t["schema_note"], ST["note"])]))
+    data = [[Paragraph(h, ST["head"]) for h in t["sd_head"]]]
+    for a, b, c2 in t["sd_rows"]:
+        data.append([Paragraph(a, ST["cellb"]), Paragraph(b, ST["cell"]), Paragraph(c2, ST["cell"])])
+    tb = Table(data, colWidths=[22 * mm, W - 72 * mm, 50 * mm], repeatRows=1)
+    tb.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), ACCENT), ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, LIGHT]),
+                            ("VALIGN", (0, 0), (-1, -1), "TOP"), ("GRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#CCCCCC")),
+                            ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3)]))
+    s.append(tb); s.append(Spacer(1, 3 * mm))
+    for p in t["sd_more"]:
+        s.append(Paragraph(p, ST["p"]))
+    # 8
     s.append(KeepTogether([Paragraph(t["s7"], ST["h1"]), table(t["s7_head"], t["s7_rows"], [28 * mm, W - 28 * mm])]))
     # 8
     s.append(Paragraph(t["s8"], ST["h1"]))
