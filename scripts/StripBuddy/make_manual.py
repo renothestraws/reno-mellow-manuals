@@ -132,6 +132,8 @@ T["fr"] = dict(
         ("Strip name", "Nom du bouton. Seule case obligatoire."),
         ("Track name", "Renomme la piste. Plusieurs pistes sélectionnées : Tom 1, Tom 2, Tom 3…"),
         ("Tag", "Ajoute un tag de 1 à 3 caractères en fin de nom : « Kick in [KIK] ». Un tag existant est remplacé."),
+        ("Tag 2", "Deuxième tag, écrit après le premier : « Kick in [KIK][DRM] ». Le Display liste la piste sous ses deux tags ; "
+                  "la couleur et l'icône suivent le tag 1. Les strips de base reçoivent le tag de leur dossier."),
         ("Colour", "Couleur de la piste. Set pour en choisir une, x pour l'enlever."),
         ("Icon", "Icône de piste. Browse ouvre Data/track_icons (133 icônes cs_tags_XXX fournies)."),
         ("Layout", "Layouts TCP et MCP du thème actif, ou layout par défaut du thème."),
@@ -290,6 +292,8 @@ T["en"] = dict(
         ("Strip name", "Button name. The only required cell."),
         ("Track name", "Renames the track. Several selected tracks: Tom 1, Tom 2, Tom 3…"),
         ("Tag", "Adds a 1 to 3 character tag at the end of the name: “Kick in [KIK]”. An existing tag is replaced."),
+        ("Tag 2", "Second tag, written after the first one: “Kick in [KIK][DRM]”. The Display lists the track under both tags; "
+                  "colour and icon follow tag 1. Default strips get their folder tag."),
         ("Colour", "Track colour. Set to choose one, x to remove it."),
         ("Icon", "Track icon. Browse opens Data/track_icons (133 cs_tags_XXX icons included)."),
         ("Layout", "TCP and MCP layouts of the current theme, or the theme default."),
