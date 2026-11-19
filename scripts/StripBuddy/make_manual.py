@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.17"
+VERSION = "1.18"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -73,7 +73,7 @@ T["fr"] = dict(
         "Un clic sur un strip l'applique à <b>toutes les pistes sélectionnées</b>, en une seule étape d'annulation. "
         "Dans un strip, seul le nom est obligatoire : une case vide ne modifie rien sur la piste.",
         "La fenêtre a deux onglets : <b>Strips</b>, la palette de boutons de tous les jours, rangée en dossiers ; "
-        "<b>Setup</b>, le tableau où l'on règle chaque strip. Le script est livré avec 164 strips de base en 15 dossiers.",
+        "<b>Setup</b>, le tableau où l'on règle chaque strip. Le script est livré avec 165 strips de base en 15 dossiers.",
     ],
     s2="2. Installation",
     s2a="Avec ReaPack (recommandé, mises à jour automatiques)",
@@ -101,7 +101,7 @@ T["fr"] = dict(
     s3="3. Premiers pas",
     s3_steps=[
         "Lancer l'action <b>ReNo Mellow - Strip Buddy</b> (liste d'actions ou bouton de barre d'outils).",
-        "Au premier lancement, les 164 strips de base sont créés dans 15 dossiers (Drums, Bass, Vocals…).",
+        "Au premier lancement, les 165 strips de base sont créés dans 15 dossiers (Drums, Bass, Vocals…).",
         "Sélectionner une ou plusieurs pistes dans REAPER.",
         "Dans l'onglet Strips, cliquer sur un strip, par exemple « Kick in » : la piste est renommée, taguée et reçoit son icône.",
         "Une erreur ? Ctrl+Z annule tout le strip d'un coup.",
@@ -133,7 +133,7 @@ T["fr"] = dict(
         ("Track name", "Renomme la piste. Plusieurs pistes sélectionnées : Tom 1, Tom 2, Tom 3…"),
         ("Tag", "Ajoute un tag de 1 à 3 caractères en fin de nom : « Kick in [KIK] ». Un tag existant est remplacé."),
         ("Colour", "Couleur de la piste. Set pour en choisir une, x pour l'enlever."),
-        ("Icon", "Icône de piste. Browse ouvre Data/track_icons (61 icônes cs_tags_XXX fournies)."),
+        ("Icon", "Icône de piste. Browse ouvre Data/track_icons (62 icônes cs_tags_XXX fournies)."),
         ("Layout", "Layouts TCP et MCP du thème actif, ou layout par défaut du thème."),
         ("Record input", "Entrée mono, stéréo ou MIDI ; ou Record output stereo / mono / MIDI."),
         ("Pan mode", "Project default, Stereo balance / mono pan, Stereo pan, Dual pan, Balance (classic 3.x)."),
@@ -231,7 +231,7 @@ T["en"] = dict(
         "One click on a strip applies it to <b>all selected tracks</b>, as a single undo step. "
         "Only the strip name is required: an empty cell leaves the track unchanged.",
         "The window has two tabs: <b>Strips</b>, your everyday palette of buttons, sorted in folders; "
-        "<b>Setup</b>, the table where each strip is set. The script ships with 164 default strips in 15 folders.",
+        "<b>Setup</b>, the table where each strip is set. The script ships with 165 default strips in 15 folders.",
     ],
     s2="2. Installation",
     s2a="With ReaPack (recommended, automatic updates)",
@@ -259,7 +259,7 @@ T["en"] = dict(
     s3="3. Getting started",
     s3_steps=[
         "Run the action <b>ReNo Mellow - Strip Buddy</b> (action list or toolbar button).",
-        "On first run, the 164 default strips are created in 15 folders (Drums, Bass, Vocals…).",
+        "On first run, the 165 default strips are created in 15 folders (Drums, Bass, Vocals…).",
         "Select one or more tracks in REAPER.",
         "In the Strips tab, click a strip, for example “Kick in”: the track is renamed, tagged and gets its icon.",
         "A mistake? Ctrl+Z undoes the whole strip at once.",
@@ -291,7 +291,7 @@ T["en"] = dict(
         ("Track name", "Renames the track. Several selected tracks: Tom 1, Tom 2, Tom 3…"),
         ("Tag", "Adds a 1 to 3 character tag at the end of the name: “Kick in [KIK]”. An existing tag is replaced."),
         ("Colour", "Track colour. Set to choose one, x to remove it."),
-        ("Icon", "Track icon. Browse opens Data/track_icons (61 cs_tags_XXX icons included)."),
+        ("Icon", "Track icon. Browse opens Data/track_icons (62 cs_tags_XXX icons included)."),
         ("Layout", "TCP and MCP layouts of the current theme, or the theme default."),
         ("Record input", "Mono, stereo or MIDI input; or Record output stereo / mono / MIDI."),
         ("Pan mode", "Project default, Stereo balance / mono pan, Stereo pan, Dual pan, Balance (classic 3.x)."),
