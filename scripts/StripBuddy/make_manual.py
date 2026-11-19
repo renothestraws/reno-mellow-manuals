@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.18"
+VERSION = "1.19"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -142,7 +142,7 @@ T["fr"] = dict(
         ("Envelopes", "Enveloppes rendues visibles : Volume, Pan, Width, Mute, Trim volume."),
         ("Item name", "Renomme tous les items de la piste, numérotés par position s'il y en a plusieurs."),
         ("Normalize", "LUFS-I, RMS, Peak ou True peak, cible en dB, chaque item ou tous ensemble. "
-                      "Par défaut : -15 dBFS Peak, ensemble."),
+                      "Désactivée par défaut (case non cochée) ; en la cochant, -15 dBFS Peak, ensemble est proposé."),
         ("Group", "Groupe de piste (1 à 64 ou 128), nom du groupe et flags lead / follow."),
     ],
     s5_rec="Choisir une entrée remet la piste en enregistrement de l'entrée si elle enregistrait sa sortie ; "
@@ -156,7 +156,7 @@ T["fr"] = dict(
                            "toutes les lignes sélectionnées, sauf le nom du strip. Seul le réglage modifié est copié."),
         ("Héritage par tag", "Le premier strip d'un tag dans un dossier (ex. Cymbals pour [CYM]) transmet sa couleur et son "
                              "icône aux autres strips du même tag de ce dossier qui n'en ont pas, ou qui avaient hérité la même valeur."),
-        ("Load default strips", "Ajoute les strips de base qui manquent (nom de piste, tag, icône, normalisation -15 dBFS Peak). "
+        ("Load default strips", "Ajoute les strips de base qui manquent (nom de piste, tag, icône ; sans normalisation). "
                                 "Ne modifie jamais les strips existants ; peut être relancé sans créer de doublons."),
         ("Export… / Import…", "Export : tous les strips, un dossier ou les strips sans dossier, dans un fichier .rnstrips "
                               "(par défaut Data/ReNo_StripBuddy/Exports). Import : en ajout (dossiers de même nom fusionnés, "
@@ -300,7 +300,7 @@ T["en"] = dict(
         ("Envelopes", "Envelopes made visible: Volume, Pan, Width, Mute, Trim volume."),
         ("Item name", "Renames every item on the track, numbered by position when there are several."),
         ("Normalize", "LUFS-I, RMS, Peak or True peak, target in dB, each item or all together. "
-                      "Default: -15 dBFS Peak, together."),
+                      "Off by default (box unticked); ticking it suggests -15 dBFS Peak, together."),
         ("Group", "Track group (1 to 64 or 128), group name and lead / follow flags."),
     ],
     s5_rec="Choosing an input switches the track back to recording its input if it was recording its output; "
@@ -314,7 +314,7 @@ T["en"] = dict(
                             "Only the changed setting is copied."),
         ("Tag inheritance", "The first strip of a tag in a folder (e.g. Cymbals for [CYM]) passes its colour and icon to the "
                             "other strips of the same tag in that folder that have none, or that had inherited the same value."),
-        ("Load default strips", "Adds the missing default strips (track name, tag, icon, -15 dBFS Peak normalization). "
+        ("Load default strips", "Adds the missing default strips (track name, tag, icon; no normalization). "
                                 "Never changes existing strips; can be run again without creating duplicates."),
         ("Export… / Import…", "Export: all strips, one folder or the strips without folder, to a .rnstrips file "
                               "(default Data/ReNo_StripBuddy/Exports). Import: added to your strips (folders with the same "
@@ -433,9 +433,9 @@ class SetupSchema(Flowable):
         cols = ["#", "Strip name", "Track name", "Tag", "Colour", "Icon", "…", "Normalize", "Group"]
         widths = [7, 24, 24, 11, 14, 24, 10, 30, 18]
         ys = [H - 15 * mm, H - 21 * mm, H - 27 * mm, H - 33 * mm]
-        rows = [cols, ["1", "Drums", "Drums", "DRM", "", "cs_tags_DRM", "", "-15.0 Peak, together", "-"],
-                ["2", "Kick", "Kick", "KIK", "", "cs_tags_KIK", "", "-15.0 Peak, together", "-"],
-                ["3", "Kick in", "Kick in", "KIK", "", "cs_tags_KIK", "", "-15.0 Peak, together", "-"]]
+        rows = [cols, ["1", "Drums", "Drums", "DRM", "", "cs_tags_DRM", "", "-", "-"],
+                ["2", "Kick", "Kick", "KIK", "", "cs_tags_KIK", "", "-", "-"],
+                ["3", "Kick in", "Kick in", "KIK", "", "cs_tags_KIK", "", "-", "-"]]
         for r, (yy, row) in enumerate(zip(ys, rows)):
             x = 4 * mm
             if r == 0:
