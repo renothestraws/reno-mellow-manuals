@@ -1,6 +1,6 @@
-"""User manual (PDF, FR or EN) - ReNo Mellow Swiss Army Knife.
+"""User manual (PDF, FR or EN) - ReNo Mellow Tool Buddy.
 
-python3 make_manual.py <fr|en> <output.pdf> <toolbar_sak_swiss_army_knife.png>
+python3 make_manual.py <fr|en> <output.pdf> <ReNo_ToolBuddy.png>
 """
 import sys
 from reportlab.lib.pagesizes import A4
@@ -16,14 +16,14 @@ from reportlab.platypus.tableofcontents import TableOfContents
 from PIL import Image as PILImage
 
 LANG, OUT, ICON = sys.argv[1], sys.argv[2], sys.argv[3]
-VERSION = "1.9"
+VERSION = "1.10"
 FR = LANG == "fr"
 def L(fr, en): return fr if FR else en
 
 REPO = "github.com/renothestraws/reno-mellow-script"
-MANUALS = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/SwissArmyKnife/"
-OTHER_URL = MANUALS + ("SwissArmyKnife_manual_EN.pdf" if FR else "SwissArmyKnife_manuel_FR.pdf")
-PKG = "github.com/renothestraws/reno-mellow-script/raw/main/packages/ReNo_Mellow_SwissArmyKnife.ReaperPkg"
+MANUALS = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/ToolBuddy/"
+OTHER_URL = MANUALS + ("ToolBuddy_manual_EN.pdf" if FR else "ToolBuddy_manuel_FR.pdf")
+PKG = "github.com/renothestraws/reno-mellow-script/raw/main/packages/ReNo_Mellow_Tool_Buddy.ReaperPkg"
 INDEX = "https://raw.githubusercontent.com/renothestraws/reno-mellow-script/main/index.xml"
 
 pdfmetrics.registerFont(TTFont("DV", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
@@ -88,7 +88,7 @@ class ToolboxMock(Flowable):
         c = self.canv; W, H = self.width, self.height
         c.setFillColor(colors.HexColor("#1E1F22")); c.roundRect(0, 0, W, H, 4, stroke=0, fill=1)
         c.setFillColor(colors.HexColor("#2E4A7A")); c.rect(0, H - 14, W, 14, stroke=0, fill=1)
-        c.setFillColor(colors.white); c.setFont("DVB", 8); c.drawString(8, H - 10, "Swiss Army Knife")
+        c.setFillColor(colors.white); c.setFont("DVB", 8); c.drawString(8, H - 10, "Tool Buddy")
         c.setFillColor(colors.HexColor("#3B6FB6")); c.roundRect(8, H - 32, 34, 13, 2, stroke=0, fill=1)
         c.setFillColor(colors.HexColor("#3A3F45")); c.roundRect(45, H - 32, 36, 13, 2, stroke=0, fill=1)
         c.setFillColor(colors.white); c.setFont("DV", 7.5); c.drawString(14, H - 28, "Tools"); c.drawString(51, H - 28, "Setup")
@@ -132,7 +132,7 @@ def on_page(c, d):
     c.saveState()
     c.setStrokeColor(LINE); c.setLineWidth(0.5); c.line(20 * mm, 15 * mm, 190 * mm, 15 * mm)
     c.setFont("DV", 7.5); c.setFillColor(GREY)
-    c.drawString(20 * mm, 10 * mm, f"ReNo Mellow - Swiss Army Knife {VERSION} - {TITLE}")
+    c.drawString(20 * mm, 10 * mm, f"ReNo Mellow - Tool Buddy {VERSION} - {TITLE}")
     c.drawRightString(190 * mm, 10 * mm, str(d.page))
     c.restoreState()
 
@@ -141,7 +141,7 @@ def cover(c, d):
     W, H = A4
     c.setFillColor(DARK); c.rect(0, H - 120 * mm, W, 120 * mm, stroke=0, fill=1)
     c.drawImage(ICON_PNG, 20 * mm, H - 62 * mm, 30 * mm, 30 * mm, mask="auto")
-    c.setFillColor(colors.white); c.setFont("DVB", 26); c.drawString(20 * mm, H - 80 * mm, "Swiss Army Knife")
+    c.setFillColor(colors.white); c.setFont("DVB", 26); c.drawString(20 * mm, H - 80 * mm, "Tool Buddy")
     c.setFont("DV", 13); c.setFillColor(colors.HexColor("#C9CCD1"))
     c.drawString(20 * mm, H - 90 * mm, L("Un même raccourci, plusieurs outils - pour REAPER",
                                          "One shortcut, many tools - for REAPER"))
@@ -157,20 +157,24 @@ def cover(c, d):
     c.restoreState()
 
 doc = Doc(OUT, pagesize=A4, leftMargin=20 * mm, rightMargin=20 * mm, topMargin=18 * mm, bottomMargin=22 * mm,
-          title=f"ReNo Mellow - Swiss Army Knife - {TITLE}", author="ReNo Mellow",
-          subject=f"Swiss Army Knife {VERSION} for REAPER")
+          title=f"ReNo Mellow - Tool Buddy - {TITLE}", author="ReNo Mellow",
+          subject=f"Tool Buddy {VERSION} for REAPER")
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="f")
 cover_frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, A4[1] - 140 * mm, id="c")
 doc.addPageTemplates([PageTemplate("cover", [cover_frame], onPage=cover),
                       PageTemplate("normal", [frame], onPage=on_page)])
 
 S = [NextPageTemplate("normal")]
-S.append(P(L("Le Swiss Army Knife remplace les montages à base de cycle actions et d'exclusive toggles SWS : "
+S.append(P(L("Le Tool Buddy remplace les montages à base de cycle actions et d'exclusive toggles SWS : "
              "vous choisissez un <b>outil</b>, et les mêmes raccourcis clavier lancent l'action de cet outil. "
              "Changez d'outil, et le même raccourci fait autre chose.",
-             "The Swiss Army Knife replaces setups built from SWS cycle actions and exclusive toggles: "
+             "The Tool Buddy replaces setups built from SWS cycle actions and exclusive toggles: "
              "you pick a <b>tool</b>, and the same keyboard shortcuts run that tool's actions. "
              "Switch tools, and the same shortcut does something else.")))
+S.append(P(L("<i>Tool Buddy s'appelait auparavant <b>Swiss Army Knife</b> : vos outils et réglages sont repris automatiquement "
+             "au premier lancement. Réassignez simplement vos raccourcis aux nouvelles actions « Tool Buddy ».</i>",
+             "<i>Tool Buddy was formerly called <b>Swiss Army Knife</b>: your tools and settings are carried over automatically "
+             "on first launch. Just reassign your shortcuts to the new “Tool Buddy” actions.</i>"), "small"))
 S.append(P(L(f'<link href="{OTHER_URL}" color="#D63031"><u>English version of this manual</u></link>',
              f'<link href="{OTHER_URL}" color="#D63031"><u>Version française de ce manuel</u></link>'), "small"))
 S.append(Spacer(1, 4))
@@ -188,9 +192,9 @@ S.append(P(L("Chaque <b>outil</b> porte un nom et jusqu'à trois actions REAPER 
              "and an <b>alt 2</b> action. Three scripts, each on a shortcut of your choice, run the matching action "
              "of the active tool (W, Shift+W and Ctrl+W are only examples):")))
 S.append(table([[L("Raccourci (exemple)", "Shortcut (example)"), "Script", L("Lance", "Runs")],
-                ["W", "ReNo Mellow - Swiss Army Knife", L("l'action principale de l'outil actif", "the active tool's main action")],
-                ["Shift+W", "ReNo Mellow - Swiss Army Knife (alt)", L("son action alt", "its alt action")],
-                ["Ctrl+W", "ReNo Mellow - Swiss Army Knife (alt2)", L("son action alt 2", "its alt 2 action")]],
+                ["W", "ReNo Mellow - Tool Buddy", L("l'action principale de l'outil actif", "the active tool's main action")],
+                ["Shift+W", "ReNo Mellow - Tool Buddy (alt)", L("son action alt", "its alt action")],
+                ["Ctrl+W", "ReNo Mellow - Tool Buddy (alt2)", L("son action alt 2", "its alt 2 action")]],
                [32 * mm, 72 * mm, 66 * mm]))
 S.append(Spacer(1, 6))
 S.append(P(L("Une action peut être une action native de REAPER, une action SWS, un script ou une custom action. "
@@ -219,12 +223,12 @@ S += B([L("REAPER 7 (7.86 ou plus pour l'installation par glisser-déposer, 7.03
 S.append(P(L("Méthode 1 - ReaPack (mises à jour automatiques)", "Method 1 - ReaPack (automatic updates)"), "h2"))
 S += N([L("Extensions > ReaPack > Import repositories, puis collez l'adresse : ", "Extensions > ReaPack > Import repositories, then paste: ")
         + code(INDEX) + L(" ;", ";"),
-        L("Extensions > ReaPack > Browse packages, cherchez « Swiss Army Knife » et installez-le ;",
-          "Extensions > ReaPack > Browse packages, search for “Swiss Army Knife” and install it;"),
+        L("Extensions > ReaPack > Browse packages, cherchez « Tool Buddy » et installez-le ;",
+          "Extensions > ReaPack > Browse packages, search for “Tool Buddy” and install it;"),
         L("les scripts Arrange arrivent dans la section Main, les scripts MIDI dans la section MIDI Editor.",
           "Arrange scripts go to the Main section, MIDI scripts to the MIDI Editor section.")])
 S.append(P(L("Méthode 2 - Paquet à glisser (REAPER 7.86+)", "Method 2 - Drag-and-drop package (REAPER 7.86+)"), "h2"))
-S += N([L("téléchargez ", "download ") + code("ReNo_Mellow_SwissArmyKnife.ReaperPkg") + " : " + code(PKG) + L(" ;", ";"),
+S += N([L("téléchargez ", "download ") + code("ReNo_Mellow_Tool_Buddy.ReaperPkg") + " : " + code(PKG) + L(" ;", ";"),
         L("glissez le fichier dans la fenêtre de REAPER et confirmez ;", "drag the file onto the REAPER window and confirm;"),
         L("lancez une fois la Toolbox : elle ajoute la version MIDI à la section MIDI Editor.",
           "run the Toolbox once: it adds the MIDI version to the MIDI Editor section.")])
@@ -235,9 +239,9 @@ S.append(note(L("Avec le paquet .ReaperPkg, il n'y a pas de mise à jour automat
 
 # 3 -----------------------------------------------------------------
 S.append(P(L("3. Premiers pas", "3. Getting started"), "h1"))
-S += N([L("Ouvrez l'Action List (touche ?) et lancez <b>ReNo Mellow - Swiss Army Knife - Toolbox</b>. "
+S += N([L("Ouvrez l'Action List (touche ?) et lancez <b>ReNo Mellow - Tool Buddy - Toolbox</b>. "
           "Au premier lancement, elle crée un outil d'exemple, <b>Split</b>, et enregistre tous les scripts.",
-          "Open the Action List (? key) and run <b>ReNo Mellow - Swiss Army Knife - Toolbox</b>. "
+          "Open the Action List (? key) and run <b>ReNo Mellow - Tool Buddy - Toolbox</b>. "
           "The first time, it creates a sample tool, <b>Split</b>, and registers all the scripts."),
         L("Toujours dans l'Action List, section <b>Main</b>, assignez un raccourci de votre choix à chacun des "
           "trois scripts. Dans ce manuel, nous utilisons <b>à titre d'exemple</b> W pour le script principal, "
@@ -249,8 +253,8 @@ S += N([L("Ouvrez l'Action List (touche ?) et lancez <b>ReNo Mellow - Swiss Army
           "Le raccourci alt coupe à la sélection temporelle, le raccourci alt 2 coupe sur la grille.",
           "Select an item and press your main shortcut: the item is split at the edit cursor. "
           "The alt shortcut splits at the time selection, the alt 2 shortcut splits at the grid."),
-        L("Lancez <b>ReNo Mellow - Swiss Army Knife - Display</b> et placez la bulle près de votre transport.",
-          "Run <b>ReNo Mellow - Swiss Army Knife - Display</b> and place the bubble near your transport.")])
+        L("Lancez <b>ReNo Mellow - Tool Buddy - Display</b> et placez la bulle près de votre transport.",
+          "Run <b>ReNo Mellow - Tool Buddy - Display</b> and place the bubble near your transport.")])
 S.append(Spacer(1, 4))
 S.append(table([[L("Outil d'exemple", "Sample tool"), "Main", "Alt", "Alt 2"],
                 ["Split (Arrange)", L("40012 - coupe au curseur d'édition", "40012 - split at edit cursor"),
@@ -320,8 +324,8 @@ S.append(KeepTogether([P("Settings", "h2"), table([
     [L("Réglage", "Setting"), L("Effet", "Effect")],
     ["Tooltip when the tool changes", L("infobulle près de la souris quand l'outil change (Next / Previous tool)",
                                         "tooltip near the mouse when the tool changes (Next / Previous tool)")],
-    ["Tooltip when a tool action is run", L("infobulle « SAK: nom de l'outil » à chaque utilisation d'un des trois raccourcis",
-                                            "“SAK: tool name” tooltip each time one of the three shortcuts is used")],
+    ["Tooltip when a tool action is run", L("infobulle « Tool Buddy: nom de l'outil » à chaque utilisation d'un des trois raccourcis",
+                                            "“Tool Buddy: tool name” tooltip each time one of the three shortcuts is used")],
     ["Tooltip duration", L("durée des infobulles (0,3 à 3 s)", "tooltip duration (0.3 to 3 s)")],
     ["Window text size", L("taille du texte de la fenêtre (10 à 20)", "window text size (10 to 20)")],
     ["Tool text size", L("taille du texte des boutons d'outils (10 à 28)", "tool button text size (10 to 28)")],
@@ -372,12 +376,12 @@ S += B([L("La bulle <b>retient sa place</b> et, si elle était ouverte à la fer
           "The MIDI bubble (“MIDI” next to the knife) only shows while a MIDI editor is open, and comes back to its "
           "place as soon as you open one."),
         L("La bulle ne peut pas être dockée.", "The bubble cannot be docked.")])
-S.append(note(L("Pour se rouvrir au démarrage, la bulle ajoute une fois un petit bloc balisé « ReNo Mellow Swiss Army "
-                "Knife » au fichier <b>Scripts/__startup.lua</b> de REAPER. Le reste du fichier n'est pas modifié. "
-                "Si vous désinstallez le Swiss Army Knife, ce bloc ne fait plus rien ; vous pouvez aussi le supprimer à la main.",
-                "To reopen at startup, the bubble adds, once, a small block marked “ReNo Mellow Swiss Army Knife” to "
+S.append(note(L("Pour se rouvrir au démarrage, la bulle ajoute une fois un petit bloc balisé « ReNo Mellow Tool "
+                "Buddy » au fichier <b>Scripts/__startup.lua</b> de REAPER. Le reste du fichier n'est pas modifié. "
+                "Si vous désinstallez Tool Buddy, ce bloc ne fait plus rien ; vous pouvez aussi le supprimer à la main.",
+                "To reopen at startup, the bubble adds, once, a small block marked “ReNo Mellow Tool Buddy” to "
                 "REAPER's <b>Scripts/__startup.lua</b> file. The rest of the file is left untouched. If you uninstall "
-                "the Swiss Army Knife, the block does nothing; you can also delete it by hand.")))
+                "the Tool Buddy, the block does nothing; you can also delete it by hand.")))
 
 # 7 -----------------------------------------------------------------
 S.append(P(L("7. Changer d'outil au clavier", "7. Changing tools from the keyboard"), "h1"))
@@ -395,36 +399,35 @@ S.append(P(L("Elle fonctionne exactement comme la version Arrange, mais avec ses
              "It works exactly like the Arrange version, but with its own tools, active tool and windows:")))
 S += N([L("dans l'éditeur MIDI, ouvrez l'Action List : la section <b>MIDI Editor</b> est sélectionnée ;",
           "in the MIDI editor, open the Action List: the <b>MIDI Editor</b> section is selected;"),
-        L("lancez <b>ReNo Mellow - Swiss Army Knife MIDI - Toolbox</b> et créez vos outils MIDI (Pick... ouvre "
+        L("lancez <b>ReNo Mellow - Tool Buddy MIDI - Toolbox</b> et créez vos outils MIDI (Pick... ouvre "
           "directement la section MIDI Editor) ;",
-          "run <b>ReNo Mellow - Swiss Army Knife MIDI - Toolbox</b> and create your MIDI tools (Pick... opens "
+          "run <b>ReNo Mellow - Tool Buddy MIDI - Toolbox</b> and create your MIDI tools (Pick... opens "
           "the MIDI Editor section directly);"),
         L("assignez les raccourcis de votre choix (par exemple W, Shift+W et Ctrl+W) aux scripts "
-          "<b>Swiss Army Knife MIDI</b>, <b>(alt)</b> et <b>(alt2)</b> ;",
+          "<b>Tool Buddy MIDI</b>, <b>(alt)</b> et <b>(alt2)</b> ;",
           "assign shortcuts of your choice (for example W, Shift+W and Ctrl+W) to the "
-          "<b>Swiss Army Knife MIDI</b>, <b>(alt)</b> and <b>(alt2)</b> scripts;"),
-        L("lancez <b>Swiss Army Knife MIDI - Display</b> pour la bulle MIDI.",
-          "run <b>Swiss Army Knife MIDI - Display</b> for the MIDI bubble.")])
+          "<b>Tool Buddy MIDI</b>, <b>(alt)</b> and <b>(alt2)</b> scripts;"),
+        L("lancez <b>Tool Buddy MIDI - Display</b> pour la bulle MIDI.",
+          "run <b>Tool Buddy MIDI - Display</b> for the MIDI bubble.")])
 S.append(P(L("Les raccourcis de la section MIDI Editor n'interfèrent pas avec ceux de la section Main : un même "
              "raccourci (W dans nos exemples) peut couper des items dans l'arrangement et des notes dans l'éditeur MIDI.",
              "MIDI Editor shortcuts do not clash with Main section shortcuts: the same shortcut (W in our examples) "
              "can split items in the arrange view and notes in the MIDI editor.")))
 
 # 9 -----------------------------------------------------------------
-S.append(P(L("9. Liste des scripts", "9. Script list"), "h1"))
-S.append(table([["Script", "Section", L("Rôle", "Role")],
-                ["Swiss Army Knife - Toolbox", "Main", L("choisir et configurer les outils Arrange", "choose and set up Arrange tools")],
-                ["Swiss Army Knife - Display", "Main", L("bulle de l'outil actif Arrange", "Arrange active-tool bubble")],
-                ["Swiss Army Knife / (alt) / (alt2)", "Main", L("lancer l'action principale / alt / alt 2", "run the main / alt / alt 2 action")],
-                ["Swiss Army Knife - Next tool / Previous tool", "Main", L("outil suivant / précédent", "next / previous tool")],
-                ["Swiss Army Knife MIDI - Toolbox", "MIDI Editor", L("choisir et configurer les outils MIDI", "choose and set up MIDI tools")],
-                ["Swiss Army Knife MIDI - Display", "MIDI Editor", L("bulle de l'outil actif MIDI", "MIDI active-tool bubble")],
-                ["Swiss Army Knife MIDI / (alt) / (alt2)", "MIDI Editor", L("lancer l'action principale / alt / alt 2", "run the main / alt / alt 2 action")],
-                ["Swiss Army Knife MIDI - Next tool / Previous tool", "MIDI Editor", L("outil suivant / précédent", "next / previous tool")]],
-               [78 * mm, 26 * mm, 66 * mm]))
-S.append(P(L("Tous les noms commencent par « ReNo Mellow - ». Les fichiers SAK_lib, SAK_toolbox, SAK_display et "
-             "SAK_startup sont des bibliothèques internes, pas des actions.",
-             "All names start with “ReNo Mellow - ”. The SAK_lib, SAK_toolbox, SAK_display and SAK_startup files "
+S.append(KeepTogether([P(L("9. Liste des scripts", "9. Script list"), "h1"), table([["Script", "Section", L("Rôle", "Role")],
+                ["Tool Buddy - Toolbox", "Main", L("choisir et configurer les outils Arrange", "choose and set up Arrange tools")],
+                ["Tool Buddy - Display", "Main", L("bulle de l'outil actif Arrange", "Arrange active-tool bubble")],
+                ["Tool Buddy / (alt) / (alt2)", "Main", L("lancer l'action principale / alt / alt 2", "run the main / alt / alt 2 action")],
+                ["Tool Buddy - Next tool / Previous tool", "Main", L("outil suivant / précédent", "next / previous tool")],
+                ["Tool Buddy MIDI - Toolbox", "MIDI Editor", L("choisir et configurer les outils MIDI", "choose and set up MIDI tools")],
+                ["Tool Buddy MIDI - Display", "MIDI Editor", L("bulle de l'outil actif MIDI", "MIDI active-tool bubble")],
+                ["Tool Buddy MIDI / (alt) / (alt2)", "MIDI Editor", L("lancer l'action principale / alt / alt 2", "run the main / alt / alt 2 action")],
+                ["Tool Buddy MIDI - Next tool / Previous tool", "MIDI Editor", L("outil suivant / précédent", "next / previous tool")]],
+               [78 * mm, 26 * mm, 66 * mm])]))
+S.append(P(L("Tous les noms commencent par « ReNo Mellow - ». Les fichiers TB_lib, TB_toolbox, TB_display et "
+             "TB_startup sont des bibliothèques internes, pas des actions.",
+             "All names start with “ReNo Mellow - ”. The TB_lib, TB_toolbox, TB_display and TB_startup files "
              "are internal libraries, not actions."), "small"))
 
 # 10 ----------------------------------------------------------------
@@ -446,9 +449,9 @@ faq = [
      L("Elles demandent REAPER 7.03 ou plus et peuvent être désactivées dans Setup > Settings.",
        "They need REAPER 7.03 or later and can be turned off in Setup > Settings.")],
     [L("La bulle ne montre pas le couteau", "The bubble shows no knife"),
-     L("L'icône ", "The ") + code("Data/toolbar_icons/toolbar_sak_swiss_army_knife.png")
-     + L(" est absente : la bulle affiche « SAK » à la place. Réinstallez ou synchronisez le paquet.",
-         " icon is missing: the bubble shows “SAK” instead. Reinstall or synchronize the package.")],
+     L("L'icône ", "The ") + code("Data/toolbar_icons/ReNo_ToolBuddy.png")
+     + L(" est absente : la bulle affiche « TB » à la place. Réinstallez ou synchronisez le paquet.",
+         " icon is missing: the bubble shows “TB” instead. Reinstall or synchronize the package.")],
     [L("La bulle MIDI a disparu", "The MIDI bubble is gone"),
      L("Normal si aucun éditeur MIDI n'est ouvert : elle revient dès qu'un éditeur s'ouvre.",
        "Normal when no MIDI editor is open: it comes back as soon as one opens.")],
@@ -456,8 +459,8 @@ faq = [
      "Toolbox > Setup > Scripts > <b>Register scripts again</b>."],
     [L("Où sont enregistrés mes outils ?", "Where are my tools saved?"),
      L("Dans les réglages de REAPER (", "In REAPER's settings (") + code("reaper-extstate.ini")
-     + L(", section ReNoMellow_SAK), pour toutes les sessions. Pensez à <b>Export...</b> pour en garder une copie.",
-         ", section ReNoMellow_SAK), for all projects. Use <b>Export...</b> to keep a copy.")],
+     + L(", section ReNoMellow_ToolBuddy), pour toutes les sessions. Pensez à <b>Export...</b> pour en garder une copie.",
+         ", section ReNoMellow_ToolBuddy), for all projects. Use <b>Export...</b> to keep a copy.")],
 ]
 S.append(KeepTogether([P(L("10. Questions fréquentes", "10. FAQ"), "h1"),
                        table([["Situation", "Solution"]] + faq, [52 * mm, 118 * mm])]))
