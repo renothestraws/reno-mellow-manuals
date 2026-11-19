@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.15"
+VERSION = "1.16"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -165,7 +165,8 @@ T["fr"] = dict(
                              "faire un Export avant."),
     ],
     sd="7. Le Display des tags",
-    sdp=["Le Display est une petite barre flottante, sans titre, à placer où l'on veut. À gauche, quatre options "
+    sdp=["Le Display est une petite barre flottante, sans titre, à placer où l'on veut. Le bouton <b>Strip Buddy</b> ouvre la "
+         "fenêtre principale (ou la ramène au premier plan). Ensuite, quatre options "
          "à allumer (une ou plusieurs) : <b>Zoom</b>, <b>View</b>, <b>Scroll</b>, <b>Select</b>. À droite, la liste "
          "déroulante des tags du projet (les [ABC] en fin de nom de piste), précédée de <b>All</b>. Choisir un tag "
          "applique d'un coup toutes les options allumées, dans l'ordre View, Select, Zoom, Scroll (une étape d'annulation).",
@@ -179,7 +180,7 @@ T["fr"] = dict(
         ("Select", "Sélectionne les pistes du tag (prêtes pour un strip).", "Sélectionne toutes les pistes."),
     ],
     sd_more=["<b>Molette</b> au-dessus de la liste : tag suivant / précédent, appliqué aussitôt. Chaque tag est affiché "
-             "avec la couleur de sa première piste. <b>Clic droit</b> sur la barre : taille du texte, réouverture au démarrage, Close.",
+             "avec la couleur de sa première piste. <b>Clic droit</b> sur la barre : taille du texte, réouverture au démarrage, Open Strip Buddy, Close.",
              "Onglet <b>Display</b> de la fenêtre principale : <b>Display View</b> (TCP, MCP ou Both : où View cache les pistes), "
              "<b>Display Scroll</b> (TCP, MCP ou Both : où Scroll fait défiler), et « Reopen the Display when REAPER starts ».",
              "Zoom et Scroll précis utilisent js_ReaScriptAPI ; sans elle, le Zoom passe par SWS s'il est installé et le Scroll "
@@ -322,7 +323,8 @@ T["en"] = dict(
                              "Export first."),
     ],
     sd="7. The tag Display",
-    sdp=["The Display is a small floating bar without a title, to place wherever you like. On the left, four options "
+    sdp=["The Display is a small floating bar without a title, to place wherever you like. The <b>Strip Buddy</b> button opens "
+         "the main window (or brings it to the front). Then four options "
          "to turn on (one or more): <b>Zoom</b>, <b>View</b>, <b>Scroll</b>, <b>Select</b>. On the right, the drop-down "
          "list of the project's tags (the [ABC] at the end of track names), with <b>All</b> first. Picking a tag applies "
          "every option that is on, in the order View, Select, Zoom, Scroll (one undo step).",
@@ -336,7 +338,7 @@ T["en"] = dict(
         ("Select", "Selects the tag's tracks (ready for a strip).", "Selects every track."),
     ],
     sd_more=["<b>Mouse wheel</b> over the list: next / previous tag, applied at once. Each tag shows the colour of its first "
-             "track. <b>Right-click</b> the bar: text size, reopen at startup, Close.",
+             "track. <b>Right-click</b> the bar: text size, reopen at startup, Open Strip Buddy, Close.",
              "<b>Display</b> tab of the main window: <b>Display View</b> (TCP, MCP or Both: where View hides tracks), "
              "<b>Display Scroll</b> (TCP, MCP or Both: where Scroll scrolls), and “Reopen the Display when REAPER starts”.",
              "Precise Zoom and Scroll use js_ReaScriptAPI; without it, Zoom goes through SWS if installed and Scroll through "
@@ -455,9 +457,14 @@ class DisplaySchema(Flowable):
 
     def draw(self):
         c, W, H = self.canv, self.width, self.height
-        bx, by, bw, bh = 4 * mm, H - 16 * mm, 118 * mm, 12 * mm
+        bx, by, bw, bh = 4 * mm, H - 16 * mm, 142 * mm, 12 * mm
         c.setFillColor(colors.HexColor("#2B2B2B")); c.roundRect(bx, by, bw, bh, 3, fill=1, stroke=0)
         x = bx + 2.5 * mm
+        w0 = c.stringWidth("Strip Buddy", "DV", 8) + 5 * mm
+        c.setFillColor(colors.HexColor("#8E3B2F")); c.roundRect(x, by + 2.5 * mm, w0, 7 * mm, 2, fill=1, stroke=0)
+        c.setFillColor(colors.white); c.setFont("DV", 8); c.drawCentredString(x + w0 / 2, by + 5 * mm, "Strip Buddy")
+        x += w0 + 1.5 * mm
+        c.setFillColor(colors.HexColor("#888888")); c.drawString(x + 0.5 * mm, by + 5 * mm, "|"); x += 4 * mm
         for name, on in (("Zoom", False), ("View", True), ("Scroll", True), ("Select", False)):
             w = c.stringWidth(name, "DV", 8) + 5 * mm
             c.setFillColor(colors.HexColor("#2E7D32" if on else "#4A4A4A")); c.roundRect(x, by + 2.5 * mm, w, 7 * mm, 2, fill=1, stroke=0)
@@ -479,7 +486,7 @@ class DisplaySchema(Flowable):
         c.setFillColor(GREY); c.setFont("DVI", 7.5)
         words, line, lines = self.t["callout_disp"].split(), "", []
         for wd in words:
-            if c.stringWidth(line + " " + wd, "DVI", 7.5) > 70 * mm and line:
+            if c.stringWidth(line + " " + wd, "DVI", 7.5) > 40 * mm and line:
                 lines.append(line); line = wd
             else:
                 line = (line + " " + wd).strip()
