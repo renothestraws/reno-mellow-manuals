@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.14"
+VERSION = "1.15"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -64,7 +64,7 @@ T["fr"] = dict(
     page="page",
     toc_title="Sommaire",
     toc=["1. Principe", "2. Installation", "3. Premiers pas", "4. L'onglet Strips", "5. L'onglet Setup",
-         "6. Fonctions avancées", "7. Fichiers, actions et raccourcis", "8. Questions fréquentes"],
+         "6. Fonctions avancées", "7. Le Display des tags", "8. Fichiers, actions et raccourcis", "9. Questions fréquentes"],
     s1="1. Principe",
     s1p=[
         "Custom Strips enregistre des <b>presets de pistes</b>, appelés <i>strips</i>. Un strip réunit tout ce qu'on règle "
@@ -164,16 +164,37 @@ T["fr"] = dict(
         ("Clear all strips", "Efface tous les strips, et les dossiers si la case est cochée. Pas d'annulation : "
                              "faire un Export avant."),
     ],
-    s7="7. Fichiers, actions et raccourcis",
+    sd="7. Le Display des tags",
+    sdp=["Le Display est une petite barre flottante, sans titre, à placer où l'on veut. À gauche, quatre options "
+         "à allumer (une ou plusieurs) : <b>Zoom</b>, <b>View</b>, <b>Scroll</b>, <b>Select</b>. À droite, la liste "
+         "déroulante des tags du projet (les [ABC] en fin de nom de piste), précédée de <b>All</b>. Choisir un tag "
+         "applique d'un coup toutes les options allumées, dans l'ordre View, Select, Zoom, Scroll (une étape d'annulation).",
+         "Ouvrir : action « ReNo Mellow - Custom Strips - Display », ou bouton « Open / close the Display » de l'onglet "
+         "Display. Relancer l'action ferme le Display."],
+    sd_head=["Option", "Avec un tag", "Avec All"],
+    sd_rows=[
+        ("View", "N'affiche que les pistes du tag ; leurs dossiers parents restent visibles.", "Réaffiche toutes les pistes."),
+        ("Zoom", "Agrandit les pistes du tag pour remplir la hauteur de l'arrangement.", "Remet les hauteurs par défaut."),
+        ("Scroll", "Amène la première piste du tag en haut (TCP) ou à gauche (mixer).", "Revient à la première piste."),
+        ("Select", "Sélectionne les pistes du tag (prêtes pour un strip).", "Sélectionne toutes les pistes."),
+    ],
+    sd_more=["<b>Molette</b> au-dessus de la liste : tag suivant / précédent, appliqué aussitôt. Chaque tag est affiché "
+             "avec la couleur de sa première piste. <b>Clic droit</b> sur la barre : taille du texte, réouverture au démarrage, Close.",
+             "Onglet <b>Display</b> de la fenêtre principale : <b>Display View</b> (TCP, MCP ou Both : où View cache les pistes), "
+             "<b>Display Scroll</b> (TCP, MCP ou Both : où Scroll fait défiler), et « Reopen the Display when REAPER starts ».",
+             "Zoom et Scroll précis utilisent js_ReaScriptAPI ; sans elle, le Zoom passe par SWS s'il est installé et le Scroll "
+             "par l'action native « Vertical scroll selected tracks into view »."],
+    callout_disp="Exemple : View et Scroll allumés, tag KIK choisi dans la liste.",
+    s7="8. Fichiers, actions et raccourcis",
     s7_rows=[
-        ("Action", "Une seule : « ReNo Mellow - Custom Strips » (ouvre / ferme la fenêtre)."),
+        ("Actions", "« ReNo Mellow - Custom Strips » (ouvre / ferme la fenêtre) et « ReNo Mellow - Custom Strips - Display » (ouvre / ferme le Display)."),
         ("Raccourci", "Aucun imposé : chacun choisit le sien dans la liste d'actions (ex. Ctrl+Shift+C, simple exemple)."),
         ("Données", "Data/ReNo_CustomStrips/strips.lua, enregistré automatiquement à chaque modification."),
         ("Exports", "Data/ReNo_CustomStrips/Exports/*.rnstrips"),
         ("Icônes", "Data/track_icons/cs_tags_XXX.png (pistes), Data/toolbar_icons/ReNo_CustomStrips.png (barre d'outils)."),
     ],
     s7_head=["Élément", "Détail"],
-    s8="8. Questions fréquentes",
+    s8="9. Questions fréquentes",
     faq=[
         ("Le script dit qu'il manque ReaImGui.", "Installer ReaImGui avec ReaPack (Browse packages), puis redémarrer REAPER."),
         ("Rien ne se passe au clic.", "Aucune piste n'est sélectionnée : le message « Select one or more tracks first. » "
@@ -197,7 +218,7 @@ T["en"] = dict(
     page="page",
     toc_title="Contents",
     toc=["1. Overview", "2. Installation", "3. Getting started", "4. The Strips tab", "5. The Setup tab",
-         "6. Advanced features", "7. Files, actions and shortcuts", "8. FAQ"],
+         "6. Advanced features", "7. The tag Display", "8. Files, actions and shortcuts", "9. FAQ"],
     s1="1. Overview",
     s1p=[
         "Custom Strips stores <b>track presets</b>, called <i>strips</i>. A strip gathers everything you usually set by hand "
@@ -297,16 +318,37 @@ T["en"] = dict(
         ("Clear all strips", "Deletes every strip, and the folders if the box is ticked. Cannot be undone: "
                              "Export first."),
     ],
-    s7="7. Files, actions and shortcuts",
+    sd="7. The tag Display",
+    sdp=["The Display is a small floating bar without a title, to place wherever you like. On the left, four options "
+         "to turn on (one or more): <b>Zoom</b>, <b>View</b>, <b>Scroll</b>, <b>Select</b>. On the right, the drop-down "
+         "list of the project's tags (the [ABC] at the end of track names), with <b>All</b> first. Picking a tag applies "
+         "every option that is on, in the order View, Select, Zoom, Scroll (one undo step).",
+         "Open it with the action “ReNo Mellow - Custom Strips - Display”, or the “Open / close the Display” button of "
+         "the Display tab. Running the action again closes the Display."],
+    sd_head=["Option", "With a tag", "With All"],
+    sd_rows=[
+        ("View", "Shows only the tracks of the tag; their folder parents stay visible.", "Shows every track again."),
+        ("Zoom", "Enlarges the tag's tracks to fill the arrange height.", "Resets the track heights."),
+        ("Scroll", "Brings the tag's first track to the top (TCP) or to the left (mixer).", "Goes back to the first track."),
+        ("Select", "Selects the tag's tracks (ready for a strip).", "Selects every track."),
+    ],
+    sd_more=["<b>Mouse wheel</b> over the list: next / previous tag, applied at once. Each tag shows the colour of its first "
+             "track. <b>Right-click</b> the bar: text size, reopen at startup, Close.",
+             "<b>Display</b> tab of the main window: <b>Display View</b> (TCP, MCP or Both: where View hides tracks), "
+             "<b>Display Scroll</b> (TCP, MCP or Both: where Scroll scrolls), and “Reopen the Display when REAPER starts”.",
+             "Precise Zoom and Scroll use js_ReaScriptAPI; without it, Zoom goes through SWS if installed and Scroll through "
+             "the native action “Vertical scroll selected tracks into view”."],
+    callout_disp="Example: View and Scroll on, tag KIK picked in the list.",
+    s7="8. Files, actions and shortcuts",
     s7_rows=[
-        ("Action", "Only one: “ReNo Mellow - Custom Strips” (opens / closes the window)."),
+        ("Actions", "“ReNo Mellow - Custom Strips” (opens / closes the window) and “ReNo Mellow - Custom Strips - Display” (opens / closes the Display)."),
         ("Shortcut", "None imposed: choose your own in the action list (e.g. Ctrl+Shift+C, just an example)."),
         ("Data", "Data/ReNo_CustomStrips/strips.lua, saved automatically after each change."),
         ("Exports", "Data/ReNo_CustomStrips/Exports/*.rnstrips"),
         ("Icons", "Data/track_icons/cs_tags_XXX.png (tracks), Data/toolbar_icons/ReNo_CustomStrips.png (toolbar)."),
     ],
     s7_head=["Item", "Detail"],
-    s8="8. FAQ",
+    s8="9. FAQ",
     faq=[
         ("The script says ReaImGui is missing.", "Install ReaImGui with ReaPack (Browse packages), then restart REAPER."),
         ("Nothing happens when I click.", "No track is selected: the message “Select one or more tracks first.” "
@@ -401,6 +443,45 @@ class SetupSchema(Flowable):
         c.drawString(4 * mm, 3 * mm, self.t["callout_setup"])
 
 
+class DisplaySchema(Flowable):
+    def __init__(self, t, w=170 * mm, h=36 * mm):
+        super().__init__(); self.t, self.width, self.height = t, w, h
+
+    def draw(self):
+        c, W, H = self.canv, self.width, self.height
+        bx, by, bw, bh = 4 * mm, H - 16 * mm, 118 * mm, 12 * mm
+        c.setFillColor(colors.HexColor("#2B2B2B")); c.roundRect(bx, by, bw, bh, 3, fill=1, stroke=0)
+        x = bx + 2.5 * mm
+        for name, on in (("Zoom", False), ("View", True), ("Scroll", True), ("Select", False)):
+            w = c.stringWidth(name, "DV", 8) + 5 * mm
+            c.setFillColor(colors.HexColor("#2E7D32" if on else "#4A4A4A")); c.roundRect(x, by + 2.5 * mm, w, 7 * mm, 2, fill=1, stroke=0)
+            c.setFillColor(colors.white); c.setFont("DV", 8); c.drawCentredString(x + w / 2, by + 5 * mm, name); x += w + 1.5 * mm
+        c.setFillColor(colors.HexColor("#888888")); c.drawString(x + 1 * mm, by + 5 * mm, "|"); x += 5 * mm
+        c.setFillColor(colors.HexColor("#E74C3C")); c.rect(x, by + 3.5 * mm, 5 * mm, 5 * mm, fill=1, stroke=0); x += 6.5 * mm
+        c.setFillColor(colors.HexColor("#4A4A4A")); c.roundRect(x, by + 2.5 * mm, 26 * mm, 7 * mm, 2, fill=1, stroke=0)
+        c.setFillColor(colors.white); c.drawString(x + 2 * mm, by + 5 * mm, "KIK   v")
+        # open list
+        lx, ly = x, by - 18 * mm
+        c.setFillColor(colors.HexColor("#333333")); c.rect(lx, ly, 26 * mm, 17.5 * mm, fill=1, stroke=0)
+        for k, (n, col) in enumerate((("All", None), ("KIK", "#E74C3C"), ("SNR", "#E74C3C"), ("BSS", "#26BAAA"))):
+            yy = ly + 13.5 * mm - k * 4.2 * mm
+            if n == "KIK":
+                c.setFillColor(colors.HexColor("#3A6EA5")); c.rect(lx + 0.5 * mm, yy - 1 * mm, 25 * mm, 4 * mm, fill=1, stroke=0)
+            if col:
+                c.setFillColor(colors.HexColor(col)); c.rect(lx + 1.5 * mm, yy - 0.3 * mm, 2.6 * mm, 2.6 * mm, fill=1, stroke=0)
+            c.setFillColor(colors.white); c.setFont("DV", 7); c.drawString(lx + 5.5 * mm, yy, n)
+        c.setFillColor(GREY); c.setFont("DVI", 7.5)
+        words, line, lines = self.t["callout_disp"].split(), "", []
+        for wd in words:
+            if c.stringWidth(line + " " + wd, "DVI", 7.5) > 70 * mm and line:
+                lines.append(line); line = wd
+            else:
+                line = (line + " " + wd).strip()
+        lines.append(line)
+        for k, ln in enumerate(lines):
+            c.drawString(lx + 32 * mm, by - 6 * mm - k * 3.8 * mm, ln)
+
+
 T["fr"]["callout_strips"] = "Clic = appliquer · glisser = réordonner ou ranger · clic droit = menu"
 T["fr"]["callout_setup"] = "Lignes 2 et 3 sélectionnées (en bleu) : une modification dans l'une est copiée dans l'autre."
 T["en"]["callout_strips"] = "Click = apply · drag = reorder or file · right-click = menu"
@@ -493,7 +574,20 @@ def build(lang):
     s.append(Paragraph(t["s6"], ST["h1"]))
     for head, body in t["s6_items"]:
         s.append(KeepTogether([Paragraph(head, ST["h2"]), Paragraph(body, ST["p"])]))
-    # 7
+    # 7 Display
+    s.append(KeepTogether([Paragraph(t["sd"], ST["h1"])] + [Paragraph(p, ST["p"]) for p in t["sdp"]] +
+                          [DisplaySchema(t), Paragraph(t["schema_note"], ST["note"])]))
+    data = [[Paragraph(h, ST["head"]) for h in t["sd_head"]]]
+    for a, b, c2 in t["sd_rows"]:
+        data.append([Paragraph(a, ST["cellb"]), Paragraph(b, ST["cell"]), Paragraph(c2, ST["cell"])])
+    tb = Table(data, colWidths=[22 * mm, W - 72 * mm, 50 * mm], repeatRows=1)
+    tb.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), ACCENT), ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, LIGHT]),
+                            ("VALIGN", (0, 0), (-1, -1), "TOP"), ("GRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#CCCCCC")),
+                            ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3)]))
+    s.append(tb); s.append(Spacer(1, 3 * mm))
+    for p in t["sd_more"]:
+        s.append(Paragraph(p, ST["p"]))
+    # 8
     s.append(KeepTogether([Paragraph(t["s7"], ST["h1"]), table(t["s7_head"], t["s7_rows"], [28 * mm, W - 28 * mm])]))
     # 8
     s.append(Paragraph(t["s8"], ST["h1"]))
