@@ -17,7 +17,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.1"
+VERSION = "1.2"
 NAME = "ReNo Mellow - Chord Buddy"
 BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/ChordBuddy/"
 URL_FR = BASE + "ChordBuddy_manuel_FR.pdf"
@@ -111,8 +111,8 @@ T["fr"] = {
                                   "place le curseur à la fin de l'accord. L'item est allongé si l'accord dépasse."),
             ("Glisser / molette sur la roue", "Fait tourner la roue d'une tonalité à la fois ; la tonalité en haut "
                                               "devient la tonalité active."),
-            ("Molette sur « inv »", "Change l'inversion de cette case (voir section 6)."),
-            ("Clic droit sur « inv »", "Remet l'inversion de la case à 0."),
+            ("Boutons − / + d'une case", "Changent l'inversion de cette case d'un cran (voir section 6)."),
+            ("Clic sur le chiffre (ou clic droit sur les boutons)", "Remet l'inversion de la case à 0."),
             ("Centre : flèches ou molette", "Octave de l'accord (octave de la fondamentale à inv 0). Le centre "
                                             "affiche la tonalité et le numéro de la note Do de cette octave."),
             ("Survol d'une case", "Bulle avec le nom, le degré et les notes ; le mini clavier montre les notes."),
@@ -136,7 +136,7 @@ T["fr"] = {
             ("Mini clavier", "Notes de l'accord survolé, avec inversion, voicing et basse."),
         ]),
         ("h1", "6. Les inversions"),
-        ("p", "Chaque case a son propre réglage « inv », de −3 à +3 (−4 à +4 pour les accords à quatre notes). "
+        ("p", "Chaque case a son propre réglage d'inversion, avec ses boutons − et +, de −3 à +3 (−4 à +4 pour les accords à quatre notes). "
               "Chaque cran vers le haut fait monter la note la plus grave d'une octave ; chaque cran vers le bas fait "
               "descendre la note la plus aiguë d'une octave. Exemple avec C (C E G) :"),
         ("table2", [
@@ -208,7 +208,7 @@ T["fr"] = {
             ("Le nom affiché est « ? ».",
              "Le groupe de notes ne correspond à aucun accord connu (par exemple deux notes seulement)."),
             ("Auto choisit une inversion inattendue.",
-             "Auto se règle sur l'accord qui précède le curseur. Désactiver Auto pour reprendre les réglages « inv »."),
+             "Auto se règle sur l'accord qui précède le curseur. Désactiver Auto pour reprendre les inversions réglées avec − / +."),
         ]),
     ],
 }
@@ -270,8 +270,8 @@ T["en"] = {
             ("Click on a cell", "Inserts the chord at the edit cursor, on the active channel of the MIDI editor, then "
                                 "moves the cursor to the end of the chord. The item is extended if needed."),
             ("Drag / wheel on the wheel", "Turns the wheel one key at a time; the key at the top becomes the active key."),
-            ("Wheel on « inv »", "Changes the inversion of that cell (see section 6)."),
-            ("Right-click on « inv »", "Resets the inversion of the cell to 0."),
+            ("− / + buttons of a cell", "Change the inversion of that cell by one step (see section 6)."),
+            ("Click on the number (or right-click on the buttons)", "Resets the inversion of the cell to 0."),
             ("Center: arrows or wheel", "Octave of the chord (octave of the root at inv 0). The center shows the key "
                                         "and the number of the C note of that octave."),
             ("Hover a cell", "Tooltip with the name, degree and notes; the mini keyboard shows the notes."),
@@ -293,7 +293,7 @@ T["en"] = {
             ("Mini keyboard", "Notes of the hovered chord, with inversion, voicing and bass."),
         ]),
         ("h1", "6. Inversions"),
-        ("p", "Each cell has its own « inv » setting, from −3 to +3 (−4 to +4 for four-note chords). Each step up raises "
+        ("p", "Each cell has its own inversion setting, with its − and + buttons, from −3 to +3 (−4 to +4 for four-note chords). Each step up raises "
               "the lowest note by an octave; each step down lowers the highest note by an octave. Example with C (C E G):"),
         ("table2", [
             ("0", "C E G (root position)"),
@@ -359,7 +359,7 @@ T["en"] = {
              "Select the notes of the chords in the MIDI editor (or select the item in the arrange view)."),
             ("The name shown is « ? ».", "The notes do not match any known chord (for example only two notes)."),
             ("Auto picks an unexpected inversion.",
-             "Auto follows the chord before the cursor. Turn Auto off to use the « inv » settings again."),
+             "Auto follows the chord before the cursor. Turn Auto off to use the inversions set with − / + again."),
         ]),
     ],
 }
@@ -393,7 +393,12 @@ def d_wheel(size=92 * mm):
             x, y = cx + rm * math.cos(math.radians(mid)), cy + rm * math.sin(math.radians(mid))
             tc = colors.HexColor("#505050") if deg else colors.HexColor("#6E6E6E")
             d.add(String(x, y - fs * 0.15, names[pos], fontName="DVB", fontSize=fs, fillColor=tc, textAnchor="middle"))
-            d.add(String(x, y - fs * 0.15 - 6, "inv 0", fontName="DV", fontSize=4.5, fillColor=tc, textAnchor="middle"))
+            by = y - fs * 0.15 - 7.5
+            for bx, t in ((x - 7.5, "-"), (x + 4.5, "+")):
+                d.add(Rect(bx, by, 3.5, 3.6, rx=0.8, ry=0.8, fillColor=colors.HexColor("#F2F2F2"),
+                           strokeColor=colors.HexColor("#9A9A9A"), strokeWidth=0.3))
+                d.add(String(bx + 1.75, by + 0.8, t, fontName="DVB", fontSize=3.4, fillColor=DARK, textAnchor="middle"))
+            d.add(String(x, by + 0.8, "0", fontName="DVB", fontSize=3.6, fillColor=tc, textAnchor="middle"))
             top = deg[0] if (deg and ring != 3) else None
             if ring == 1:
                 sig = "0" if pos == 0 else ("%d#" % pos if pos <= 6 else "%db" % (12 - pos))
