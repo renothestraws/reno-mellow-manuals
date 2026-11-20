@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.3"
+VERSION = "1.4"
 NAME = "ReNo Mellow - Grid Buddy"
 FOLDER = "GridBuddy"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -128,10 +128,11 @@ T["fr"] = {
         ("table2", [
             ("Grid divisor", "Pas des boutons - / +, de la molette et des actions Wider / Narrower. 2 par défaut "
                              "(1/8 -&gt; 1/16) ; 3 donne 1/4 -&gt; 1/12..."),
-            ("Min size / Max size", "Limites de la molette et de - / + : 1/128, 1/8T, 1D, 2... Vide = pas de limite."),
+            ("Min size / Max size", "Limites de - / + ; pour la molette : tailles straight la plus fine et la plus large "
+                                    "avant les triolets / pointées (vide = 1/128 et 4). Ex. 1/128, 1/8T, 1D, 2."),
             ("Preserve grid type per size", "Le projet retient le type (triplet, swing...) utilisé pour chaque taille."),
             ("Show", "Boutons et entrées de menu Quintuplet, Septuplet ; boutons Frame, Measure."),
-            ("Reverse mouse wheel", "Inverse le sens de la molette et de Shift+molette (Displays et action mousewheel)."),
+            ("Reverse mouse wheel", "Inverse le sens de la molette (Displays et action mousewheel)."),
             ("Displays", "Une ligne par Display (Arrange, MIDI) : Show / Hide, taille du texte, Snap button ; pour "
                          "l'arrangement aussi Swing bar et Visible grid."),
             ("Window", "Taille du texte de la fenêtre."),
@@ -153,9 +154,8 @@ T["fr"] = {
               "(barre bleue pour le swing dans l'arrangement)."),
         ("draw", "display"),
         ("table_g", [
-            ("Molette", "Taille suivante. Molette vers le haut = plus fin."),
-            ("Shift+molette", "Type suivant à la même taille : straight -&gt; triplet -&gt; dotted (vers le haut), "
-                              "retour vers le bas. Un swing actif compte comme straight."),
+            ("Molette", "Taille suivante (vers le haut = plus fin). Après la plus fine viennent 1/8T, 1/16T, "
+                        "1/32T ; après la plus large 1/2D, 1/4D, 1/8D, 1/16D, 1/32D (voir ci-dessous)."),
             ("Clic sur la grille", "Menu : Straight, Triplet, Quintuplet / Septuplet (si affichés), Dotted, Swing, "
                                   "puis Frame et Measure (arrangement), Hide grid (cache les lignes de grille), "
                                   "Link MIDI editor ; Display MIDI : aussi Sync to arrange view (action 40640)."),
@@ -166,6 +166,10 @@ T["fr"] = {
             ("Glisser", "Déplacer le Display."),
             ("Relancer l'action Display", "Fermer ce Display."),
         ]),
+        ("p", "<b>Échelle de la molette</b> (Displays et action Adjust grid) : 1/32T · 1/16T · 1/8T · 1/128 · 1/64 · "
+              "1/32 · 1/16 · 1/8 · 1/4 · 1/2 · 1 · 2 · 4 · 1/2D · 1/4D · 1/8D · 1/16D · 1/32D. Elle s'arrête aux "
+              "deux bouts. Une grille hors de l'échelle (1/4T, quintolet...) revient d'abord à sa taille straight. "
+              "Le swing est gardé sur les tailles straight."),
         ("p", "Grille cachée : le Display affiche « Hidden » ; la molette ou un type la réaffiche. Un Display ouvert "
               "se rouvre à sa place au démarrage de REAPER (un petit bloc est ajouté à "
               "Scripts/__startup.lua). L'option Visible grid affiche la grille que REAPER dessine vraiment à ce zoom "
@@ -176,7 +180,7 @@ T["fr"] = {
         ("table2", [
             ("ReNo Mellow - Grid Buddy", "Fenêtre principale (relancer = fermer)."),
             ("... - Display / ... MIDI - Display", "Ouvre ou ferme le Display de l'arrangement / de l'éditeur MIDI."),
-            ("Adjust grid (mousewheel)", "À associer à une molette : taille de la grille."),
+            ("Adjust grid (mousewheel)", "À associer à une molette : même échelle que les Displays."),
             ("Wider grid / Narrower grid", "Grille plus large / plus étroite d'un pas (diviseur)."),
             ("Toggle swing", "Swing on/off."),
         ]),
@@ -187,7 +191,7 @@ T["fr"] = {
         ("qa", [
             ("La section MIDI editor est grisée.",
              "Soit aucun éditeur MIDI n'est ouvert, soit l'éditeur MIDI est lié à l'arrangement (case Link MIDI editor)."),
-            ("La molette ne va pas plus loin.", "Une limite Min size / Max size est atteinte (onglet Set up)."),
+            ("La molette ne va pas plus loin.", "Elle est au bout de l'échelle : 1/32T d'un côté, 1/32D de l'autre."),
             ("Où est la grille adaptative de la version 1.0 ?",
              "Elle a été retirée en 1.1 pour garder un outil simple : la molette du Display change la taille."),
             ("J'utilisais Adaptive Grid / Gridbox.",
@@ -263,10 +267,11 @@ T["en"] = {
         ("table2", [
             ("Grid divisor", "Step of the - / + buttons, the mouse wheel and the Wider / Narrower actions. 2 by "
                              "default (1/8 -&gt; 1/16); 3 gives 1/4 -&gt; 1/12..."),
-            ("Min size / Max size", "Limits of the mouse wheel and - / +: 1/128, 1/8T, 1D, 2... Empty = no limit."),
+            ("Min size / Max size", "Limits of - / +; for the mouse wheel: finest and widest straight sizes before the "
+                                    "triplets / dotted sizes (empty = 1/128 and 4). E.g. 1/128, 1/8T, 1D, 2."),
             ("Preserve grid type per size", "The project remembers the type (triplet, swing...) used for each size."),
             ("Show", "Quintuplet, Septuplet buttons and menu entries; Frame, Measure buttons."),
-            ("Reverse mouse wheel", "Reverses the wheel and Shift+wheel (Displays and mousewheel action)."),
+            ("Reverse mouse wheel", "Reverses the wheel (Displays and mousewheel action)."),
             ("Displays", "One row per Display (Arrange, MIDI): Show / Hide, text size, Snap button; for the arrange "
                          "view also Swing bar and Visible grid."),
             ("Window", "Text size of the window."),
@@ -288,9 +293,8 @@ T["en"] = {
               "view)."),
         ("draw", "display"),
         ("table_g", [
-            ("Wheel", "Next size. Wheel up = finer."),
-            ("Shift+wheel", "Next type at the same size: straight -&gt; triplet -&gt; dotted (up), back when going "
-                            "down. Swing on counts as straight."),
+            ("Wheel", "Next size (up = finer). Past the finest come 1/8T, 1/16T, 1/32T; past the widest "
+                      "1/2D, 1/4D, 1/8D, 1/16D, 1/32D (see below)."),
             ("Click on the grid", "Menu: Straight, Triplet, Quintuplet / Septuplet (if shown), Dotted, Swing, then "
                                   "Frame and Measure (arrange view), Hide grid (hides the grid lines), Link MIDI "
                                   "editor; MIDI Display: also Sync to arrange view (action 40640)."),
@@ -301,6 +305,10 @@ T["en"] = {
             ("Drag", "Move the Display."),
             ("Run the Display action again", "Close that Display."),
         ]),
+        ("p", "<b>Wheel ladder</b> (Displays and Adjust grid action): 1/32T · 1/16T · 1/8T · 1/128 · 1/64 · 1/32 · "
+              "1/16 · 1/8 · 1/4 · 1/2 · 1 · 2 · 4 · 1/2D · 1/4D · 1/8D · 1/16D · 1/32D. It stops at both ends. A "
+              "grid off the ladder (1/4T, quintuplet...) first goes back to its straight size. Swing is kept on "
+              "straight sizes."),
         ("p", "Hidden grid: the Display shows « Hidden »; the wheel or a type shows it again. An open Display reopens at the same place when REAPER starts (a small block is added to "
               "Scripts/__startup.lua). The Visible grid option shows the grid REAPER really draws at this zoom "
               "(straight sizes only)."),
@@ -310,7 +318,7 @@ T["en"] = {
         ("table2", [
             ("ReNo Mellow - Grid Buddy", "Main window (run again = close)."),
             ("... - Display / ... MIDI - Display", "Opens or closes the arrange / MIDI editor Display."),
-            ("Adjust grid (mousewheel)", "Bind it to a wheel: grid size."),
+            ("Adjust grid (mousewheel)", "Bind it to a wheel: same ladder as the Displays."),
             ("Wider grid / Narrower grid", "Wider / narrower grid by one step (divisor)."),
             ("Toggle swing", "Swing on/off."),
         ]),
@@ -321,7 +329,7 @@ T["en"] = {
         ("qa", [
             ("The MIDI editor section is greyed out.",
              "Either no MIDI editor is open, or the MIDI editor is linked to the arrange view (Link MIDI editor box)."),
-            ("The mouse wheel stops.", "A Min size / Max size limit is reached (Set up tab)."),
+            ("The mouse wheel stops.", "It is at an end of the ladder: 1/32T on one side, 1/32D on the other."),
             ("Where is the adaptive grid of version 1.0?",
              "It was removed in 1.1 to keep the tool simple: the Display's mouse wheel changes the size."),
             ("I used Adaptive Grid / Gridbox.",
