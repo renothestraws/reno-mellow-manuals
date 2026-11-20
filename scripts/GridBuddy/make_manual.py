@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.1"
+VERSION = "1.5"
 NAME = "ReNo Mellow - Grid Buddy"
 FOLDER = "GridBuddy"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -78,8 +78,8 @@ T["fr"] = {
         ("p", "Grid Buddy rassemble les réglages de la grille de REAPER, dans l'arrangement et dans l'éditeur MIDI : "
               "le <b>type</b> (straight, triplet, quintolet, septolet, pointé, swing), la <b>taille</b> (1/128 à 4), "
               "le snap et le <b>lien</b> entre la grille de l'arrangement et celle de l'éditeur MIDI."),
-        ("p", "Il comprend une fenêtre à deux onglets (Grid et Set up), un petit <b>Display</b> à placer près du "
-              "transport, où la molette change la taille de la grille, et des <b>actions isolées</b> à associer à des "
+        ("p", "Il comprend une fenêtre à deux onglets (Grid et Set up), deux petits <b>Displays</b> indépendants "
+              "(arrangement et éditeur MIDI) où la molette change la taille de la grille, et des <b>actions isolées</b> à associer à des "
               "raccourcis. Il reprend les idées de Gridbox de FeedTheCat."),
         ("h1", "2. Installation"),
         ("p", "<b>Prérequis :</b> REAPER et l'extension <b>ReaImGui</b> (Extensions &gt; ReaPack &gt; Browse "
@@ -95,7 +95,7 @@ T["fr"] = {
               "l'éditeur MIDI sont ajoutées au premier lancement de Grid Buddy. Pas de mise à jour automatique." % URL_PKG),
         ("h2", "Installation manuelle"),
         ("p", "Copier le dossier <b>GridBuddy</b> dans le dossier Scripts de REAPER, puis charger et lancer "
-              "<b>ReNo Mellow - Grid Buddy.lua</b> : il ajoute lui-même le Display et toutes les actions "
+              "<b>ReNo Mellow - Grid Buddy.lua</b> : il ajoute lui-même les deux Displays et toutes les actions "
               "(sections Main et MIDI Editor)."),
         ("p", "Les réglages d'Adaptive Grid / Gridbox sont repris au premier lancement. Ne pas les faire tourner "
               "en même temps que Grid Buddy."),
@@ -106,7 +106,8 @@ T["fr"] = {
                 "Cliquer <b>Triplet</b> : la grille devient 1/16T, à la même taille.",
                 "Dans la section MIDI editor, cocher <b>Link MIDI editor to the arrange grid</b> : l'éditeur MIDI "
                 "suit la grille de l'arrangement.",
-                "Dans l'onglet Set up, <b>Show Display</b> ouvre le petit Display ; la molette dessus change la taille."]),
+                "Dans l'onglet Set up, <b>Show</b> ouvre le Display de l'arrangement ou le Display MIDI ; la molette "
+                "dessus change la taille."]),
         ("h1", "4. Onglet Grid"),
         ("draw", "grid"),
         ("p", "Deux sections : <b>Arrange view</b> et <b>MIDI editor</b>. La grille en cours est écrite en grand "
@@ -127,40 +128,52 @@ T["fr"] = {
         ("table2", [
             ("Grid divisor", "Pas des boutons - / +, de la molette et des actions Wider / Narrower. 2 par défaut "
                              "(1/8 -&gt; 1/16) ; 3 donne 1/4 -&gt; 1/12..."),
-            ("Min size / Max size", "Limites de la molette et de - / + : 1/128, 1/8T, 1D, 2... Vide = pas de limite."),
+            ("Min size / Max size", "Limites de - / + ; pour la molette : tailles straight la plus fine et la plus large "
+                                    "avant les triolets / pointées (vide = 1/128 et 4). Ex. 1/128, 1/8T, 1D, 2."),
             ("Preserve grid type per size", "Le projet retient le type (triplet, swing...) utilisé pour chaque taille."),
             ("Show", "Boutons et entrées de menu Quintuplet, Septuplet ; boutons Frame, Measure."),
-            ("Reverse mouse wheel", "Inverse le sens de la molette (Display et action mousewheel)."),
-            ("Display", "Show / Hide Display, taille du texte, Snap button, Swing bar, MIDI editor grid, Visible grid."),
+            ("Reverse mouse wheel", "Inverse le sens de la molette (Displays et action mousewheel)."),
+            ("Wheel sensitivity", "Displays : crans de molette par changement de taille, de 1 à 4 (1,5 par défaut = "
+                                  "2 pas pour 3 crans). Plus haut = plus lent."),
+            ("Displays", "Une ligne par Display (Arrange, MIDI) : Show / Hide, taille du texte, Snap button ; pour "
+                         "l'arrangement aussi Swing bar et Visible grid."),
             ("Window", "Taille du texte de la fenêtre."),
         ]),
         ("p", "Le diviseur et les limites existent deux fois, pour l'arrangement et pour l'éditeur MIDI. Une valeur "
               "refusée est signalée en rouge sous les champs."),
         ("h1", "6. Lier l'éditeur MIDI"),
         ("p", "<b>Lié</b> : l'éditeur MIDI utilise la grille de l'arrangement. La section MIDI editor est grisée avec "
-              "« LINKED to the arrange grid », la deuxième ligne du Display disparaît et les actions « Grid Buddy "
-              "MIDI » changent la grille de l'arrangement."),
-        ("p", "<b>Non lié</b> : l'éditeur MIDI a sa propre grille, réglée dans la section MIDI editor, sur la "
-              "deuxième ligne du Display ou avec les actions « Grid Buddy MIDI »."),
-        ("p", "Le lien se change dans la fenêtre (case Link MIDI editor) ou dans le menu du Display. C'est l'option "
+              "« LINKED to the arrange grid », le Display MIDI affiche « MIDI = » en vert et les actions « Grid "
+              "Buddy MIDI » changent la grille de l'arrangement."),
+        ("p", "<b>Non lié</b> : l'éditeur MIDI a sa propre grille, réglée dans la section MIDI editor, avec le "
+              "Display MIDI ou avec les actions « Grid Buddy MIDI »."),
+        ("p", "Le lien se change dans la fenêtre (case Link MIDI editor) ou dans le menu des Displays. C'est l'option "
               "de REAPER elle-même : elle reste active même quand Grid Buddy est fermé."),
-        ("h1", "7. Le Display"),
-        ("p", "Petite fenêtre sans barre de titre, à placer où l'on veut (par exemple à côté du transport). Elle "
-              "montre l'aimant du snap, la grille de l'arrangement (barre bleue pour le swing) et, quand un éditeur "
-              "MIDI est ouvert et non lié, une deuxième ligne MIDI."),
+        ("h1", "7. Les Displays"),
+        ("p", "Deux petites fenêtres sans barre de titre, indépendantes, à placer où l'on veut : le <b>Display</b> "
+              "de l'arrangement (action Main) et le <b>Display MIDI</b> (action « Grid Buddy MIDI - Display », "
+              "visible seulement quand un éditeur MIDI est ouvert). Chacun montre l'aimant du snap et la grille "
+              "(barre bleue pour le swing dans l'arrangement)."),
         ("draw", "display"),
         ("table_g", [
-            ("Molette", "Taille suivante. Molette vers le haut = plus fin."),
-            ("Clic sur la grille", "Menu : Straight, Triplet, Quintuplet / Septuplet (si affichés), Dotted, Swing "
-                                  "(Off et quantités), Link MIDI editor."),
-            ("Alt+clic", "Swing on/off."),
-            ("Alt+molette", "Quantité de swing par pas de 3 % (Ctrl+Alt : 1 %). Tenir Alt affiche le swing."),
-            ("Clic sur l'aimant", "Snap on/off. Alt+clic : snap relatif. Clic droit : réglages snap/grille."),
+            ("Molette", "Taille suivante (vers le haut = plus fin). Après la plus fine viennent 1/8T, 1/16T, "
+                        "1/32T ; après la plus large 1/2D, 1/4D, 1/8D, 1/16D, 1/32D (voir ci-dessous)."),
+            ("Clic sur la grille", "Menu : Straight, Triplet, Quintuplet / Septuplet (si affichés), Dotted, Swing, "
+                                  "puis Frame et Measure (arrangement), Hide grid (cache les lignes de grille), "
+                                  "Link MIDI editor ; Display MIDI : aussi Sync to arrange view (action 40640)."),
+            ("Alt+clic", "Swing on/off (arrangement)."),
+            ("Alt+molette", "Quantité de swing par pas de 3 % (Ctrl+Alt : 1 %), arrangement."),
+            ("Clic sur l'aimant", "Snap on/off. Alt+clic : snap relatif (arrangement). Clic droit : réglages snap/grille."),
             ("Clic droit sur la grille", "Ouvre la fenêtre Grid Buddy."),
             ("Glisser", "Déplacer le Display."),
-            ("Relancer l'action Display", "Fermer le Display."),
+            ("Relancer l'action Display", "Fermer ce Display."),
         ]),
-        ("p", "Un Display ouvert se rouvre à sa place au démarrage de REAPER (un petit bloc est ajouté à "
+        ("p", "<b>Échelle de la molette</b> (Displays et action Adjust grid) : 1/32T · 1/16T · 1/8T · 1/128 · 1/64 · "
+              "1/32 · 1/16 · 1/8 · 1/4 · 1/2 · 1 · 2 · 4 · 1/2D · 1/4D · 1/8D · 1/16D · 1/32D. Elle s'arrête aux "
+              "deux bouts. Une grille hors de l'échelle (1/4T, quintolet...) revient d'abord à sa taille straight. "
+              "Le swing est gardé sur les tailles straight."),
+        ("p", "Grille cachée : le Display affiche « Hidden » ; la molette ou un type la réaffiche. Un Display ouvert "
+              "se rouvre à sa place au démarrage de REAPER (un petit bloc est ajouté à "
               "Scripts/__startup.lua). L'option Visible grid affiche la grille que REAPER dessine vraiment à ce zoom "
               "(tailles straight seulement)."),
         ("h1", "8. Les actions"),
@@ -168,8 +181,8 @@ T["fr"] = {
               "la section <b>MIDI Editor</b> (« ReNo Mellow - Grid Buddy MIDI - ... »)."),
         ("table2", [
             ("ReNo Mellow - Grid Buddy", "Fenêtre principale (relancer = fermer)."),
-            ("... - Display", "Ouvre ou ferme le Display."),
-            ("Adjust grid (mousewheel)", "À associer à une molette : taille de la grille."),
+            ("... - Display / ... MIDI - Display", "Ouvre ou ferme le Display de l'arrangement / de l'éditeur MIDI."),
+            ("Adjust grid (mousewheel)", "À associer à une molette : même échelle que les Displays."),
             ("Wider grid / Narrower grid", "Grille plus large / plus étroite d'un pas (diviseur)."),
             ("Toggle swing", "Swing on/off."),
         ]),
@@ -180,7 +193,7 @@ T["fr"] = {
         ("qa", [
             ("La section MIDI editor est grisée.",
              "Soit aucun éditeur MIDI n'est ouvert, soit l'éditeur MIDI est lié à l'arrangement (case Link MIDI editor)."),
-            ("La molette ne va pas plus loin.", "Une limite Min size / Max size est atteinte (onglet Set up)."),
+            ("La molette ne va pas plus loin.", "Elle est au bout de l'échelle : 1/32T d'un côté, 1/32D de l'autre."),
             ("Où est la grille adaptative de la version 1.0 ?",
              "Elle a été retirée en 1.1 pour garder un outil simple : la molette du Display change la taille."),
             ("J'utilisais Adaptive Grid / Gridbox.",
@@ -206,8 +219,8 @@ T["en"] = {
         ("p", "Grid Buddy gathers the settings of the REAPER grid, in the arrange view and in the MIDI editor: the "
               "<b>type</b> (straight, triplet, quintuplet, septuplet, dotted, swing), the <b>size</b> (1/128 to 4), "
               "snap and the <b>link</b> between the arrange grid and the MIDI editor grid."),
-        ("p", "It has a window with two tabs (Grid and Set up), a small <b>Display</b> to place next to the transport, "
-              "where the mouse wheel changes the grid size, and <b>isolated actions</b> for your shortcuts. It is "
+        ("p", "It has a window with two tabs (Grid and Set up), two small independent <b>Displays</b> "
+              "(arrange view and MIDI editor) where the mouse wheel changes the grid size, and <b>isolated actions</b> for your shortcuts. It is "
               "based on the ideas of Gridbox by FeedTheCat."),
         ("h1", "2. Installation"),
         ("p", "<b>Requirements:</b> REAPER and the <b>ReaImGui</b> extension (Extensions &gt; ReaPack &gt; Browse "
@@ -223,7 +236,7 @@ T["en"] = {
               "are added the first time Grid Buddy runs. No automatic updates." % URL_PKG),
         ("h2", "Manual installation"),
         ("p", "Copy the <b>GridBuddy</b> folder into the REAPER Scripts folder, then load and run "
-              "<b>ReNo Mellow - Grid Buddy.lua</b>: it adds the Display and every action itself "
+              "<b>ReNo Mellow - Grid Buddy.lua</b>: it adds both Displays and every action itself "
               "(Main and MIDI Editor sections)."),
         ("p", "The settings of Adaptive Grid / Gridbox are imported the first time. Do not run them at the same "
               "time as Grid Buddy."),
@@ -234,7 +247,8 @@ T["en"] = {
                 "Click <b>Triplet</b>: the grid becomes 1/16T, same size.",
                 "In the MIDI editor section, tick <b>Link MIDI editor to the arrange grid</b>: the MIDI editor "
                 "follows the arrange grid.",
-                "In the Set up tab, <b>Show Display</b> opens the small Display; the mouse wheel over it changes the size."]),
+                "In the Set up tab, <b>Show</b> opens the arrange Display or the MIDI Display; the mouse wheel over it "
+                "changes the size."]),
         ("h1", "4. Grid tab"),
         ("draw", "grid"),
         ("p", "Two sections: <b>Arrange view</b> and <b>MIDI editor</b>. The current grid is written in large letters "
@@ -255,40 +269,51 @@ T["en"] = {
         ("table2", [
             ("Grid divisor", "Step of the - / + buttons, the mouse wheel and the Wider / Narrower actions. 2 by "
                              "default (1/8 -&gt; 1/16); 3 gives 1/4 -&gt; 1/12..."),
-            ("Min size / Max size", "Limits of the mouse wheel and - / +: 1/128, 1/8T, 1D, 2... Empty = no limit."),
+            ("Min size / Max size", "Limits of - / +; for the mouse wheel: finest and widest straight sizes before the "
+                                    "triplets / dotted sizes (empty = 1/128 and 4). E.g. 1/128, 1/8T, 1D, 2."),
             ("Preserve grid type per size", "The project remembers the type (triplet, swing...) used for each size."),
             ("Show", "Quintuplet, Septuplet buttons and menu entries; Frame, Measure buttons."),
-            ("Reverse mouse wheel", "Reverses the wheel (Display and mousewheel action)."),
-            ("Display", "Show / Hide Display, text size, Snap button, Swing bar, MIDI editor grid, Visible grid."),
+            ("Reverse mouse wheel", "Reverses the wheel (Displays and mousewheel action)."),
+            ("Wheel sensitivity", "Displays: wheel notches per size change, 1 to 4 (1.5 by default = 2 steps for 3 "
+                                  "notches). Higher = slower."),
+            ("Displays", "One row per Display (Arrange, MIDI): Show / Hide, text size, Snap button; for the arrange "
+                         "view also Swing bar and Visible grid."),
             ("Window", "Text size of the window."),
         ]),
         ("p", "The divisor and the limits exist twice, for the arrange view and the MIDI editor. A refused value is "
               "shown in red under the fields."),
         ("h1", "6. Linking the MIDI editor"),
         ("p", "<b>Linked</b>: the MIDI editor uses the arrange grid. The MIDI editor section is greyed out with "
-              "« LINKED to the arrange grid », the second line of the Display goes away and the « Grid Buddy MIDI » "
+              "« LINKED to the arrange grid », the MIDI Display shows « MIDI = » in green and the « Grid Buddy MIDI » "
               "actions change the arrange grid."),
-        ("p", "<b>Not linked</b>: the MIDI editor has its own grid, set in the MIDI editor section, on the second line "
-              "of the Display or with the « Grid Buddy MIDI » actions."),
-        ("p", "Change the link in the window (Link MIDI editor box) or in the Display menu. It is REAPER's own option: "
+        ("p", "<b>Not linked</b>: the MIDI editor has its own grid, set in the MIDI editor section, with the MIDI "
+              "Display or with the « Grid Buddy MIDI » actions."),
+        ("p", "Change the link in the window (Link MIDI editor box) or in the Displays' menu. It is REAPER's own option: "
               "it stays on even when Grid Buddy is closed."),
-        ("h1", "7. The Display"),
-        ("p", "Small window without a title bar, to place anywhere (next to the transport, for example). It shows the "
-              "snap magnet, the arrange grid (blue bar for the swing) and, when a MIDI editor is open and not linked, "
-              "a second MIDI line."),
+        ("h1", "7. The Displays"),
+        ("p", "Two small independent windows without a title bar, to place anywhere: the arrange <b>Display</b> "
+              "(Main action) and the <b>MIDI Display</b> (action « Grid Buddy MIDI - Display », shown only while a "
+              "MIDI editor is open). Each shows the snap magnet and the grid (blue bar for the swing in the arrange "
+              "view)."),
         ("draw", "display"),
         ("table_g", [
-            ("Wheel", "Next size. Wheel up = finer."),
-            ("Click on the grid", "Menu: Straight, Triplet, Quintuplet / Septuplet (if shown), Dotted, Swing (Off and "
-                                  "amounts), Link MIDI editor."),
-            ("Alt+click", "Swing on/off."),
-            ("Alt+wheel", "Swing amount in steps of 3 % (Ctrl+Alt: 1 %). Holding Alt shows the swing."),
-            ("Click on the magnet", "Snap on/off. Alt+click: relative snap. Right-click: snap/grid settings."),
+            ("Wheel", "Next size (up = finer). Past the finest come 1/8T, 1/16T, 1/32T; past the widest "
+                      "1/2D, 1/4D, 1/8D, 1/16D, 1/32D (see below)."),
+            ("Click on the grid", "Menu: Straight, Triplet, Quintuplet / Septuplet (if shown), Dotted, Swing, then "
+                                  "Frame and Measure (arrange view), Hide grid (hides the grid lines), Link MIDI "
+                                  "editor; MIDI Display: also Sync to arrange view (action 40640)."),
+            ("Alt+click", "Swing on/off (arrange view)."),
+            ("Alt+wheel", "Swing amount in steps of 3 % (Ctrl+Alt: 1 %), arrange view."),
+            ("Click on the magnet", "Snap on/off. Alt+click: relative snap (arrange view). Right-click: snap/grid settings."),
             ("Right-click on the grid", "Opens the Grid Buddy window."),
             ("Drag", "Move the Display."),
-            ("Run the Display action again", "Close the Display."),
+            ("Run the Display action again", "Close that Display."),
         ]),
-        ("p", "An open Display reopens at the same place when REAPER starts (a small block is added to "
+        ("p", "<b>Wheel ladder</b> (Displays and Adjust grid action): 1/32T · 1/16T · 1/8T · 1/128 · 1/64 · 1/32 · "
+              "1/16 · 1/8 · 1/4 · 1/2 · 1 · 2 · 4 · 1/2D · 1/4D · 1/8D · 1/16D · 1/32D. It stops at both ends. A "
+              "grid off the ladder (1/4T, quintuplet...) first goes back to its straight size. Swing is kept on "
+              "straight sizes."),
+        ("p", "Hidden grid: the Display shows « Hidden »; the wheel or a type shows it again. An open Display reopens at the same place when REAPER starts (a small block is added to "
               "Scripts/__startup.lua). The Visible grid option shows the grid REAPER really draws at this zoom "
               "(straight sizes only)."),
         ("h1", "8. Actions"),
@@ -296,8 +321,8 @@ T["en"] = {
               "<b>MIDI Editor</b> section (« ReNo Mellow - Grid Buddy MIDI - ... »)."),
         ("table2", [
             ("ReNo Mellow - Grid Buddy", "Main window (run again = close)."),
-            ("... - Display", "Opens or closes the Display."),
-            ("Adjust grid (mousewheel)", "Bind it to a wheel: grid size."),
+            ("... - Display / ... MIDI - Display", "Opens or closes the arrange / MIDI editor Display."),
+            ("Adjust grid (mousewheel)", "Bind it to a wheel: same ladder as the Displays."),
             ("Wider grid / Narrower grid", "Wider / narrower grid by one step (divisor)."),
             ("Toggle swing", "Swing on/off."),
         ]),
@@ -308,7 +333,7 @@ T["en"] = {
         ("qa", [
             ("The MIDI editor section is greyed out.",
              "Either no MIDI editor is open, or the MIDI editor is linked to the arrange view (Link MIDI editor box)."),
-            ("The mouse wheel stops.", "A Min size / Max size limit is reached (Set up tab)."),
+            ("The mouse wheel stops.", "It is at an end of the ladder: 1/32T on one side, 1/32D on the other."),
             ("Where is the adaptive grid of version 1.0?",
              "It was removed in 1.1 to keep the tool simple: the Display's mouse wheel changes the size."),
             ("I used Adaptive Grid / Gridbox.",
@@ -366,14 +391,20 @@ def magnet(d, x, y, s, col):
 
 
 def d_display():
-    W, H = 62 * mm, 17 * mm
+    W, H = 150 * mm, 14 * mm
     d = Drawing(W, H)
-    d.add(Rect(0, 0, W, H, rx=5, ry=5, fillColor=DARK, strokeColor=None))
-    magnet(d, 2 * mm, 2.5 * mm, 12 * mm, colors.HexColor("#4FA3E8"))
-    d.add(Line(16 * mm, 3 * mm, 16 * mm, H - 3 * mm, strokeColor=colors.HexColor("#45474C"), strokeWidth=0.8))
-    d.add(String(24 * mm, 9.5 * mm, "1/16T", fontName="DVB", fontSize=10, fillColor=TXT))
-    d.add(Rect(37 * mm, 8.3 * mm, 8 * mm, 0.9 * mm, fillColor=colors.HexColor("#4FA3E8"), strokeColor=None))
-    d.add(String(22 * mm, 3 * mm, "MIDI  1/32T", fontName="DV", fontSize=8, fillColor=MUT))
+    for k, (txt, pre) in enumerate((("1/16T", ""), ("1/32", "MIDI "))):
+        x0 = k * 78 * mm
+        w = 56 * mm
+        d.add(Rect(x0, 0, w, H, rx=5, ry=5, fillColor=DARK, strokeColor=None))
+        magnet(d, x0 + 2 * mm, 1.5 * mm, 11 * mm, colors.HexColor("#4FA3E8"))
+        d.add(Line(x0 + 15 * mm, 2.5 * mm, x0 + 15 * mm, H - 2.5 * mm, strokeColor=colors.HexColor("#45474C"),
+                   strokeWidth=0.8))
+        if pre:
+            d.add(String(x0 + 21 * mm, 5.2 * mm, pre, fontName="DV", fontSize=9, fillColor=MUT))
+        d.add(String(x0 + (32 if pre else 24) * mm, 5.2 * mm, txt, fontName="DVB", fontSize=10, fillColor=TXT))
+        if not pre:
+            d.add(Rect(x0 + 37 * mm, 3.8 * mm, 8 * mm, 0.9 * mm, fillColor=colors.HexColor("#4FA3E8"), strokeColor=None))
     return d
 
 

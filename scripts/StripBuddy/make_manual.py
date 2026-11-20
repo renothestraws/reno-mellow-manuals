@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.17"
+VERSION = "1.24"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -73,7 +73,7 @@ T["fr"] = dict(
         "Un clic sur un strip l'applique à <b>toutes les pistes sélectionnées</b>, en une seule étape d'annulation. "
         "Dans un strip, seul le nom est obligatoire : une case vide ne modifie rien sur la piste.",
         "La fenêtre a deux onglets : <b>Strips</b>, la palette de boutons de tous les jours, rangée en dossiers ; "
-        "<b>Setup</b>, le tableau où l'on règle chaque strip. Le script est livré avec 164 strips de base en 15 dossiers.",
+        "<b>Setup</b>, le tableau où l'on règle chaque strip. Le script est livré avec 207 strips de base en 17 dossiers.",
     ],
     s2="2. Installation",
     s2a="Avec ReaPack (recommandé, mises à jour automatiques)",
@@ -101,7 +101,7 @@ T["fr"] = dict(
     s3="3. Premiers pas",
     s3_steps=[
         "Lancer l'action <b>ReNo Mellow - Strip Buddy</b> (liste d'actions ou bouton de barre d'outils).",
-        "Au premier lancement, les 164 strips de base sont créés dans 15 dossiers (Drums, Bass, Vocals…).",
+        "Au premier lancement, les 207 strips de base sont créés dans 17 dossiers (Drums, Bass, Vocals…).",
         "Sélectionner une ou plusieurs pistes dans REAPER.",
         "Dans l'onglet Strips, cliquer sur un strip, par exemple « Kick in » : la piste est renommée, taguée et reçoit son icône.",
         "Une erreur ? Ctrl+Z annule tout le strip d'un coup.",
@@ -125,6 +125,8 @@ T["fr"] = dict(
     s5="5. L'onglet Setup",
     s5p="Une ligne par strip, une colonne par réglage. <b>Une case vide est ignorée</b> quand le strip est appliqué. "
         "En haut : + Add strip, Load default strips, Export…, Import…, Clear all strips. "
+        "Juste en dessous, le <b>filtre</b> cache les lignes inutiles : <b>Show</b> choisit un dossier (le même que dans l'onglet Strips), "
+        "le champ texte garde les strips dont le nom, le nom de piste ou un tag contient le texte (x pour l'effacer). "
         "À droite de chaque ligne : flèches pour déplacer, Dup pour dupliquer, Del pour supprimer.",
     s5_head=["Colonne", "Ce que le strip fait à la piste"],
     s5_rows=[
@@ -132,17 +134,22 @@ T["fr"] = dict(
         ("Strip name", "Nom du bouton. Seule case obligatoire."),
         ("Track name", "Renomme la piste. Plusieurs pistes sélectionnées : Tom 1, Tom 2, Tom 3…"),
         ("Tag", "Ajoute un tag de 1 à 3 caractères en fin de nom : « Kick in [KIK] ». Un tag existant est remplacé."),
+        ("Tag 2", "Deuxième tag, écrit après le premier : « Kick in [KIK][DRM] ». Le Display liste la piste sous ses deux tags ; "
+                  "la couleur et l'icône suivent le tag 1. Les strips de base reçoivent le tag de leur dossier."),
         ("Colour", "Couleur de la piste. Set pour en choisir une, x pour l'enlever."),
-        ("Icon", "Icône de piste. Browse ouvre Data/track_icons (61 icônes cs_tags_XXX fournies)."),
+        ("Icon", "Icône de piste. Browse ouvre Data/track_icons (134 icônes cs_tags_XXX fournies)."),
         ("Layout", "Layouts TCP et MCP du thème actif, ou layout par défaut du thème."),
         ("Record input", "Entrée mono, stéréo ou MIDI ; ou Record output stereo / mono / MIDI."),
+        ("Output", "Sorties de la piste : envoi master / parent (coché par défaut), une ou plusieurs sorties hardware audio "
+                   "(paires stéréo ou mono) et une sortie MIDI hardware (périphérique et canal). Remplace les sorties hardware de la piste ; "
+                   "les envois vers d'autres pistes sont gardés."),
         ("Pan mode", "Project default, Stereo balance / mono pan, Stereo pan, Dual pan, Balance (classic 3.x)."),
         ("Metering", "Stereo peaks, Multichannel peaks, Stereo RMS, Combined RMS, LUFS-M, LUFS-S, Meter disabled."),
         ("FX chain", "Fichier .RfxChain ajouté après les effets déjà présents. Browse ouvre FXChains."),
         ("Envelopes", "Enveloppes rendues visibles : Volume, Pan, Width, Mute, Trim volume."),
         ("Item name", "Renomme tous les items de la piste, numérotés par position s'il y en a plusieurs."),
         ("Normalize", "LUFS-I, RMS, Peak ou True peak, cible en dB, chaque item ou tous ensemble. "
-                      "Par défaut : -15 dBFS Peak, ensemble."),
+                      "Désactivée par défaut (case non cochée) ; en la cochant, -15 dBFS Peak, ensemble est proposé."),
         ("Group", "Groupe de piste (1 à 64 ou 128), nom du groupe et flags lead / follow."),
     ],
     s5_rec="Choisir une entrée remet la piste en enregistrement de l'entrée si elle enregistrait sa sortie ; "
@@ -156,7 +163,7 @@ T["fr"] = dict(
                            "toutes les lignes sélectionnées, sauf le nom du strip. Seul le réglage modifié est copié."),
         ("Héritage par tag", "Le premier strip d'un tag dans un dossier (ex. Cymbals pour [CYM]) transmet sa couleur et son "
                              "icône aux autres strips du même tag de ce dossier qui n'en ont pas, ou qui avaient hérité la même valeur."),
-        ("Load default strips", "Ajoute les strips de base qui manquent (nom de piste, tag, icône, normalisation -15 dBFS Peak). "
+        ("Load default strips", "Ajoute les strips de base qui manquent (nom de piste, tag, icône ; sans normalisation). "
                                 "Ne modifie jamais les strips existants ; peut être relancé sans créer de doublons."),
         ("Export… / Import…", "Export : tous les strips, un dossier ou les strips sans dossier, dans un fichier .rnstrips "
                               "(par défaut Data/ReNo_StripBuddy/Exports). Import : en ajout (dossiers de même nom fusionnés, "
@@ -180,9 +187,9 @@ T["fr"] = dict(
         ("Select", "Sélectionne les pistes du tag (prêtes pour un strip).", "Sélectionne toutes les pistes."),
     ],
     sd_more=["<b>Molette</b> au-dessus de la liste : tag suivant / précédent, appliqué aussitôt. Chaque tag est affiché "
-             "avec la couleur de sa première piste. <b>Clic droit</b> sur la barre : taille du texte, réouverture au démarrage, Open / Close Strip Buddy, Close.",
+             "avec la couleur de sa première piste. <b>Clic droit</b> sur la barre : <b>Size</b> (taille de toute la barre, 10 à 36) et <b>Opacity</b> (opacité du fond, 20 à 100 %), aussi réglables dans l'onglet Display, réouverture au démarrage, Open / Close Strip Buddy, Close.",
              "Onglet <b>Display</b> de la fenêtre principale : <b>Display View</b> (TCP, MCP ou Both : où View cache les pistes), "
-             "<b>Display Scroll</b> (TCP, MCP ou Both : où Scroll fait défiler), et « Reopen the Display when REAPER starts ».",
+             "<b>Display Scroll</b> (TCP, MCP ou Both : où Scroll fait défiler), et, sous « When REAPER starts », deux cases : « Open the Strip Buddy window » (désactivée par défaut) ouvre la fenêtre principale à chaque démarrage de REAPER, « Open the Display » rouvre le Display.",
              "Zoom et Scroll précis utilisent js_ReaScriptAPI ; sans elle, le Zoom passe par SWS s'il est installé et le Scroll "
              "par l'action native « Vertical scroll selected tracks into view »."],
     callout_disp="Exemple : View et Scroll allumés, tag KIK choisi dans la liste.",
@@ -231,7 +238,7 @@ T["en"] = dict(
         "One click on a strip applies it to <b>all selected tracks</b>, as a single undo step. "
         "Only the strip name is required: an empty cell leaves the track unchanged.",
         "The window has two tabs: <b>Strips</b>, your everyday palette of buttons, sorted in folders; "
-        "<b>Setup</b>, the table where each strip is set. The script ships with 164 default strips in 15 folders.",
+        "<b>Setup</b>, the table where each strip is set. The script ships with 207 default strips in 17 folders.",
     ],
     s2="2. Installation",
     s2a="With ReaPack (recommended, automatic updates)",
@@ -259,7 +266,7 @@ T["en"] = dict(
     s3="3. Getting started",
     s3_steps=[
         "Run the action <b>ReNo Mellow - Strip Buddy</b> (action list or toolbar button).",
-        "On first run, the 164 default strips are created in 15 folders (Drums, Bass, Vocals…).",
+        "On first run, the 207 default strips are created in 17 folders (Drums, Bass, Vocals…).",
         "Select one or more tracks in REAPER.",
         "In the Strips tab, click a strip, for example “Kick in”: the track is renamed, tagged and gets its icon.",
         "A mistake? Ctrl+Z undoes the whole strip at once.",
@@ -283,6 +290,8 @@ T["en"] = dict(
     s5="5. The Setup tab",
     s5p="One row per strip, one column per setting. <b>An empty cell is ignored</b> when the strip is applied. "
         "At the top: + Add strip, Load default strips, Export…, Import…, Clear all strips. "
+        "Just below, the <b>filter</b> hides the rows you don't need: <b>Show</b> picks a folder (the same as in the Strips tab), "
+        "the text field keeps the strips whose name, track name or a tag contains the text (x clears it). "
         "At the right of each row: arrows to move it, Dup to duplicate, Del to delete.",
     s5_head=["Column", "What the strip does to the track"],
     s5_rows=[
@@ -290,17 +299,22 @@ T["en"] = dict(
         ("Strip name", "Button name. The only required cell."),
         ("Track name", "Renames the track. Several selected tracks: Tom 1, Tom 2, Tom 3…"),
         ("Tag", "Adds a 1 to 3 character tag at the end of the name: “Kick in [KIK]”. An existing tag is replaced."),
+        ("Tag 2", "Second tag, written after the first one: “Kick in [KIK][DRM]”. The Display lists the track under both tags; "
+                  "colour and icon follow tag 1. Default strips get their folder tag."),
         ("Colour", "Track colour. Set to choose one, x to remove it."),
-        ("Icon", "Track icon. Browse opens Data/track_icons (61 cs_tags_XXX icons included)."),
+        ("Icon", "Track icon. Browse opens Data/track_icons (134 cs_tags_XXX icons included)."),
         ("Layout", "TCP and MCP layouts of the current theme, or the theme default."),
         ("Record input", "Mono, stereo or MIDI input; or Record output stereo / mono / MIDI."),
+        ("Output", "Track outputs: master / parent send (ticked by default), one or more hardware audio outputs "
+                   "(stereo pairs or mono) and a hardware MIDI output (device and channel). Replaces the track's hardware outputs; "
+                   "sends to other tracks are kept."),
         ("Pan mode", "Project default, Stereo balance / mono pan, Stereo pan, Dual pan, Balance (classic 3.x)."),
         ("Metering", "Stereo peaks, Multichannel peaks, Stereo RMS, Combined RMS, LUFS-M, LUFS-S, Meter disabled."),
         ("FX chain", ".RfxChain file added after the existing FX. Browse opens FXChains."),
         ("Envelopes", "Envelopes made visible: Volume, Pan, Width, Mute, Trim volume."),
         ("Item name", "Renames every item on the track, numbered by position when there are several."),
         ("Normalize", "LUFS-I, RMS, Peak or True peak, target in dB, each item or all together. "
-                      "Default: -15 dBFS Peak, together."),
+                      "Off by default (box unticked); ticking it suggests -15 dBFS Peak, together."),
         ("Group", "Track group (1 to 64 or 128), group name and lead / follow flags."),
     ],
     s5_rec="Choosing an input switches the track back to recording its input if it was recording its output; "
@@ -314,7 +328,7 @@ T["en"] = dict(
                             "Only the changed setting is copied."),
         ("Tag inheritance", "The first strip of a tag in a folder (e.g. Cymbals for [CYM]) passes its colour and icon to the "
                             "other strips of the same tag in that folder that have none, or that had inherited the same value."),
-        ("Load default strips", "Adds the missing default strips (track name, tag, icon, -15 dBFS Peak normalization). "
+        ("Load default strips", "Adds the missing default strips (track name, tag, icon; no normalization). "
                                 "Never changes existing strips; can be run again without creating duplicates."),
         ("Export… / Import…", "Export: all strips, one folder or the strips without folder, to a .rnstrips file "
                               "(default Data/ReNo_StripBuddy/Exports). Import: added to your strips (folders with the same "
@@ -338,9 +352,9 @@ T["en"] = dict(
         ("Select", "Selects the tag's tracks (ready for a strip).", "Selects every track."),
     ],
     sd_more=["<b>Mouse wheel</b> over the list: next / previous tag, applied at once. Each tag shows the colour of its first "
-             "track. <b>Right-click</b> the bar: text size, reopen at startup, Open / Close Strip Buddy, Close.",
+             "track. <b>Right-click</b> the bar: <b>Size</b> (size of the whole bar, 10 to 36) and <b>Opacity</b> (background opacity, 20 to 100%), also in the Display tab, reopen at startup, Open / Close Strip Buddy, Close.",
              "<b>Display</b> tab of the main window: <b>Display View</b> (TCP, MCP or Both: where View hides tracks), "
-             "<b>Display Scroll</b> (TCP, MCP or Both: where Scroll scrolls), and “Reopen the Display when REAPER starts”.",
+             "<b>Display Scroll</b> (TCP, MCP or Both: where Scroll scrolls), and, under “When REAPER starts”, two boxes: “Open the Strip Buddy window” (off by default) opens the main window each time REAPER starts, “Open the Display” reopens the Display.",
              "Precise Zoom and Scroll use js_ReaScriptAPI; without it, Zoom goes through SWS if installed and Scroll through "
              "the native action “Vertical scroll selected tracks into view”."],
     callout_disp="Example: View and Scroll on, tag KIK picked in the list.",
@@ -433,9 +447,9 @@ class SetupSchema(Flowable):
         cols = ["#", "Strip name", "Track name", "Tag", "Colour", "Icon", "…", "Normalize", "Group"]
         widths = [7, 24, 24, 11, 14, 24, 10, 30, 18]
         ys = [H - 15 * mm, H - 21 * mm, H - 27 * mm, H - 33 * mm]
-        rows = [cols, ["1", "Drums", "Drums", "DRM", "", "cs_tags_DRM", "", "-15.0 Peak, together", "-"],
-                ["2", "Kick", "Kick", "KIK", "", "cs_tags_KIK", "", "-15.0 Peak, together", "-"],
-                ["3", "Kick in", "Kick in", "KIK", "", "cs_tags_KIK", "", "-15.0 Peak, together", "-"]]
+        rows = [cols, ["1", "Drums", "Drums", "DRM", "", "cs_tags_DRM", "", "-", "-"],
+                ["2", "Kick", "Kick", "KIK", "", "cs_tags_KIK", "", "-", "-"],
+                ["3", "Kick in", "Kick in", "KIK", "", "cs_tags_KIK", "", "-", "-"]]
         for r, (yy, row) in enumerate(zip(ys, rows)):
             x = 4 * mm
             if r == 0:
