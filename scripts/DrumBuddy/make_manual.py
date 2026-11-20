@@ -17,7 +17,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, CondPageBreak)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.1.2"
+VERSION = "1.2"
 NAME = "ReNo Mellow - Drum Buddy"
 BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/DrumBuddy/"
 URL_FR = BASE + "DrumBuddy_manuel_FR.pdf"
@@ -103,8 +103,9 @@ T["fr"] = {
         ("h1", "3. Premiers pas"),
         ("ol", ["Ouvrir un item MIDI de batterie dans l'éditeur MIDI et placer le curseur d'édition où le fill commence.",
                 "Régler la grille de l'éditeur MIDI, par exemple <b>1/16</b>.",
-                "Lancer l'action <b>ReNo Mellow - Drum Buddy</b> (relancer l'action = fermer la fenêtre). Au premier "
-                "lancement, un <b>Demo drummer</b> est créé avec une drum map General MIDI et 16 chops classiques.",
+                "Lancer l'action <b>ReNo Mellow - Drum Buddy</b> (relancer l'action = fermer la fenêtre). Trois "
+                "batteurs sont fournis, avec une drum map General MIDI et 16 chops chacun : <b>Charlie</b> (rock-pop), "
+                "<b>Mike</b> (metal) et <b>Buddie</b> (jazz et gospel). Un nouveau projet commence avec Charlie.",
                 "Onglet <b>Kit</b> : vérifier que les notes correspondent à l'instrument (bouton <b>Detect from note "
                 "names</b> ou <b>Learn</b>, voir section 7).",
                 "Onglet <b>Drummer</b> : cliquer un pad. Le chop est inséré au curseur, qui passe à la fin du fill."]),
@@ -115,14 +116,25 @@ T["fr"] = {
               "<b>Use in this project</b>."),
         ("p", "Chaque batteur est un petit fichier texte dans le dossier ressources de REAPER : "
               "<b>Data/ReNo_DrumBuddy/drummers</b>. On peut le sauvegarder, le copier sur une autre machine ou le partager."),
+        ("table2", [
+            ("Charlie (rock-pop)", "Jeu droit, fills simples et passe-partout : caisse claire, toms, 3+3+2, flam fill, et "
+                                   "des chops tout au charley (Full HH accents, Full HH kick, HH open lift). Crash à la fin."),
+            ("Mike (metal)", "Vélocités hautes, humanize serré : SSKK x4 (SSKKSSKKSSKKSSKK), SSSSKK (SSSSKKSSSSKKSSSS), "
+                             "blast, double pédale (K / K2), RLK et doubles sur 4 toms, gallop. China à la fin."),
+            ("Buddie (jazz-gospel)", "Laid back, ghost notes douces : swing triplets, comping, ride and snare, gospel RLK "
+                                     "et RLLK, ratamacue, pataflafla, drags. Grille en triolets (1/8T) pour le swing."),
+        ]),
         ("table_g", [
             ("Liste du batteur", "Choisir le batteur de ce projet."),
             ("New", "Nouveau batteur : drum map General MIDI, réglages par défaut, pads vides."),
             ("Duplicate", "Copie du batteur actuel (drum map, réglages et chops) sous un autre nom."),
             ("Delete", "Supprime le batteur et ses 16 chops, après confirmation."),
+            ("Export", "Enregistre le batteur dans un fichier (nom, drum map, profil, 16 chops), pour le sauvegarder "
+                       "ou le partager. Sans l'extension js_ReaScriptAPI, le fichier va dans Data/ReNo_DrumBuddy/exports."),
+            ("Import", "Charge un batteur depuis un fichier et l'utilise dans ce projet (un numéro est ajouté si le "
+                       "nom existe déjà)."),
         ]),
         ("h1", "5. Onglet Drummer : les 16 pads"),
-        ("draw", "pads"),
         ("table_g", [
             ("Clic sur un pad", "Insère le chop au curseur d'édition, sur le canal actif de l'éditeur MIDI, puis place "
                                 "le curseur à la fin. L'item est allongé si besoin. Une seule annulation."),
@@ -134,6 +146,7 @@ T["fr"] = {
             ("Random", "Insère un fill nouveau dans le style du batteur (rudiment ou découpage au hasard, densité du "
                        "profil). <b>Random length</b> : 1 temps, 2 temps, 1 mesure ou 2 mesures."),
         ]),
+        ("draw", "pads"),
         ("p", "Exemple de durée : un chop de 8 coups dure 2 temps avec une grille 1/16, 1 temps avec 1/32, et "
               "8 croches de triolet avec 1/8T."),
         ("h1", "6. Onglet Editor : construire un chop"),
@@ -200,7 +213,8 @@ T["fr"] = {
             ("Style", "Density : peu de ghost notes et de kicks (fills propres) ou beaucoup (fills chargés), pour "
                       "Random et Vary. Option cymbales dans Random et Vary."),
             ("End of the fill", "Kick + un élément (crash, china, splash, ride...) juste après le fill, ou rien."),
-            ("Options", "Replace the notes under the fill (pour tous les batteurs) ; Open the Display when REAPER starts."),
+            ("Options", "Replace the notes under the fill (pour tous les batteurs) ; Open the Display when REAPER "
+                        "starts ; taille du texte et opacité du Display."),
         ]),
         ("h1", "9. Le Display"),
         ("p", "Petite barre sans titre (action « ReNo Mellow - Drum Buddy - Display »), cachée quand aucun éditeur MIDI "
@@ -211,7 +225,9 @@ T["fr"] = {
             ("Molette ou flèches", "Chop précédent ou suivant (pads remplis seulement)."),
             ("Clic droit sur le chop", "Les 16 pads : un clic insère."),
             ("Again / Vary / Random", "Comme dans l'onglet Drummer. Clic droit sur Random : longueur."),
-            ("Open", "Ouvre ou ferme Drum Buddy ; clic droit : fermer le Display."),
+            ("Open", "Ouvre ou ferme Drum Buddy."),
+            ("Clic droit sur Open", "Taille du texte (10 à 28), opacité du fond (15 à 100 %), Open with REAPER "
+                                    "(ouverture au démarrage de REAPER), fermer le Display."),
             ("Relancer l'action Display", "Fermer le Display."),
         ]),
         ("h1", "10. Les actions"),
@@ -282,8 +298,9 @@ T["en"] = {
         ("h1", "3. First steps"),
         ("ol", ["Open a drum MIDI item in the MIDI editor and put the edit cursor where the fill starts.",
                 "Set the MIDI editor grid, for example <b>1/16</b>.",
-                "Run the action <b>ReNo Mellow - Drum Buddy</b> (run it again = close the window). On the first run, a "
-                "<b>Demo drummer</b> is created with a General MIDI drum map and 16 classic chops.",
+                "Run the action <b>ReNo Mellow - Drum Buddy</b> (run it again = close the window). Three drummers "
+                "come with it, each with a General MIDI drum map and 16 chops: <b>Charlie</b> (rock-pop), <b>Mike</b> "
+                "(metal) and <b>Buddie</b> (jazz and gospel). A new project starts with Charlie.",
                 "<b>Kit</b> tab: check that the notes match the instrument (<b>Detect from note names</b> or "
                 "<b>Learn</b>, see section 7).",
                 "<b>Drummer</b> tab: click a pad. The chop is inserted at the cursor, which moves to the end of the fill."]),
@@ -293,14 +310,25 @@ T["en"] = {
               "shows « Drummer of this project » or offers <b>Use in this project</b>."),
         ("p", "Each drummer is a small text file in the REAPER resource folder: <b>Data/ReNo_DrumBuddy/drummers</b>. "
               "It can be backed up, copied to another computer or shared."),
+        ("table2", [
+            ("Charlie (rock-pop)", "Straight playing, simple all-purpose fills: snare, toms, 3+3+2, flam fill, and "
+                                   "all-hi-hat chops (Full HH accents, Full HH kick, HH open lift). Crash at the end."),
+            ("Mike (metal)", "High velocities, tight humanize: SSKK x4 (SSKKSSKKSSKKSSKK), SSSSKK (SSSSKKSSSSKKSSSS), "
+                             "blast, double kick (K / K2), RLK and doubles on 4 toms, gallop. China at the end."),
+            ("Buddie (jazz-gospel)", "Laid back, soft ghost notes: swing triplets, comping, ride and snare, gospel RLK and "
+                                     "RLLK, ratamacue, pataflafla, drags. Triplet grid (1/8T) for the swing."),
+        ]),
         ("table_g", [
             ("Drummer list", "Choose the drummer of this project."),
             ("New", "New drummer: General MIDI drum map, default settings, empty pads."),
             ("Duplicate", "Copy of the current drummer (drum map, settings and chops) under another name."),
             ("Delete", "Deletes the drummer and his 16 chops, after confirmation."),
+            ("Export", "Saves the drummer in a file (name, drum map, profile, 16 chops), to back it up or share it. "
+                       "Without the js_ReaScriptAPI extension, the file goes to Data/ReNo_DrumBuddy/exports."),
+            ("Import", "Loads a drummer from a file and uses it in this project (a number is added if the name is "
+                       "already taken)."),
         ]),
         ("h1", "5. Drummer tab: the 16 pads"),
-        ("draw", "pads"),
         ("table_g", [
             ("Click on a pad", "Inserts the chop at the edit cursor, on the active channel of the MIDI editor, then "
                                "moves the cursor to the end. The item is extended if needed. One undo step."),
@@ -312,6 +340,7 @@ T["en"] = {
             ("Random", "Inserts a new fill in the style of the drummer (random rudiment or grouping, density of the "
                        "profile). <b>Random length</b>: 1 beat, 2 beats, 1 bar or 2 bars."),
         ]),
+        ("draw", "pads"),
         ("p", "Length example: an 8-stroke chop lasts 2 beats with a 1/16 grid, 1 beat with 1/32, and 8 triplet "
               "eighths with 1/8T."),
         ("h1", "6. Editor tab: building a chop"),
@@ -378,7 +407,8 @@ T["en"] = {
             ("Style", "Density: few ghost notes and kicks (clean fills) or many (busy fills), for Random and Vary. "
                       "Cymbals option in Random and Vary."),
             ("End of the fill", "Kick + a piece (crash, china, splash, ride...) right after the fill, or nothing."),
-            ("Options", "Replace the notes under the fill (all drummers); Open the Display when REAPER starts."),
+            ("Options", "Replace the notes under the fill (all drummers); Open the Display when REAPER starts; "
+                        "text size and opacity of the Display."),
         ]),
         ("h1", "9. The Display"),
         ("p", "Small bar without a title (action « ReNo Mellow - Drum Buddy - Display »), hidden when no MIDI editor is "
@@ -389,7 +419,9 @@ T["en"] = {
             ("Wheel or arrows", "Previous or next chop (filled pads only)."),
             ("Right-click on the chop", "The 16 pads: a click inserts."),
             ("Again / Vary / Random", "As in the Drummer tab. Right-click on Random: length."),
-            ("Open", "Opens or closes Drum Buddy; right-click: close the Display."),
+            ("Open", "Opens or closes Drum Buddy."),
+            ("Right-click on Open", "Text size (10 to 28), background opacity (15 to 100 %), Open with REAPER "
+                                    "(opens when REAPER starts), close the Display."),
             ("Run the Display action again", "Close the Display."),
         ]),
         ("h1", "10. Actions"),
@@ -429,9 +461,9 @@ CELL_B = colors.HexColor("#4C4C62")
 ORCH = colors.HexColor("#3B3560")
 KICK = colors.HexColor("#2A2A2E")
 HEAD = colors.HexColor("#2C2C34")
-DEMO = ["Paradiddle", "Paradiddle toms", "Six stroke roll", "Double paradiddle", "RLK around", "3+3+2 toms",
-        "Singles down", "Doubles", "Flam taps", "Swiss triplets", "Linear RLKK", "Ghost paradiddle",
-        "Five stroke", "Drag taps", "5+5+6", None]
+DEMO = ["Snare 8", "Snare to toms", "Full HH accents", "Full HH kick", "Fours down", "Triplets around",
+        "Flam fill", "RLRLKK", "Snare build", "Paradiddle toms", "Doubles", "Ride bell lift",
+        "3+3+2 toms", "HH open lift", "RLKK", None]
 
 
 def buttons(d, x, y, labels, on=(), h=5 * mm, fs=6.5):
@@ -448,8 +480,8 @@ def d_pads(height=None):
     W, H = 174 * mm, 74 * mm
     d = Drawing(W, H)
     d.add(Rect(0, 0, W, H, rx=6, ry=6, fillColor=colors.HexColor("#1F2124"), strokeColor=None))
-    d.add(String(8, H - 6 * mm, "Demo drummer", fontName="DVB", fontSize=9, fillColor=colors.white))
-    buttons(d, 52 * mm, H - 8 * mm, ["New", "Duplicate", "Delete"])
+    d.add(String(8, H - 6 * mm, "Charlie", fontName="DVB", fontSize=9, fillColor=colors.white))
+    buttons(d, 40 * mm, H - 8 * mm, ["New", "Duplicate", "Delete", "Export", "Import"])
     pw, ph, gap = 38 * mm, 10 * mm, 2.5 * mm
     x0, y0 = (W - (4 * pw + 3 * gap)) / 2, H - 14 * mm - ph
     for i in range(16):
@@ -511,8 +543,8 @@ def d_display():
     w0 = 150 * mm
     x0 = (W - w0) / 2
     d.add(Rect(x0, 0, w0, H, rx=5, ry=5, fillColor=colors.HexColor("#2B2D31"), strokeColor=None))
-    d.add(String(x0 + 4 * mm, 5 * mm, "Demo drummer", fontName="DV", fontSize=7, fillColor=MUT))
-    x = buttons(d, x0 + 28 * mm, 4.5 * mm, ["<", "6. 3+3+2 toms", ">"], fs=7)
+    d.add(String(x0 + 4 * mm, 5 * mm, "Charlie", fontName="DV", fontSize=7, fillColor=MUT))
+    x = buttons(d, x0 + 22 * mm, 4.5 * mm, ["<", "13. 3+3+2 toms", ">"], fs=7)
     buttons(d, x + 2 * mm, 4.5 * mm, ["Again", "Vary", "Random", "Open"], fs=7)
     return d
 
