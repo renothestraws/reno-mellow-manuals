@@ -15,6 +15,7 @@ Dépôt des scripts / scripts repository : <https://github.com/renothestraws/ren
 | Recording Buddy | 1.0 | [Manuel (PDF)](scripts/RecordingBuddy/RecordingBuddy_manuel_FR.pdf) | [Manual (PDF)](scripts/RecordingBuddy/RecordingBuddy_manual_EN.pdf) |
 | Tool Buddy (ex Swiss Army Knife) | 1.10 | [Manuel (PDF)](scripts/ToolBuddy/ToolBuddy_manuel_FR.pdf) | [Manual (PDF)](scripts/ToolBuddy/ToolBuddy_manual_EN.pdf) |
 | Strip Buddy (ex Custom Strips) | 1.24 | [Manuel (PDF)](scripts/StripBuddy/StripBuddy_manuel_FR.pdf) | [Manual (PDF)](scripts/StripBuddy/StripBuddy_manual_EN.pdf) |
+| REABACK | 1.3 | [Manuel (PDF)](scripts/REABACK/REABACK_manuel_FR.pdf) | [Manual (PDF)](scripts/REABACK/REABACK_manual_EN.pdf) |
 
 ## Plug-ins
 
