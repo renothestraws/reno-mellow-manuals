@@ -17,7 +17,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.0"
+VERSION = "1.1"
 NAME = "ReNo Mellow - Chord Buddy"
 BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/ChordBuddy/"
 URL_FR = BASE + "ChordBuddy_manuel_FR.pdf"
@@ -105,7 +105,7 @@ T["fr"] = {
         ("p", "Trois anneaux : accords <b>majeurs</b> à l'extérieur, <b>mineurs</b> relatifs au milieu, <b>diminués</b> "
               "à l'intérieur. La tonalité en haut est active : ses accords sont en couleur avec leur degré "
               "(I, ii, iii, IV, V, vi, vii° ; i, ii°, III... en mineur). Les noms des notes suivent la tonalité "
-              "(F# en Sol, Gb en Réb) ; les cases hors tonalité gardent l'orthographe de leur propre tonalité."),
+              "(F# en Sol, Gb en Réb) ; les cases hors tonalité gardent l'orthographe de leur propre tonalité. Chaque case majeure indique l'<b>armure</b> de sa tonalité (0 pour Do, 1# à 6#, 5b à 1b) ; le centre l'affiche à côté de la tonalité active (ex. « Eb major 3b »), la relative mineure ayant la même armure."),
         ("table_g", [
             ("Clic sur une case", "Insère l'accord au curseur d'édition, sur le canal actif de l'éditeur MIDI, puis "
                                   "place le curseur à la fin de l'accord. L'item est allongé si l'accord dépasse."),
@@ -263,7 +263,9 @@ T["en"] = {
         ("p", "Three rings: <b>major</b> chords outside, relative <b>minor</b> chords in the middle, <b>diminished</b> "
               "chords inside. The key at the top is active: its chords are colored with their degree "
               "(I, ii, iii, IV, V, vi, vii°; i, ii°, III... in minor). Note names follow the key (F# in G, Gb in Db); "
-              "cells outside the key keep the spelling of their own key."),
+              "cells outside the key keep the spelling of their own key. Each major cell shows the <b>key signature</b> of its "
+              "key (0 for C, 1# to 6#, 5b to 1b); the center shows it next to the active key (e.g. « Eb major 3b »), "
+              "the relative minor having the same signature."),
         ("table_g", [
             ("Click on a cell", "Inserts the chord at the edit cursor, on the active channel of the MIDI editor, then "
                                 "moves the cursor to the end of the chord. The item is extended if needed."),
@@ -392,11 +394,15 @@ def d_wheel(size=92 * mm):
             tc = colors.HexColor("#505050") if deg else colors.HexColor("#6E6E6E")
             d.add(String(x, y - fs * 0.15, names[pos], fontName="DVB", fontSize=fs, fillColor=tc, textAnchor="middle"))
             d.add(String(x, y - fs * 0.15 - 6, "inv 0", fontName="DV", fontSize=4.5, fillColor=tc, textAnchor="middle"))
-            if deg and ring != 3:
-                d.add(String(x, y + fs * 0.75, deg[0], fontName="DV", fontSize=5, fillColor=tc, textAnchor="middle"))
+            top = deg[0] if (deg and ring != 3) else None
+            if ring == 1:
+                sig = "0" if pos == 0 else ("%d#" % pos if pos <= 6 else "%db" % (12 - pos))
+                top = (top + "  " + sig) if top else sig
+            if top:
+                d.add(String(x, y + fs * 0.75, top, fontName="DV", fontSize=5, fillColor=tc, textAnchor="middle"))
     d.add(Circle(cx, cy, R * 0.34, fillColor=colors.HexColor("#F0F0F0"), strokeColor=colors.HexColor("#808080"),
                  strokeWidth=0.8))
-    d.add(String(cx, cy + R * 0.17, "C major", fontName="DVB", fontSize=7, fillColor=DARK, textAnchor="middle"))
+    d.add(String(cx, cy + R * 0.17, "C major  0", fontName="DVB", fontSize=7, fillColor=DARK, textAnchor="middle"))
     t = 3.2
     d.add(Polygon([cx, cy + R * 0.11 + t, cx - t, cy + R * 0.11 - t * 0.6, cx + t, cy + R * 0.11 - t * 0.6],
                   fillColor=GREY, strokeColor=None))
