@@ -17,7 +17,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, CondPageBreak)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.2"
+VERSION = "1.3"
 NAME = "ReNo Mellow - Drum Buddy"
 BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/DrumBuddy/"
 URL_FR = BASE + "DrumBuddy_manuel_FR.pdf"
@@ -118,9 +118,9 @@ T["fr"] = {
               "<b>Data/ReNo_DrumBuddy/drummers</b>. On peut le sauvegarder, le copier sur une autre machine ou le partager."),
         ("table2", [
             ("Charlie (rock-pop)", "Jeu droit, fills simples et passe-partout : caisse claire, toms, 3+3+2, flam fill, et "
-                                   "des chops tout au charley (Full HH accents, Full HH kick, HH open lift). Crash à la fin."),
+                                   "des chops tout au charley (Full HH accents, Full HH kick, HH open lift). Crash prévu en fin de fill."),
             ("Mike (metal)", "Vélocités hautes, humanize serré : SSKK x4 (SSKKSSKKSSKKSSKK), SSSSKK (SSSSKKSSSSKKSSSS), "
-                             "blast, double pédale (K / K2), RLK et doubles sur 4 toms, gallop. China à la fin."),
+                             "blast, double pédale (K / K2), RLK et doubles sur 4 toms, gallop. China prévu en fin de fill."),
             ("Buddie (jazz-gospel)", "Laid back, ghost notes douces : swing triplets, comping, ride and snare, gospel RLK "
                                      "et RLLK, ratamacue, pataflafla, drags. Grille en triolets (1/8T) pour le swing."),
         ]),
@@ -212,7 +212,7 @@ T["fr"] = {
             ("Feel", "Humanize de la vélocité (%) et du timing (ms), et Rush (en avance) / Laid back (en retard)."),
             ("Style", "Density : peu de ghost notes et de kicks (fills propres) ou beaucoup (fills chargés), pour "
                       "Random et Vary. Option cymbales dans Random et Vary."),
-            ("End of the fill", "Kick + un élément (crash, china, splash, ride...) juste après le fill, ou rien."),
+            ("End of the fill", "Kick + un élément (crash, china, splash, ride...) juste après le fill. Désactivé par défaut chez les trois batteurs : avec Again et Vary, le fill est rejoué au même endroit et le kick + cymbale gêne. À cocher au besoin."),
             ("Options", "Replace the notes under the fill (pour tous les batteurs) ; Open the Display when REAPER "
                         "starts ; taille du texte et opacité du Display."),
         ]),
@@ -312,9 +312,9 @@ T["en"] = {
               "It can be backed up, copied to another computer or shared."),
         ("table2", [
             ("Charlie (rock-pop)", "Straight playing, simple all-purpose fills: snare, toms, 3+3+2, flam fill, and "
-                                   "all-hi-hat chops (Full HH accents, Full HH kick, HH open lift). Crash at the end."),
+                                   "all-hi-hat chops (Full HH accents, Full HH kick, HH open lift). Crash set for the end of the fill."),
             ("Mike (metal)", "High velocities, tight humanize: SSKK x4 (SSKKSSKKSSKKSSKK), SSSSKK (SSSSKKSSSSKKSSSS), "
-                             "blast, double kick (K / K2), RLK and doubles on 4 toms, gallop. China at the end."),
+                             "blast, double kick (K / K2), RLK and doubles on 4 toms, gallop. China set for the end of the fill."),
             ("Buddie (jazz-gospel)", "Laid back, soft ghost notes: swing triplets, comping, ride and snare, gospel RLK and "
                                      "RLLK, ratamacue, pataflafla, drags. Triplet grid (1/8T) for the swing."),
         ]),
@@ -406,7 +406,7 @@ T["en"] = {
             ("Feel", "Humanize of velocity (%) and timing (ms), and Rush (ahead) / Laid back (behind)."),
             ("Style", "Density: few ghost notes and kicks (clean fills) or many (busy fills), for Random and Vary. "
                       "Cymbals option in Random and Vary."),
-            ("End of the fill", "Kick + a piece (crash, china, splash, ride...) right after the fill, or nothing."),
+            ("End of the fill", "Kick + a piece (crash, china, splash, ride...) right after the fill. Off by default for the three drummers: Again and Vary replay the fill in the same place and the kick + cymbal gets in the way. Tick it when needed."),
             ("Options", "Replace the notes under the fill (all drummers); Open the Display when REAPER starts; "
                         "text size and opacity of the Display."),
         ]),
