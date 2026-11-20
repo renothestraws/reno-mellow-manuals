@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.2"
+VERSION = "1.3"
 NAME = "ReNo Mellow - Grid Buddy"
 FOLDER = "GridBuddy"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -131,7 +131,7 @@ T["fr"] = {
             ("Min size / Max size", "Limites de la molette et de - / + : 1/128, 1/8T, 1D, 2... Vide = pas de limite."),
             ("Preserve grid type per size", "Le projet retient le type (triplet, swing...) utilisé pour chaque taille."),
             ("Show", "Boutons et entrées de menu Quintuplet, Septuplet ; boutons Frame, Measure."),
-            ("Reverse mouse wheel", "Inverse le sens de la molette (Displays et action mousewheel)."),
+            ("Reverse mouse wheel", "Inverse le sens de la molette et de Shift+molette (Displays et action mousewheel)."),
             ("Displays", "Une ligne par Display (Arrange, MIDI) : Show / Hide, taille du texte, Snap button ; pour "
                          "l'arrangement aussi Swing bar et Visible grid."),
             ("Window", "Taille du texte de la fenêtre."),
@@ -154,6 +154,8 @@ T["fr"] = {
         ("draw", "display"),
         ("table_g", [
             ("Molette", "Taille suivante. Molette vers le haut = plus fin."),
+            ("Shift+molette", "Type suivant à la même taille : straight -&gt; triplet -&gt; dotted (vers le haut), "
+                              "retour vers le bas. Un swing actif compte comme straight."),
             ("Clic sur la grille", "Menu : Straight, Triplet, Quintuplet / Septuplet (si affichés), Dotted, Swing, "
                                   "puis Frame et Measure (arrangement), Hide grid (cache les lignes de grille), "
                                   "Link MIDI editor ; Display MIDI : aussi Sync to arrange view (action 40640)."),
@@ -264,7 +266,7 @@ T["en"] = {
             ("Min size / Max size", "Limits of the mouse wheel and - / +: 1/128, 1/8T, 1D, 2... Empty = no limit."),
             ("Preserve grid type per size", "The project remembers the type (triplet, swing...) used for each size."),
             ("Show", "Quintuplet, Septuplet buttons and menu entries; Frame, Measure buttons."),
-            ("Reverse mouse wheel", "Reverses the wheel (Displays and mousewheel action)."),
+            ("Reverse mouse wheel", "Reverses the wheel and Shift+wheel (Displays and mousewheel action)."),
             ("Displays", "One row per Display (Arrange, MIDI): Show / Hide, text size, Snap button; for the arrange "
                          "view also Swing bar and Visible grid."),
             ("Window", "Text size of the window."),
@@ -287,6 +289,8 @@ T["en"] = {
         ("draw", "display"),
         ("table_g", [
             ("Wheel", "Next size. Wheel up = finer."),
+            ("Shift+wheel", "Next type at the same size: straight -&gt; triplet -&gt; dotted (up), back when going "
+                            "down. Swing on counts as straight."),
             ("Click on the grid", "Menu: Straight, Triplet, Quintuplet / Septuplet (if shown), Dotted, Swing, then "
                                   "Frame and Measure (arrange view), Hide grid (hides the grid lines), Link MIDI "
                                   "editor; MIDI Display: also Sync to arrange view (action 40640)."),
