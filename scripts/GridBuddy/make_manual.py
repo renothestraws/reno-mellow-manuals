@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.4"
+VERSION = "1.5"
 NAME = "ReNo Mellow - Grid Buddy"
 FOLDER = "GridBuddy"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -133,6 +133,8 @@ T["fr"] = {
             ("Preserve grid type per size", "Le projet retient le type (triplet, swing...) utilisé pour chaque taille."),
             ("Show", "Boutons et entrées de menu Quintuplet, Septuplet ; boutons Frame, Measure."),
             ("Reverse mouse wheel", "Inverse le sens de la molette (Displays et action mousewheel)."),
+            ("Wheel sensitivity", "Displays : crans de molette par changement de taille, de 1 à 4 (1,5 par défaut = "
+                                  "2 pas pour 3 crans). Plus haut = plus lent."),
             ("Displays", "Une ligne par Display (Arrange, MIDI) : Show / Hide, taille du texte, Snap button ; pour "
                          "l'arrangement aussi Swing bar et Visible grid."),
             ("Window", "Taille du texte de la fenêtre."),
@@ -272,6 +274,8 @@ T["en"] = {
             ("Preserve grid type per size", "The project remembers the type (triplet, swing...) used for each size."),
             ("Show", "Quintuplet, Septuplet buttons and menu entries; Frame, Measure buttons."),
             ("Reverse mouse wheel", "Reverses the wheel (Displays and mousewheel action)."),
+            ("Wheel sensitivity", "Displays: wheel notches per size change, 1 to 4 (1.5 by default = 2 steps for 3 "
+                                  "notches). Higher = slower."),
             ("Displays", "One row per Display (Arrange, MIDI): Show / Hide, text size, Snap button; for the arrange "
                          "view also Swing bar and Visible grid."),
             ("Window", "Text size of the window."),
