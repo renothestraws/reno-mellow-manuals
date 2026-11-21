@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.26"
+VERSION = "1.27"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -110,7 +110,7 @@ T["fr"] = dict(
     s4="4. L'onglet Strips",
     s4p="La colonne de gauche liste les dossiers, avec le nombre de strips de chacun. "
         "« All strips » montre tout, « No folder » montre les strips pas encore rangés. "
-        "À droite, un bouton par strip, à la couleur du strip ; le survoler affiche tout ce qu'il règle.",
+        "À droite, un bouton par strip, à la couleur du strip ; le survoler affiche tout ce qu'il règle. Un nom trop long passe automatiquement sur deux lignes.",
     s4_head=["Geste", "Effet"],
     s4_rows=[
         ("Clic sur un strip", "Applique le strip aux pistes sélectionnées (une étape d'annulation)."),
@@ -277,7 +277,7 @@ T["en"] = dict(
     s4="4. The Strips tab",
     s4p="The left column lists the folders, with the number of strips in each. "
         "“All strips” shows everything, “No folder” shows the strips not filed yet. "
-        "On the right, one button per strip, in the strip's colour; hover it to see everything it sets.",
+        "On the right, one button per strip, in the strip's colour; hover it to see everything it sets. A name that is too long wraps onto two lines automatically.",
     s4_head=["Action", "Result"],
     s4_rows=[
         ("Click a strip", "Applies the strip to the selected tracks (one undo step)."),
