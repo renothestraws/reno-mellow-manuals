@@ -13,10 +13,10 @@ from reportlab.graphics.shapes import Drawing, Rect, String, Polygon, Circle, Li
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer, Table,
-                                TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem)
+                                TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.0"
+VERSION = "1.1"
 NAME = "ReNo Mellow - Recording Buddy"
 FOLDER = "RecordingBuddy"
 BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/RecordingBuddy/"
@@ -46,7 +46,7 @@ S = {
                          keepWithNext=1),
     "h2": ParagraphStyle("h2", fontName="DVB", fontSize=11.5, leading=15, spaceBefore=7, spaceAfter=3, textColor=DARK,
                          keepWithNext=1),
-    "p": ParagraphStyle("p", fontName="DV", fontSize=10, leading=14, spaceAfter=5),
+    "p": ParagraphStyle("p", fontName="DV", fontSize=10, leading=13.4, spaceAfter=4),
     "cell": ParagraphStyle("cell", fontName="DV", fontSize=9, leading=12),
     "cellb": ParagraphStyle("cellb", fontName="DVB", fontSize=9, leading=12),
     "cap": ParagraphStyle("cap", fontName="DVI", fontSize=8.5, leading=11, alignment=TA_CENTER, textColor=GREY,
@@ -173,6 +173,9 @@ T["fr"] = {
         ]),
         ("p", "Ces actions s'associent à un raccourci clavier ou à une commande MIDI (une pédale par exemple) dans "
               "la liste d'actions. Les raccourcis sont à choisir librement."),
+        ("p", "<b>Icône de barre d'outils :</b> <b>ReNo_RecordingBuddy</b> (100, 150 et 200 %) est installée avec le "
+              "script. Dans Customize toolbars, l'associer à l'action de la fenêtre principale : elle est verte tant que "
+              "la fenêtre est ouverte."),
         ("h1", "10. Ce que le script règle pendant une séquence"),
         ("ul", ["Conservation de la hauteur quand la vitesse change.",
                 "Mode d'enregistrement time selection auto punch ; la time selection est placée sur la boucle de "
@@ -311,6 +314,8 @@ T["en"] = {
         ]),
         ("p", "Assign these actions to a keyboard shortcut or a MIDI control (a footswitch, for example) in the "
               "action list. Pick any shortcuts you like."),
+        ("p", "<b>Toolbar icon:</b> <b>ReNo_RecordingBuddy</b> (100, 150 and 200 %) is installed with the script. In "
+              "Customize toolbars, give it to the main window action: it turns green while the window is open."),
         ("h1", "10. What the script sets during a sequence"),
         ("ul", ["Pitch is preserved when the rate changes.",
                 "Time selection auto punch record mode; the time selection is placed on the loop of each pass.",
@@ -479,6 +484,8 @@ def build(lang, out):
     story = []
     story += [Spacer(1, 45 * mm), Paragraph(NAME, S["title"]), Spacer(1, 6 * mm), Paragraph(t["sub"], S["sub"]),
               Spacer(1, 4 * mm), Paragraph("%s — version %s" % (t["manual"], VERSION), S["sub"]),
+              Spacer(1, 10 * mm),
+              Image(os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon_200.png"), width=60 * mm, height=20 * mm),
               Spacer(1, 18 * mm), Paragraph(t["other"], S["center"]), Spacer(1, 3 * mm),
               Paragraph('<link href="%s" color="blue">%s</link>' % (URL_REPO, URL_REPO), S["center"]),
               Spacer(1, 16 * mm), Paragraph(t["toc"], S["h2"])]
