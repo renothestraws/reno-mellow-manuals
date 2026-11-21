@@ -16,7 +16,7 @@ from reportlab.platypus.tableofcontents import TableOfContents
 from PIL import Image as PILImage
 
 LANG, OUT, ICON = sys.argv[1], sys.argv[2], sys.argv[3]
-VERSION = "1.10"
+VERSION = "1.11"
 FR = LANG == "fr"
 def L(fr, en): return fr if FR else en
 
@@ -359,6 +359,8 @@ S.append(KeepTogether([P(L("6. La bulle Display", "6. The Display bubble"), "h1"
            [L("Glisser", "Drag"), L("déplace la bulle", "moves the bubble")],
            [L("Molette", "Mouse wheel"), L("outil précédent / suivant", "previous / next tool")],
            [L("Double-clic", "Double-click"), L("ouvre la Toolbox correspondante", "opens the matching Toolbox")],
+           [L("Survol du nom de l'outil", "Hover over the tool name"), L("bulle avec les trois actions de l'outil (main, alt, alt2)", "tooltip with the tool's three actions (main, alt, alt2)")],
+           [L("Survol du reste", "Hover elsewhere"), L("bulle d'aide avec ces gestes", "help tooltip listing these gestures")],
            [L("Clic droit", "Right-click"), L("menu : Open Toolbox, Next tool, Previous tool, Text size, Close",
                                               "menu: Open Toolbox, Next tool, Previous tool, Text size, Close")]],
           [40 * mm, 130 * mm])]))
