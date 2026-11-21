@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.24"
+VERSION = "1.25"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -145,7 +145,9 @@ T["fr"] = dict(
                    "les envois vers d'autres pistes sont gardés."),
         ("Pan mode", "Project default, Stereo balance / mono pan, Stereo pan, Dual pan, Balance (classic 3.x)."),
         ("Metering", "Stereo peaks, Multichannel peaks, Stereo RMS, Combined RMS, LUFS-M, LUFS-S, Meter disabled."),
-        ("FX chain", "Fichier .RfxChain ajouté après les effets déjà présents. Browse ouvre FXChains."),
+        ("FX chain", "Fichier .RfxChain chargé dans les effets de la piste. Browse ouvre FXChains. Le petit bouton Add / Rep choisit, "
+                     "strip par strip : Add = ajoutée après les effets déjà présents, Rep = les effets présents sont d'abord retirés."),
+        ("Input FX chain", "Même chose pour les effets d'entrée de la piste (Input FX, avant l'enregistrement), avec le même choix Add / Rep."),
         ("Envelopes", "Enveloppes rendues visibles : Volume, Pan, Width, Mute, Trim volume."),
         ("Item name", "Renomme tous les items de la piste, numérotés par position s'il y en a plusieurs."),
         ("Normalize", "LUFS-I, RMS, Peak ou True peak, cible en dB, chaque item ou tous ensemble. "
@@ -310,7 +312,9 @@ T["en"] = dict(
                    "sends to other tracks are kept."),
         ("Pan mode", "Project default, Stereo balance / mono pan, Stereo pan, Dual pan, Balance (classic 3.x)."),
         ("Metering", "Stereo peaks, Multichannel peaks, Stereo RMS, Combined RMS, LUFS-M, LUFS-S, Meter disabled."),
-        ("FX chain", ".RfxChain file added after the existing FX. Browse opens FXChains."),
+        ("FX chain", ".RfxChain file loaded in the track FX. Browse opens FXChains. The small Add / Rep button chooses, "
+                     "strip by strip: Add = added after the existing FX, Rep = the existing FX are removed first."),
+        ("Input FX chain", "The same for the track's input FX (before recording), with the same Add / Rep choice."),
         ("Envelopes", "Envelopes made visible: Volume, Pan, Width, Mute, Trim volume."),
         ("Item name", "Renames every item on the track, numbered by position when there are several."),
         ("Normalize", "LUFS-I, RMS, Peak or True peak, target in dB, each item or all together. "
