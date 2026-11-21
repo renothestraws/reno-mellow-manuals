@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.25"
+VERSION = "1.26"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -137,7 +137,7 @@ T["fr"] = dict(
         ("Tag 2", "Deuxième tag, écrit après le premier : « Kick in [KIK][DRM] ». Le Display liste la piste sous ses deux tags ; "
                   "la couleur et l'icône suivent le tag 1. Les strips de base reçoivent le tag de leur dossier."),
         ("Colour", "Couleur de la piste. Set pour en choisir une, x pour l'enlever."),
-        ("Icon", "Icône de piste. Browse ouvre Data/track_icons (134 icônes cs_tags_XXX fournies)."),
+        ("Icon", "Icône de piste. Browse ouvre Data/track_icons (135 icônes cs_tags_XXX fournies)."),
         ("Layout", "Layouts TCP et MCP du thème actif, ou layout par défaut du thème."),
         ("Record input", "Entrée mono, stéréo ou MIDI ; ou Record output stereo / mono / MIDI."),
         ("Output", "Sorties de la piste : envoi master / parent (coché par défaut), une ou plusieurs sorties hardware audio "
@@ -304,7 +304,7 @@ T["en"] = dict(
         ("Tag 2", "Second tag, written after the first one: “Kick in [KIK][DRM]”. The Display lists the track under both tags; "
                   "colour and icon follow tag 1. Default strips get their folder tag."),
         ("Colour", "Track colour. Set to choose one, x to remove it."),
-        ("Icon", "Track icon. Browse opens Data/track_icons (134 cs_tags_XXX icons included)."),
+        ("Icon", "Track icon. Browse opens Data/track_icons (135 cs_tags_XXX icons included)."),
         ("Layout", "TCP and MCP layouts of the current theme, or the theme default."),
         ("Record input", "Mono, stereo or MIDI input; or Record output stereo / mono / MIDI."),
         ("Output", "Track outputs: master / parent send (ticked by default), one or more hardware audio outputs "
