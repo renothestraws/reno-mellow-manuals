@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.0"
+VERSION = "1.1"
 NAME = "ReNo Mellow - Mousewheel Buddy"
 FOLDER = "MousewheelBuddy"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -129,8 +129,8 @@ T["fr"] = {
         ("h1", "5. La fenêtre de réglage"),
         ("draw", "setup"),
         ("p", "L'action <b>ReNo Mellow - Mousewheel Buddy</b> ouvre la fenêtre ; son bouton de barre d'outils est "
-              "allumé tant qu'elle est ouverte, et la relancer la ferme. Trois onglets : <b>Arrange</b>, <b>MIDI "
-              "Editor</b> et <b>Options</b>."),
+              "allumé tant qu'elle est ouverte, et la relancer la ferme. Quatre onglets : <b>Arrange</b>, <b>MIDI "
+              "Editor</b>, <b>Banks</b> (section 9) et <b>Options</b>."),
         ("table2", [
             ("Invert wheel direction", "Inverse le sens de la molette pour tout l'onglet (toutes les pages)."),
             ("Reset this page", "Remet les actions de base de la page affichée (voir section 7)."),
@@ -145,6 +145,7 @@ T["fr"] = {
                                       "(40138, _SWS_…, _RS…) ou cliquer <b>Pick…</b> pour la choisir dans la liste "
                                       "d'actions (puis Select). <b>x</b> = ne rien faire. Le nom de l'action "
                                       "s'affiche dessous ; « Unknown action » signale un ID inconnu."),
+            ("Banks", "Sauver et charger des banques de réglages (section 9)."),
             ("Options", "Taille du texte, présence de SWS, actions MIDI enregistrées, rappel du mode d'emploi."),
         ]),
         ("h1", "6. Les zones"),
@@ -188,7 +189,25 @@ T["fr"] = {
             ("Vertical zoom center", "Preferences, Track at view center, Top visible track, Last selected track, "
                                      "<b>Track under mouse</b> (par défaut)."),
         ]),
-        ("h1", "9. Questions fréquentes"),
+        ("h1", "9. Les banques"),
+        ("p", "Une <b>banque</b> garde toute la configuration de la molette sous un nom : toutes les actions "
+              "(Arrange et MIDI Editor, les 8 combinaisons de touches), le sens de la molette et le centre du zoom. "
+              "Pratique pour avoir une banque « Mixage » et une banque « Édition MIDI », ou pour retrouver ses "
+              "réglages sur un autre ordinateur."),
+        ("table2", [
+            ("Save", "Enregistre la configuration actuelle sous le nom tapé dans la case (si le nom existe déjà, "
+                     "REAPER demande de confirmer le remplacement)."),
+            ("Load (ou double-clic)", "Charge la banque : les actions actuelles sont remplacées. Les enregistrer "
+                                      "d'abord dans une banque pour les garder."),
+            ("Delete", "Supprime la banque, après confirmation."),
+            ("Import file…", "Ajoute à la liste un fichier .mwbank reçu d'ailleurs, puis le charge."),
+            ("Open folder", "Ouvre le dossier des banques : Data/ReNo_MousewheelBuddy/Banks dans le dossier de "
+                            "REAPER (un fichier .mwbank par banque, à copier pour partager)."),
+            ("Current bank", "La dernière banque chargée ou enregistrée, en vert."),
+        ]),
+        ("p", "Les actions personnalisées et les scripts (ID commençant par _RS…) peuvent avoir un autre ID sur "
+              "un autre ordinateur : vérifier ces cases après avoir chargé une banque venue d'ailleurs."),
+        ("h1", "10. Questions fréquentes"),
         ("qa", [
             ("Il ne se passe rien quand je tourne la molette.",
              "Vérifier que l'action est assignée à la molette dans la bonne section (Main pour l'arrangement, MIDI "
@@ -275,8 +294,8 @@ T["en"] = {
         ("h1", "5. The setup window"),
         ("draw", "setup"),
         ("p", "The <b>ReNo Mellow - Mousewheel Buddy</b> action opens the window; its toolbar button is lit while it "
-              "is open, and running it again closes it. Three tabs: <b>Arrange</b>, <b>MIDI Editor</b> and "
-              "<b>Options</b>."),
+              "is open, and running it again closes it. Four tabs: <b>Arrange</b>, <b>MIDI Editor</b>, "
+              "<b>Banks</b> (section 9) and <b>Options</b>."),
         ("table2", [
             ("Invert wheel direction", "Reverses the wheel for the whole tab (all pages)."),
             ("Reset this page", "Restores the default actions of the page shown (see section 7)."),
@@ -291,6 +310,7 @@ T["en"] = {
                                       "_RS…) or click <b>Pick…</b> to choose it in the Action List (then Select). "
                                       "<b>x</b> = do nothing. The action name is shown below; « Unknown action » "
                                       "means the ID is not found."),
+            ("Banks", "Save and load banks of settings (section 9)."),
             ("Options", "Text size, SWS found or not, registered MIDI actions, short how-to."),
         ]),
         ("h1", "6. The zones"),
@@ -333,7 +353,24 @@ T["en"] = {
             ("Vertical zoom center", "Preferences, Track at view center, Top visible track, Last selected track, "
                                      "<b>Track under mouse</b> (default)."),
         ]),
-        ("h1", "9. FAQ"),
+        ("h1", "9. Banks"),
+        ("p", "A <b>bank</b> keeps the whole wheel setup under a name: every action (Arrange and MIDI Editor, the "
+              "8 key combinations), the wheel direction and the zoom center. Handy to have a « Mixing » bank and a "
+              "« MIDI editing » bank, or to get your settings back on another computer."),
+        ("table2", [
+            ("Save", "Saves the current setup under the name typed in the field (if the name exists, REAPER asks "
+                     "before replacing it)."),
+            ("Load (or double-click)", "Loads the bank: the current actions are replaced. Save them in a bank "
+                                       "first to keep them."),
+            ("Delete", "Deletes the bank, after confirmation."),
+            ("Import file…", "Adds a .mwbank file from elsewhere to the list, then loads it."),
+            ("Open folder", "Opens the bank folder: Data/ReNo_MousewheelBuddy/Banks in REAPER's resource folder "
+                            "(one .mwbank file per bank, copy it to share)."),
+            ("Current bank", "The last bank loaded or saved, in green."),
+        ]),
+        ("p", "Custom actions and scripts (IDs starting with _RS…) can have another ID on another computer: check "
+              "those fields after loading a bank from elsewhere."),
+        ("h1", "10. FAQ"),
         ("qa", [
             ("Nothing happens when I turn the wheel.",
              "Check that the action is bound to the wheel in the right section (Main for the arrange view, MIDI "
