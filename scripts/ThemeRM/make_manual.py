@@ -16,7 +16,7 @@ from reportlab.platypus.tableofcontents import TableOfContents
 from PIL import Image as PILImage
 
 LANG, OUT, RMO, RMT = sys.argv[1:5]
-VERSION = "1.0"
+VERSION = "1.1"
 FR = LANG == "fr"
 def L(fr, en): return fr if FR else en
 
