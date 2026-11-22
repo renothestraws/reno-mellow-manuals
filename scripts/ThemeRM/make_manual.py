@@ -16,7 +16,7 @@ from reportlab.platypus.tableofcontents import TableOfContents
 from PIL import Image as PILImage
 
 LANG, OUT, RMO, RMT = sys.argv[1:5]
-VERSION = "1.1"
+VERSION = "1.2"
 FR = LANG == "fr"
 def L(fr, en): return fr if FR else en
 
@@ -127,8 +127,8 @@ class Palette(Flowable):
             c.setFont("DVM", 6.5); c.drawCentredString(k * w + w / 2, 14, hx)
 
 class Meter(Flowable):
-    """Horizontal sketch of the meter gradient (-62 .. +6 dB)."""
-    STOPS = [(-62, (60, 170, 90)), (-24, (77, 209, 107)), (-18, (250, 214, 56)),
+    """Horizontal sketch of the meter gradient (-90 .. +6 dB)."""
+    STOPS = [(-90, (60, 170, 90)), (-24, (77, 209, 107)), (-18, (250, 214, 56)),
              (-9, (255, 160, 40)), (-3, (255, 56, 46)), (6, (255, 56, 46))]
     def __init__(self):
         super().__init__(); self.width, self.height = 170 * mm, 24 * mm
@@ -143,11 +143,11 @@ class Meter(Flowable):
         c = self.canv; W = self.width; x0, y0, h = 4, 12, 9
         n = 300
         for i in range(n):
-            db = -62 + 68 * i / n
+            db = -90 + 96 * i / n
             c.setFillColor(self.col(db)); c.rect(x0 + (W - 8) * i / n, y0, (W - 8) / n + 0.5, h, stroke=0, fill=1)
         c.setFillColor(DARK); c.setFont("DV", 7)
-        for db in (-60, -48, -36, -24, -18, -12, -6, 0, 6):
-            x = x0 + (W - 8) * (db + 62) / 68
+        for db in (-90, -72, -54, -36, -24, -18, -12, -6, 0, 6):
+            x = x0 + (W - 8) * (db + 90) / 96
             c.setStrokeColor(GREY); c.line(x, y0 - 2, x, y0)
             c.drawCentredString(x, y0 - 9, f"{db:+d}" if db else "0")
         c.setFont("DV", 7.5); c.setFillColor(GREY)
@@ -318,10 +318,10 @@ S.append(KeepTogether([
         "Green covers the comfortable working range; the change to yellow happens around <b>-18 dBFS</b>, orange around "
         "-9 dBFS, and red from -3 dBFS.")),
     Meter(), Spacer(1, 4)]))
-S.append(note(L("Le dégradé suppose l'échelle par défaut de REAPER (environ -62 à +6 dB). Si vous changez la plage des "
+S.append(note(L("Le dégradé suppose une échelle des mètres de -90 à +6 dB. Si vous changez la plage des "
                 "mètres dans Preferences > Appearance > VU meters, les couleurs restent à la même place sur le mètre et "
                 "ne correspondent plus exactement à ces valeurs.",
-                "The gradient assumes REAPER's default scale (about -62 to +6 dB). If you change the meter range in "
+                "The gradient assumes a meter scale of -90 to +6 dB. If you change the meter range in "
                 "Preferences > Appearance > VU meters, the colours stay at the same place on the meter and no longer match "
                 "these values exactly.")))
 
@@ -358,7 +358,7 @@ S.append(KeepTogether([P(L("6. Questions fréquentes", "6. FAQ"), "h1"),
             L("Oui. Les jeux RM portent d'autres noms (rmo, rmt) et n'écrasent rien ; vos barres d'outils ne changent pas tant que vous ne choisissez pas les nouvelles icônes.",
               "Yes. The RM sets have different names (rmo, rmt) and overwrite nothing; your toolbars do not change until you pick the new icons.")],
            [L("Les couleurs des mètres ne tombent pas à -18 dB.", "The meter colours do not fall at -18 dB."),
-            L("Voir chapitre 4 : le dégradé suit l'échelle par défaut des mètres.", "See chapter 4: the gradient follows the default meter scale.")],
+            L("Voir chapitre 4 : le dégradé suppose une échelle de -90 à +6 dB.", "See chapter 4: the gradient assumes a -90 to +6 dB scale.")],
            [L("Comment revenir au thème d'origine ?", "How do I go back to the original theme?"),
             L("Options > Themes > Default_7.0. Rien n'est modifié dans le thème de Cockos.",
               "Options > Themes > Default_7.0. Nothing is changed in the Cockos theme.")]],
