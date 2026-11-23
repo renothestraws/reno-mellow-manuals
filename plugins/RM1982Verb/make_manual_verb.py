@@ -10,7 +10,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 pdfmetrics.registerFont(TTFont('DV', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
 pdfmetrics.registerFont(TTFont('DVB', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
 ACC = colors.HexColor('#6cd9c7'); DARK = colors.HexColor('#1d1f23'); GREY = colors.HexColor('#5b5f66')
-VERSION = '1.3'
+VERSION = '1.4'
 BASE = 'https://github.com/renothestraws/reno-mellow-manuals/raw/main/plugins/RM1982Verb/'
 IMG = '/home/claude/irbuddy/verb_face.png'
 
@@ -23,7 +23,7 @@ FR = dict(
  S=[
   ('1. Présentation', [
    "<b>RM1982Verb</b> est une réverbération à <b>convolution</b> : elle rejoue sur votre son l'empreinte d'un espace ou d'une "
-   "réverbe, appelée <b>réponse impulsionnelle</b> (IR). Elle est livrée avec 100 IR d'usine et avec le script <b>IR Buddy</b>, "
+   "réverbe, appelée <b>réponse impulsionnelle</b> (IR). Elle est livrée avec 124 IR d'usine et avec le script <b>IR Buddy</b>, "
    "qui capture l'IR de vos propres réverbes plug-ins (manuel IR Buddy séparé).",
    "IMAGE",
    "Chaîne du traitement : entrée → PREDELAY → convolution → MOD → WIDTH → PAN → EQ → DUCKER → mélange sec / traité (MIX) → VOLUME.",
@@ -31,7 +31,7 @@ FR = dict(
   ('2. Installation', [
    "<b>ReaPack</b> : dépôt ReNo Mellow (<i>https://raw.githubusercontent.com/renothestraws/reno-mellow/main/index.xml</i>), "
    "catégorie Reverb, paquet RM1982Verb. <b>Sans ReaPack</b> : glissez <b>RM1982Verb.ReaperPkg</b> dans la fenêtre de REAPER (7.86+).",
-   "Sont installés : le plug-in (navigateur d'effets, chercher « RM1982Verb »), les 100 IR dans <b>REAPER/Data/RM IR</b> et les "
+   "Sont installés : le plug-in (navigateur d'effets, chercher « RM1982Verb »), les 124 IR dans <b>REAPER/Data/RM IR</b> et les "
    "quatre actions d'IR Buddy. Avec ReaPack, lancez une fois l'action <b>ReNo Mellow - IR Buddy - Rescan RM IR</b> pour remplir le navigateur d'IR.",
   ]),
   ('3. Charger une IR', [
@@ -51,9 +51,9 @@ FR = dict(
   ]),
   ('6. Souris et clavier', ['TABLE2']),
   ('7. Les IR d\'usine', [
-   "100 IR en 8 dossiers : <b>Ambience</b> (9), <b>Chamber</b> (10), <b>Hall</b> (17), <b>Microphone</b> (21, empreintes de micros "
+   "124 IR en 9 dossiers : <b>Ambience</b> (9), <b>Big Studio</b> (24, un grand studio par source : batterie, cordes, ampli, chœurs, instrument, piano, voix, chacun en Close / Medium / Far), <b>Chamber</b> (10), <b>Hall</b> (17), <b>Microphone</b> (21, empreintes de micros "
    "à utiliser avec MIX à 100 %), <b>NonLin</b> (7), <b>Plate</b> (13), <b>Room</b> (13), <b>Spaces</b> (10). Le premier mot du nom "
-   "indique le caractère : Modern, Classic, Vintage, Digital, Eighties, Sim, Steel, Soft.",
+   "indique le caractère : Modern, Classic, Vintage, Digital, Eighties, Sim, Steel, Soft (Big Studio : la source, puis la distance).",
   ]),
   ('8. Questions fréquentes', [
    "QA:« Cannot open the file » dans le navigateur|L'index ne correspond plus aux fichiers : lancez <b>IR Buddy - Rescan RM IR</b>.",
@@ -91,7 +91,7 @@ EN = dict(
  S=[
   ('1. Overview', [
    "<b>RM1982Verb</b> is a <b>convolution</b> reverb: it plays back on your sound the fingerprint of a space or of a reverb, "
-   "called an <b>impulse response</b> (IR). It comes with 100 factory IRs and with the <b>IR Buddy</b> script, which captures the IR "
+   "called an <b>impulse response</b> (IR). It comes with 124 factory IRs and with the <b>IR Buddy</b> script, which captures the IR "
    "of your own reverb plug-ins (separate IR Buddy manual).",
    "IMAGE",
    "Signal flow: input → PREDELAY → convolution → MOD → WIDTH → PAN → EQ → DUCKER → dry / wet blend (MIX) → VOLUME.",
@@ -99,7 +99,7 @@ EN = dict(
   ('2. Installation', [
    "<b>ReaPack</b>: ReNo Mellow repository (<i>https://raw.githubusercontent.com/renothestraws/reno-mellow/main/index.xml</i>), "
    "Reverb category, RM1982Verb package. <b>Without ReaPack</b>: drag <b>RM1982Verb.ReaperPkg</b> into the REAPER window (7.86+).",
-   "Installed: the plug-in (FX browser, search \"RM1982Verb\"), the 100 IRs in <b>REAPER/Data/RM IR</b> and the four IR Buddy actions. "
+   "Installed: the plug-in (FX browser, search \"RM1982Verb\"), the 124 IRs in <b>REAPER/Data/RM IR</b> and the four IR Buddy actions. "
    "With ReaPack, run the <b>ReNo Mellow - IR Buddy - Rescan RM IR</b> action once to fill the IR browser.",
   ]),
   ('3. Load an IR', [
@@ -120,9 +120,9 @@ EN = dict(
   ]),
   ('6. Mouse and keyboard', ['TABLE2']),
   ('7. Factory IRs', [
-   "100 IRs in 8 folders: <b>Ambience</b> (9), <b>Chamber</b> (10), <b>Hall</b> (17), <b>Microphone</b> (21, microphone fingerprints, "
+   "124 IRs in 9 folders: <b>Ambience</b> (9), <b>Big Studio</b> (24, one large studio per source: drums, strings, amp, backing vocals, instrument, piano, vocal, each Close / Medium / Far), <b>Chamber</b> (10), <b>Hall</b> (17), <b>Microphone</b> (21, microphone fingerprints, "
    "use them with MIX at 100 %), <b>NonLin</b> (7), <b>Plate</b> (13), <b>Room</b> (13), <b>Spaces</b> (10). The first word of the name "
-   "gives the character: Modern, Classic, Vintage, Digital, Eighties, Sim, Steel, Soft.",
+   "gives the character: Modern, Classic, Vintage, Digital, Eighties, Sim, Steel, Soft (Big Studio: the source, then the distance).",
   ]),
   ('8. FAQ', [
    "QA:\"Cannot open the file\" in the browser|The index no longer matches the files: run <b>IR Buddy - Rescan RM IR</b>.",

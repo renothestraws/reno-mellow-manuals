@@ -34,7 +34,7 @@ T = {
     "« shimmer ») ou ce qui sature n'est pas capturé : l'IR garde une photo figée de la réverbe.",
    ]),
    ('2. Installation', [
-    "IR Buddy est livré avec <b>RM1982Verb</b> (et ses 100 IR) : par <b>ReaPack</b> (dépôt ReNo Mellow, catégorie Reverb) ou "
+    "IR Buddy est livré avec <b>RM1982Verb</b> (et ses 124 IR) : par <b>ReaPack</b> (dépôt ReNo Mellow, catégorie Reverb) ou "
     "en glissant <b>RM1982Verb.ReaperPkg</b> dans la fenêtre de REAPER (7.86+). Quatre actions apparaissent dans la liste d'actions "
     "(<b>Actions &gt; Show action list</b>) :",
     "TABLE_ACTIONS",
@@ -119,7 +119,7 @@ T = {
     "that saturates is not captured: the IR keeps a frozen snapshot of the reverb.",
    ]),
    ('2. Installation', [
-    "IR Buddy comes with <b>RM1982Verb</b> (and its 100 IRs): through <b>ReaPack</b> (ReNo Mellow repository, Reverb category) or "
+    "IR Buddy comes with <b>RM1982Verb</b> (and its 124 IRs): through <b>ReaPack</b> (ReNo Mellow repository, Reverb category) or "
     "by dragging <b>RM1982Verb.ReaperPkg</b> into the REAPER window (7.86+). Four actions appear in the action list "
     "(<b>Actions &gt; Show action list</b>):",
     "TABLE_ACTIONS",
