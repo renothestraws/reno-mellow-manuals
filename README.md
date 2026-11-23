@@ -25,5 +25,4 @@ Dépôt des plug-ins / plug-ins repository : <https://github.com/renothestraws/r
 
 | Plug-in | Version | Français | English |
 | --- | --- | --- | --- |
-| RM1982Verb | 1.1 | [Manuel (PDF)](plugins/RM1982Verb/RM1982Verb_manuel_FR.pdf) | [Manual (PDF)](plugins/RM1982Verb/RM1982Verb_manual_EN.pdf) |
-| RM1982Verb – IR Buddy (créer ses IR / make your own IRs) | 1.0 | [Manuel (PDF)](plugins/RM1982Verb/IRBuddy_manuel_FR.pdf) | [Manual (PDF)](plugins/RM1982Verb/IRBuddy_manual_EN.pdf) |
+| RM1982Verb + IR Buddy | 1.1 | [Manuel (PDF)](plugins/RM1982Verb/RM1982Verb_manuel_FR.pdf) | [Manual (PDF)](plugins/RM1982Verb/RM1982Verb_manual_EN.pdf) |
