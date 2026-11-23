@@ -23,4 +23,6 @@ Dépôt des scripts / scripts repository : <https://github.com/renothestraws/ren
 
 Dépôt des plug-ins / plug-ins repository : <https://github.com/renothestraws/reno-mellow>
 
-(à venir / coming soon)
+| Plug-in | Version | Français | English |
+| --- | --- | --- | --- |
+| RM1982Verb – IR Buddy (créer ses IR / make your own IRs) | 1.0 | [Manuel (PDF)](plugins/RM1982Verb/IRBuddy_manuel_FR.pdf) | [Manual (PDF)](plugins/RM1982Verb/IRBuddy_manual_EN.pdf) |
