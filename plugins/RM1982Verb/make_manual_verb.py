@@ -10,7 +10,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 pdfmetrics.registerFont(TTFont('DV', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
 pdfmetrics.registerFont(TTFont('DVB', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
 ACC = colors.HexColor('#6cd9c7'); DARK = colors.HexColor('#1d1f23'); GREY = colors.HexColor('#5b5f66')
-VERSION = '1.1'
+VERSION = '1.2'
 BASE = 'https://github.com/renothestraws/reno-mellow-manuals/raw/main/plugins/RM1982Verb/'
 IMG = '/home/claude/irbuddy/verb_face.png'
 

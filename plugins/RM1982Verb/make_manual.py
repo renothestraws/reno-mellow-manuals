@@ -81,11 +81,10 @@ T = {
     ".wav à l'intérieur.",
    ]),
    ('7. Questions fréquentes', [
-    "QA:« The FX chain returned silence »|La réverbe est sans doute contournée (bypass), hors ligne, ou son wet est à zéro.",
+    "QA:« The FX chain returned silence »|La réverbe est sans doute contournée (bypass), hors ligne, ou son wet est à zéro. Avec un plug-in sur DSP externe (UAD…), le rendu hors temps réel donne du silence : IR Buddy propose alors de recommencer en temps réel (ou répondez Y à « Real time »).",
     "QA:L'IR commence par un clic sec|Le dry n'est pas à zéro : mettez la réverbe à 100 % wet et recommencez.",
     "QA:« both channels were identical »|La réverbe est mono : l'IR est enregistrée en mono, c'est normal.",
-    "QA:Le premier son arrive tard|C'est le predelay de la réverbe, ou la latence d'un plug-in. Cochez Y dans "
-    "« Trim silence at start » pour le retirer.",
+    "QA:Le premier son arrive tard|Predelay de la réverbe ou latence d'un plug-in : répondez Y à « Trim silence at start ».",
     "QA:Et une vraie pièce, ou une réverbe matérielle ?|IR Buddy capture les plug-ins. Pour une pièce ou un appareil "
     "analogique, on enregistre un balayage sinusoïdal puis on le convertit en IR (par exemple avec le logiciel gratuit "
     "REW, Room EQ Wizard) ; le WAV obtenu se range ensuite dans REAPER/Data/RM IR.",
@@ -100,7 +99,8 @@ T = {
           ('Sub-folder of RM IR', "Sous-dossier de REAPER/Data/RM IR (par défaut « Plug-ins »). Vide = directement dans RM IR."),
           ('Max length (s)', "Longueur capturée, de 1 à 10 s. La fin silencieuse (-90 dB sous la crête) est coupée ensuite."),
           ('Output (S / M)', "S = stéréo (deux canaux), M = mono (somme des deux). Une réverbe mono donne toujours un fichier mono."),
-          ('Trim silence at start (Y / N)', "Y retire le silence avant le premier son (predelay, latence). N garde le timing exact.")],
+          ('Trim silence at start (Y / N)', "Y retire le silence avant le premier son (predelay, latence). N garde le timing exact."),
+          ('Real time (Y / N)', "Y = capture en temps réel, pour les plug-ins sur DSP externe (UAD…) qui rendent du silence hors temps réel : la piste temporaire enregistre sa propre sortie pendant la longueur choisie (aucun son n'est envoyé au master). N = rendu hors temps réel, instantané.")],
   diag=('Piste de la réverbe', 'Piste temporaire', 'Data/RM IR/…/nom.wav', 'copie des effets', 'impulsion + rendu'),
  ),
  'en': dict(
@@ -166,7 +166,7 @@ T = {
     "js_ReaScriptAPI extension you pick the folder directly; without it, pick any .wav inside it.",
    ]),
    ('7. FAQ', [
-    "QA:\"The FX chain returned silence\"|The reverb is probably bypassed, offline, or its wet level is at zero.",
+    "QA:\"The FX chain returned silence\"|The reverb is probably bypassed, offline, or its wet level is at zero. With a plug-in running on external DSP (UAD...), the offline render is silent: IR Buddy then offers to capture again in real time (or answer Y to \"Real time\").",
     "QA:The IR starts with a dry click|The dry signal is not off: set the reverb to 100 % wet and capture again.",
     "QA:\"both channels were identical\"|The reverb is mono: the IR is saved as mono, this is normal.",
     "QA:The first sound comes late|That is the reverb's predelay, or a plug-in latency. Answer Y to "
@@ -185,7 +185,8 @@ T = {
           ('Sub-folder of RM IR', 'Sub-folder of REAPER/Data/RM IR (default "Plug-ins"). Empty = straight into RM IR.'),
           ('Max length (s)', 'Captured length, 1 to 10 s. The silent end (-90 dB below the peak) is trimmed afterwards.'),
           ('Output (S / M)', 'S = stereo (two channels), M = mono (sum of both). A mono reverb always gives a mono file.'),
-          ('Trim silence at start (Y / N)', 'Y removes the silence before the first sound (predelay, latency). N keeps the exact timing.')],
+          ('Trim silence at start (Y / N)', 'Y removes the silence before the first sound (predelay, latency). N keeps the exact timing.'),
+          ('Real time (Y / N)', 'Y = real-time capture, for plug-ins running on external DSP (UAD...) that return silence offline: the temporary track records its own output for the chosen length (nothing is sent to the master). N = offline render, instant.')],
   diag=('Reverb track', 'Temporary track', 'Data/RM IR/…/name.wav', 'FX copied', 'impulse + render'),
  ),
 }
