@@ -100,7 +100,7 @@ T = {
           ('Max length (s)', "Longueur capturée, de 1 à 10 s. La fin silencieuse (-90 dB sous la crête) est coupée ensuite."),
           ('Output (S / M)', "S = stéréo (deux canaux), M = mono (somme des deux). Une réverbe mono donne toujours un fichier mono."),
           ('Trim silence at start (Y / N)', "Y retire le silence avant le premier son (predelay, latence). N garde le timing exact."),
-          ('Real time (Y / N)', "Y = capture en temps réel, pour les plug-ins sur DSP externe (UAD…) qui rendent du silence hors temps réel : la piste temporaire enregistre sa propre sortie pendant la longueur choisie (aucun son n'est envoyé au master). N = rendu hors temps réel, instantané.")],
+          ('Real time (Y / N)', "Y = temps réel, pour les plug-ins sur DSP externe (UAD…) : l'impulsion passe par la piste de la réverbe et sa sortie est enregistrée (latence compensée, rien vers le master). N = hors temps réel, instantané.")],
   diag=('Piste de la réverbe', 'Piste temporaire', 'Data/RM IR/…/nom.wav', 'copie des effets', 'impulsion + rendu'),
  ),
  'en': dict(
@@ -186,7 +186,7 @@ T = {
           ('Max length (s)', 'Captured length, 1 to 10 s. The silent end (-90 dB below the peak) is trimmed afterwards.'),
           ('Output (S / M)', 'S = stereo (two channels), M = mono (sum of both). A mono reverb always gives a mono file.'),
           ('Trim silence at start (Y / N)', 'Y removes the silence before the first sound (predelay, latency). N keeps the exact timing.'),
-          ('Real time (Y / N)', 'Y = real-time capture, for plug-ins running on external DSP (UAD...) that return silence offline: the temporary track records its own output for the chosen length (nothing is sent to the master). N = offline render, instant.')],
+          ('Real time (Y / N)', 'Y = real-time capture, for plug-ins running on external DSP (UAD...) that return silence offline: the impulse plays on the reverb track itself (after the end of the project) and its output is recorded on a temporary track, latency compensated (nothing is sent to the master). N = offline render, instant.')],
   diag=('Reverb track', 'Temporary track', 'Data/RM IR/…/name.wav', 'FX copied', 'impulse + render'),
  ),
 }
