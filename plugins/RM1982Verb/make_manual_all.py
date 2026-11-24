@@ -14,10 +14,10 @@ from reportlab.platypus import BaseDocTemplate, PageTemplate, Frame, Paragraph, 
 V = ns_v; I = ns_i
 BASE = V['BASE']
 PART = {'fr': ("Partie 2 — IR Buddy : créer vos propres IR",
-               "IR Buddy est livré avec RM1982Verb. Ses quatre actions se trouvent dans la liste d'actions (<b>Actions &gt; Show action list</b>) ; "
+               "IR Buddy est un paquet séparé, commun avec RMampsim (voir Installation). Ses actions se trouvent dans la liste d'actions (<b>Actions &gt; Show action list</b>) ; "
                "donnez-leur un raccourci ou placez-les dans une barre d'outils si vous le souhaitez."),
         'en': ("Part 2 — IR Buddy: make your own IRs",
-               "IR Buddy comes with RM1982Verb. Its four actions are in the action list (<b>Actions &gt; Show action list</b>); "
+               "IR Buddy is a separate package, shared with RMampsim (see Installation). Its actions are in the action list (<b>Actions &gt; Show action list</b>); "
                "give them a shortcut or put them on a toolbar if you like.")}
 PART1 = {'fr': "Partie 1 — RM1982Verb", 'en': "Part 1 — RM1982Verb"}
 SUB = {'fr': "Réverbération à convolution pour REAPER, série 1982, et son script IR Buddy",

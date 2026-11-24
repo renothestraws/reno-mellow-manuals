@@ -25,4 +25,5 @@ Dépôt des plug-ins / plug-ins repository : <https://github.com/renothestraws/r
 
 | Plug-in | Version | Français | English |
 | --- | --- | --- | --- |
-| RM1982Verb + IR Buddy | 1.4 | [Manuel (PDF)](plugins/RM1982Verb/RM1982Verb_manuel_FR.pdf) | [Manual (PDF)](plugins/RM1982Verb/RM1982Verb_manual_EN.pdf) |
+| RM1982Verb + IR Buddy | 1.5 | [Manuel (PDF)](plugins/RM1982Verb/RM1982Verb_manuel_FR.pdf) | [Manual (PDF)](plugins/RM1982Verb/RM1982Verb_manual_EN.pdf) |
+| RMampsim (NAM A2) + Capture for NAM | 1.0 | [Manuel (PDF)](plugins/RMampsim/RMampsim_manuel_FR.pdf) | [Manual (PDF)](plugins/RMampsim/RMampsim_manual_EN.pdf) |

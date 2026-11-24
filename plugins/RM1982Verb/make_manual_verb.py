@@ -10,7 +10,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 pdfmetrics.registerFont(TTFont('DV', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
 pdfmetrics.registerFont(TTFont('DVB', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
 ACC = colors.HexColor('#6cd9c7'); DARK = colors.HexColor('#1d1f23'); GREY = colors.HexColor('#5b5f66')
-VERSION = '1.4'
+VERSION = '1.5'
 BASE = 'https://github.com/renothestraws/reno-mellow-manuals/raw/main/plugins/RM1982Verb/'
 IMG = '/home/claude/irbuddy/verb_face.png'
 
@@ -30,9 +30,11 @@ FR = dict(
   ]),
   ('2. Installation', [
    "<b>ReaPack</b> : dépôt ReNo Mellow (<i>https://raw.githubusercontent.com/renothestraws/reno-mellow/main/index.xml</i>), "
-   "catégorie Reverb, paquet RM1982Verb. <b>Sans ReaPack</b> : glissez <b>RM1982Verb.ReaperPkg</b> dans la fenêtre de REAPER (7.86+).",
+   "catégorie Reverb, paquet RM1982Verb, <b>et</b> catégorie Scripts, paquet <b>ReNo Mellow - IR Buddy</b> (depuis la version 1.5, IR Buddy "
+   "est un paquet séparé, commun avec RMampsim). <b>Sans ReaPack</b> : glissez <b>RM1982Verb.ReaperPkg</b> puis <b>IR Buddy.ReaperPkg</b> "
+   "dans la fenêtre de REAPER (7.86+).",
    "Sont installés : le plug-in (navigateur d'effets, chercher « RM1982Verb »), les 124 IR dans <b>REAPER/Data/RM IR</b> et les "
-   "quatre actions d'IR Buddy. Avec ReaPack, lancez une fois l'action <b>ReNo Mellow - IR Buddy - Rescan RM IR</b> pour remplir le navigateur d'IR.",
+   "actions d'IR Buddy. Lancez ensuite une fois l'action <b>ReNo Mellow - IR Buddy - Rescan RM IR</b> pour remplir le navigateur d'IR.",
   ]),
   ('3. Charger une IR', [
    "BUL:<b>Navigateur</b> : cliquez sur le nom de l'IR. Dossiers à gauche, IR à droite ; molette pour défiler, clic pour charger. "
@@ -98,9 +100,11 @@ EN = dict(
   ]),
   ('2. Installation', [
    "<b>ReaPack</b>: ReNo Mellow repository (<i>https://raw.githubusercontent.com/renothestraws/reno-mellow/main/index.xml</i>), "
-   "Reverb category, RM1982Verb package. <b>Without ReaPack</b>: drag <b>RM1982Verb.ReaperPkg</b> into the REAPER window (7.86+).",
-   "Installed: the plug-in (FX browser, search \"RM1982Verb\"), the 124 IRs in <b>REAPER/Data/RM IR</b> and the four IR Buddy actions. "
-   "With ReaPack, run the <b>ReNo Mellow - IR Buddy - Rescan RM IR</b> action once to fill the IR browser.",
+   "Reverb category, RM1982Verb package, <b>and</b> Scripts category, <b>ReNo Mellow - IR Buddy</b> package (since version 1.5, IR Buddy "
+   "is a separate package, shared with RMampsim). <b>Without ReaPack</b>: drag <b>RM1982Verb.ReaperPkg</b>, then <b>IR Buddy.ReaperPkg</b>, "
+   "into the REAPER window (7.86+).",
+   "Installed: the plug-in (FX browser, search \"RM1982Verb\"), the 124 IRs in <b>REAPER/Data/RM IR</b> and the IR Buddy actions. "
+   "Then run the <b>ReNo Mellow - IR Buddy - Rescan RM IR</b> action once to fill the IR browser.",
   ]),
   ('3. Load an IR', [
    "BUL:<b>Browser</b>: click the IR name. Folders on the left, IRs on the right; wheel to scroll, click to load. "
