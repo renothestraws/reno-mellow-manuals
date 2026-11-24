@@ -30,7 +30,7 @@ FR = dict(
        "et des baffles. Lancez-la : <b>1.</b> une fois après l'installation ; <b>2.</b> chaque fois que vous ajoutez, renommez ou "
        "supprimez un .nam dans REAPER/Data/RM Amp ou une IR dans REAPER/Data/RM IR/Cab ; <b>3.</b> si le plug-in affiche « NO MODEL » "
        "ou si un modèle manque dans la liste."),
- hd=('Réglage', 'Plage', 'Effet'), hd2=('Geste', 'Effet'), hd3=('Champ', 'Effet'), hd4=('Dossier / fichier', 'Contenu'),
+ hd=('Réglage', 'Plage', 'Effet'), hd2=('Geste', 'Effet'), hd3=('Champ', 'Effet'), hd4=('Dossier / fichier', 'Contenu'), hd5=('Étape', 'À faire'),
  S=[
   ('1. Présentation', [
    "<b>RMampsim</b> fait jouer des <b>modèles d'amplis NAM</b> (Neural Amp Modeler) : un réseau de neurones entraîné à reproduire "
@@ -114,18 +114,28 @@ FR = dict(
    "BUL:Pendant l'entraînement, l'<b>ESR</b> (écart entre le modèle et l'original) baisse : sous 0,01, la différence est quasi inaudible.",
    "<b>d. Utiliser le modèle</b> : téléchargez le .nam (A2) dans <b>REAPER/Data/RM Amp</b>, gardez « Full Rig » dans son nom si c'en est un, "
    "lancez <b>Rescan RM IR</b> : le modèle apparaît dans le navigateur de RMampsim.",
-   "<b>Un vrai ampli ?</b> Insérez sur la piste le plug-in <b>ReaInsert</b> (sortie vers l'entrée de l'ampli par une re-amp box, retour "
-   "du micro ou de la sortie ligne), réglez sa latence, et répondez <b>Y</b> à « Real time ». Le signal passe à pleine échelle : "
-   "réglez le volume d'écoute avant de lancer.",
+   "Pour un ampli réel (matériel), voir la section suivante.",
   ]),
-  ('7. Vos propres baffles', [
+  ('7. Capturer un vrai ampli (re-amp)', [
+   "La même action capture un ampli matériel : en mode <b>temps réel</b>, le signal joue sur la piste avec tous ses effets, et le plug-in "
+   "<b>ReaInsert</b> (fourni avec REAPER) l'envoie vers l'ampli et en récupère le retour. Ce retour est enregistré, latence compensée.",
+   "<b>Matériel</b> : une interface avec une sortie ligne libre ; une <b>re-amp box</b> (adapte la sortie ligne à l'entrée guitare de "
+   "l'ampli) ; pour le retour, soit un <b>micro</b> devant le baffle (capture <b>full rig</b>), soit une <b>load box</b> ou la sortie "
+   "ligne de l'ampli (capture <b>ampli seul</b>, sans baffle).",
+   "TABLE5",
+   "<b>Sécurité</b> : le balayage de capture est fort et strident, surtout à travers un baffle. Commencez avec le volume de l'ampli "
+   "et des écoutes au minimum, protégez vos oreilles, et ne laissez jamais un ampli à lampes sans charge (baffle ou load box branché).",
+   "<b>Bruit</b> : un peu de souffle ou de ronflement est acceptable. Évitez le noise gate et les pédales de modulation dans la boucle ; "
+   "une pédale de saturation devant l'ampli est capturée avec lui.",
+  ]),
+  ('8. Vos propres baffles', [
    "Copiez vos IR de baffle (.wav, mono ou stéréo, 10 s max, rééchantillonnage automatique) dans <b>REAPER/Data/RM IR/Cab</b> "
    "(sous-dossiers permis), puis lancez <b>Rescan RM IR</b>. Pour un essai rapide, glissez simplement le fichier sur RMampsim.",
    "Pour capturer le baffle d'un plug-in de simulation : action <b>ReNo Mellow - IR Buddy</b> sur la piste du plug-in de baffle seul, "
    "sous-dossier <b>Cab</b>, sortie <b>M</b> (mono). <b>MIC</b> déplace ensuite le micro virtuel du centre (brillant) vers le bord (plus sombre).",
   ]),
-  ('8. Souris et clavier', ['TABLE2']),
-  ('9. Questions fréquentes', [
+  ('9. Souris et clavier', ['TABLE2']),
+  ('10. Questions fréquentes', [
    "QA:« NO MODEL - click to browse » ou liste vide|L'index n'existe pas encore : lancez <b>Rescan RM IR</b> (IR Buddy doit être installé), "
    "puis rouvrez le navigateur. Le modèle par défaut se charge sur une nouvelle instance.",
    "QA:Mon modèle n'apparaît pas|C'est un modèle A1 (le Rescan le liste comme ignoré), ou le Rescan n'a pas été relancé après la copie.",
@@ -166,6 +176,13 @@ FR = dict(
         ('REAPER/Data/RM IR/Cab', "Les 10 IR de baffle d'usine ; vos IR de baffle vont ici."),
         ('REAPER/Data/RM Amp/Capture signal', "T3K-sweep-v3.wav, le signal de capture NAM (utilisé par Capture for NAM)."),
         ('REAPER/Data/RMIRIndex', "Index et modèles convertis, écrits par le Rescan (ne pas modifier).")],
+ rows5=[('1. Branchements', "Sortie de l'interface → re-amp box → entrée de l'ampli. Retour : micro (full rig) ou load box / sortie ligne (ampli seul) → entrée de l'interface."),
+        ('2. Projet', "48 kHz. Une piste avec <b>ReaInsert</b> seul : Send = la sortie vers la re-amp box, Return = l'entrée du retour. Sélectionnez la piste."),
+        ('3. Latence', "Dans ReaInsert, lancez la détection du délai (<b>Ping</b>) pour aligner le retour. NAM recale aussi un petit décalage grâce aux deux « blips » du début du signal."),
+        ("4. Niveau d'envoi", "Le signal monte presque à 0 dBFS : réglez la re-amp box pour que l'ampli reçoive un niveau de guitare réaliste. Notez le niveau de la sortie de l'interface en dBu pour 0 dBFS (fiche technique) : c'est le <b>Send Level</b> de TONE3000."),
+        ('5. Niveau de retour', "Réglez le gain d'entrée de l'interface pour des crêtes vers <b>-6 dBFS</b>. Un dépassement dans REAPER est corrigé par l'action, une saturation du convertisseur ne l'est pas. Le niveau d'entrée en dBu pour 0 dBFS est le <b>Return Level</b>."),
+        ('6. Capture', "Lancez <b>Capture for NAM</b> : Cab in capture = Y avec un micro (full rig), N avec une load box ; <b>Real time = Y</b>. Le transport enregistre environ 3 min 15 s ; ne touchez à rien."),
+        ('7. TONE3000', "Comme en section 6 c, avec cette fois <b>Send Level</b> et <b>Return Level</b> remplis : le modèle indiquera son niveau de capture et IN CAL pourra s'en servir.")],
 )
 
 EN = dict(
@@ -178,7 +195,7 @@ EN = dict(
        "RMampsim does not read .nam files directly: this action <b>converts</b> them and updates the list of models and cabinets. "
        "Run it: <b>1.</b> once after installing; <b>2.</b> every time you add, rename or delete a .nam in REAPER/Data/RM Amp or an IR in "
        "REAPER/Data/RM IR/Cab; <b>3.</b> when the plug-in shows \"NO MODEL\" or a model is missing from the list."),
- hd=('Control', 'Range', 'What it does'), hd2=('Gesture', 'What it does'), hd3=('Field', 'What it does'), hd4=('Folder / file', 'Content'),
+ hd=('Control', 'Range', 'What it does'), hd2=('Gesture', 'What it does'), hd3=('Field', 'What it does'), hd4=('Folder / file', 'Content'), hd5=('Step', 'What to do'),
  S=[
   ('1. Overview', [
    "<b>RMampsim</b> plays <b>NAM amp models</b> (Neural Amp Modeler): a neural network trained to reproduce a real amp or an amp plug-in "
@@ -258,17 +275,28 @@ EN = dict(
    "BUL:During training the <b>ESR</b> (error between the model and the original) goes down: below 0.01 the difference is barely audible.",
    "<b>d. Use the model</b>: download the .nam (A2) into <b>REAPER/Data/RM Amp</b>, keep \"Full Rig\" in its name if it is one, run "
    "<b>Rescan RM IR</b>: the model shows up in the RMampsim browser.",
-   "<b>A real amp?</b> Insert the <b>ReaInsert</b> plug-in on the track (output to the amp input through a re-amp box, return from the "
-   "mic or line out), set its latency, and answer <b>Y</b> to \"Real time\". The signal plays at full scale: set your monitoring level first.",
+   "For a real (hardware) amp, see the next section.",
   ]),
-  ('7. Your own cabinets', [
+  ('7. Capture a real amp (re-amping)', [
+   "The same action captures a hardware amp: in <b>real time</b> mode the signal plays on the track with all its FX, and the <b>ReaInsert</b> "
+   "plug-in (included with REAPER) sends it to the amp and brings the return back. That return is recorded, latency compensated.",
+   "<b>Gear</b>: an interface with a free line output; a <b>re-amp box</b> (matches the line output to the amp's guitar input); for the "
+   "return, either a <b>mic</b> in front of the cabinet (<b>full rig</b> capture) or a <b>load box</b> / the amp's line out (<b>amp only</b> "
+   "capture, no cabinet).",
+   "TABLE5",
+   "<b>Safety</b>: the capture sweep is loud and harsh, especially through a cabinet. Start with the amp and monitor volumes at minimum, "
+   "protect your ears, and never run a tube amp without a load (cabinet or load box connected).",
+   "<b>Noise</b>: a little hiss or hum is fine. Avoid a noise gate and modulation pedals in the loop; a drive pedal in front of the amp is "
+   "captured with it.",
+  ]),
+  ('8. Your own cabinets', [
    "Copy your cabinet IRs (.wav, mono or stereo, up to 10 s, automatic resampling) into <b>REAPER/Data/RM IR/Cab</b> (sub-folders allowed), "
    "then run <b>Rescan RM IR</b>. For a quick try, just drop the file on RMampsim.",
    "To capture the cabinet of a simulation plug-in: run <b>ReNo Mellow - IR Buddy</b> on the track of the cabinet plug-in alone, "
    "sub-folder <b>Cab</b>, output <b>M</b> (mono). <b>MIC</b> then moves the virtual mic from the center (bright) to the edge (darker).",
   ]),
-  ('8. Mouse and keyboard', ['TABLE2']),
-  ('9. FAQ', [
+  ('9. Mouse and keyboard', ['TABLE2']),
+  ('10. FAQ', [
    "QA:\"NO MODEL - click to browse\" or an empty list|The index does not exist yet: run <b>Rescan RM IR</b> (IR Buddy must be installed), "
    "then open the browser again. The default model loads on a new instance.",
    "QA:My model does not show up|It is an A1 model (the Rescan lists it as skipped), or the Rescan was not run after copying it.",
@@ -308,6 +336,13 @@ EN = dict(
         ('REAPER/Data/RM IR/Cab', 'The 10 factory cabinet IRs; your cabinet IRs go here.'),
         ('REAPER/Data/RM Amp/Capture signal', 'T3K-sweep-v3.wav, the NAM capture signal (used by Capture for NAM).'),
         ('REAPER/Data/RMIRIndex', 'Index and converted models written by the Rescan (do not edit).')],
+ rows5=[('1. Wiring', 'Interface output → re-amp box → amp input. Return: mic (full rig) or load box / line out (amp only) → interface input.'),
+        ('2. Project', '48 kHz. A track with <b>ReaInsert</b> alone: Send = the output to the re-amp box, Return = the input of the return. Select the track.'),
+        ('3. Latency', 'In ReaInsert, run the delay detection (<b>Ping</b>) to align the return. NAM also corrects a small offset from the two "blips" at the start of the signal.'),
+        ('4. Send level', 'The signal reaches almost 0 dBFS: set the re-amp box so the amp gets a realistic guitar level. Write down the interface output level in dBu for 0 dBFS (spec sheet): that is the TONE3000 <b>Send Level</b>.'),
+        ('5. Return level', 'Set the interface input gain for peaks around <b>-6 dBFS</b>. Going over in REAPER is fixed by the action, converter clipping is not. The input level in dBu for 0 dBFS is the <b>Return Level</b>.'),
+        ('6. Capture', 'Run <b>Capture for NAM</b>: Cab in capture = Y with a mic (full rig), N with a load box; <b>Real time = Y</b>. The transport records for about 3 min 15 s; don\'t touch anything.'),
+        ('7. TONE3000', 'As in section 6 c, this time with <b>Send Level</b> and <b>Return Level</b> filled in: the model will store its capture level and IN CAL can use it.')],
 )
 
 st_body = ParagraphStyle('b', fontName='DV', fontSize=8.8, leading=12, spaceAfter=3, textColor=DARK)
@@ -359,6 +394,7 @@ def build(L):
             elif p == 'TABLE': s.append(tbl(L['hd'], L['rows'], [36*mm, 30*mm, W - 66*mm])); s.append(Spacer(1, 4))
             elif p == 'TABLE2': s.append(tbl(L['hd2'], L['rows2'], [62*mm, W - 62*mm])); s.append(Spacer(1, 4))
             elif p == 'TABLE3': s.append(tbl(L['hd3'], L['rows3'], [44*mm, W - 44*mm])); s.append(Spacer(1, 4))
+            elif p == 'TABLE5': s.append(tbl(L['hd5'], L['rows5'], [34*mm, W - 34*mm])); s.append(Spacer(1, 4))
             elif p == 'TABLE4': s.append(tbl(L['hd4'], L['rows4'], [58*mm, W - 58*mm])); s.append(Spacer(1, 4))
             elif p.startswith('BUL:'): s.append(Paragraph(p[4:], st_bul, bulletText='•'))
             elif p.startswith('QA:'):
