@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.28"
+VERSION = "1.29"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -116,7 +116,7 @@ T["fr"] = dict(
         ("Clic sur un strip", "Applique le strip aux pistes sélectionnées (une étape d'annulation)."),
         ("Glisser un strip sur un autre", "Change l'ordre des strips."),
         ("Glisser un strip sur un dossier", "Range le strip dans ce dossier (« No folder » = le sortir)."),
-        ("Clic droit sur un strip", "Apply, Rename, Edit in Setup, Duplicate, Delete."),
+        ("Clic droit sur un strip", "Apply, Apply only colour and tags (seulement la couleur et les tags : le nom de la piste et les autres réglages ne bougent pas), Rename, Edit in Setup, Duplicate, Delete."),
         ("Clic sur un dossier", "Affiche ses strips. Le dernier dossier ouvert est retenu."),
         ("+ New folder", "Crée un dossier (un seul niveau). Un strip créé ensuite y va directement."),
         ("Clic droit sur un dossier", "Rename ou Delete. Ses strips sont gardés et repassent dans « No folder »."),
@@ -283,7 +283,7 @@ T["en"] = dict(
         ("Click a strip", "Applies the strip to the selected tracks (one undo step)."),
         ("Drag a strip onto another", "Changes the order of the strips."),
         ("Drag a strip onto a folder", "Files the strip in that folder (“No folder” = take it out)."),
-        ("Right-click a strip", "Apply, Rename, Edit in Setup, Duplicate, Delete."),
+        ("Right-click a strip", "Apply, Apply only colour and tags (only the colour and the tags: the track name and the other settings stay as they are), Rename, Edit in Setup, Duplicate, Delete."),
         ("Click a folder", "Shows its strips. The last folder opened is remembered."),
         ("+ New folder", "Creates a folder (one level). A strip created next goes straight into it."),
         ("Right-click a folder", "Rename or Delete. Its strips are kept and go back to “No folder”."),
