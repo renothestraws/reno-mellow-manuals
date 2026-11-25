@@ -12,11 +12,11 @@ from reportlab.lib.units import mm
 from reportlab.graphics.shapes import Drawing, Rect, String, Line, Circle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer, Table,
+from reportlab.platypus import (CondPageBreak, BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer, Table,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.1"
+VERSION = "1.2"
 NAME = "ReNo Mellow - Mousewheel Buddy"
 FOLDER = "MousewheelBuddy"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -126,6 +126,10 @@ T["fr"] = {
         ("p", "<b>Sur Mac</b>, REAPER appelle Ctrl « Cmd » et Alt « Opt » : l'action « Wheel (Ctrl) » s'assigne à "
               "Cmd + molette, « Wheel (Alt) » à Opt + molette. La fenêtre de réglage affiche Cmd et Opt."),
         ("p", "Lancée sans la molette (bouton Run, menu, touche), une action molette ne fait rien."),
+        ("p", "<b>Molette rapide :</b> quand on tourne vite, REAPER regroupe plusieurs crans en un seul envoi. "
+              "Mousewheel Buddy répète alors l'action autant de fois qu'il y a de crans (10 au plus) et garde le "
+              "sens de rotation, pour que la vue ne reparte pas en arrière. La ligne « Last wheel event » affiche "
+              "par exemple « ran 40138 x3 »."),
         ("h1", "5. La fenêtre de réglage"),
         ("draw", "setup"),
         ("p", "L'action <b>ReNo Mellow - Mousewheel Buddy</b> ouvre la fenêtre ; son bouton de barre d'outils est "
@@ -291,6 +295,9 @@ T["en"] = {
         ("p", "<b>On macOS</b>, REAPER calls Ctrl « Cmd » and Alt « Opt »: « Wheel (Ctrl) » is bound to Cmd + wheel, "
               "« Wheel (Alt) » to Opt + wheel. The setup window shows Cmd and Opt."),
         ("p", "Run without the wheel (Run button, menu, key), a wheel action does nothing."),
+        ("p", "<b>Fast wheel turns:</b> when you turn fast, REAPER groups several notches into one event. "
+              "Mousewheel Buddy then repeats the action once per notch (10 at most) and keeps the direction, so the "
+              "view never jumps backwards. The « Last wheel event » line shows for example « ran 40138 x3 »."),
         ("h1", "5. The setup window"),
         ("draw", "setup"),
         ("p", "The <b>ReNo Mellow - Mousewheel Buddy</b> action opens the window; its toolbar button is lit while it "
@@ -578,6 +585,8 @@ def build(lang, out):
         if item[0] in ("h1", "h2"):
             head = Paragraph(item[1], S[item[0]])
             # a heading never ends a page: keep it with a drawing or the first paragraph after it
+            if item[0] == "h1":
+                story.append(CondPageBreak(45 * mm))  # no section title alone at the bottom of a page
             if i + 1 < len(body) and body[i + 1][0] in ("draw", "p"):
                 nxt = render(body[i + 1], lang)
                 flat = []
