@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.3"
+VERSION = "1.5"
 NAME = "REABACK"
 FOLDER = "REABACK"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -245,7 +245,50 @@ T["fr"] = {
                           "sous le curseur d'édition."),
             ("Windows set manager", "Fenêtre des window sets (screensets) de REAPER."),
         ]),
-        ("h1", "14. Icônes et questions fréquentes"),
+        ("h1", "14. Export to B.Beat"),
+        ("p", "Section en bas de la fenêtre <b>Reaback Set up</b>. Elle prépare tout ce qu'il faut pour le <b>B.Beat</b> "
+              "de M-Live (et son logiciel <b>B.Beat Manager</b>) : plus besoin d'exporter chaque piste à la main ni de "
+              "resynchroniser les paroles. Pour chaque chanson cochée (région mère), un dossier <font size=8>Export to "
+              "BBeat/&lt;CHANSON&gt;</font> est créé à côté du fichier .rpp, puis vidé et refait à chaque export."),
+        ("h2", "Préparer l'export"),
+        ("ol", ["Enregistrer le projet (l'export se fait à côté du .rpp).",
+                "Cocher les chansons dans la liste (<b>All</b> / <b>None</b>). Chaque ligne a ses boutons "
+                "<b>Copy title</b> (copie le nom, à coller comme titre dans le Manager) et <b>Open folder</b>.",
+                "Sélectionner dans REAPER les pistes à exporter : elles apparaissent dans le tableau.",
+                "Régler pour chaque piste le <b>Type</b>, la sortie <b>Out</b> du B.Beat et le <b>File name</b>.",
+                "Cliquer sur <b>Export ... song(s) to B.Beat</b>."]),
+        ("h2", "Types de piste"),
+        ("table2", [
+            ("Audio", "Un WAV 24 bits par piste, après effets et fader (sans les effets du master), mono ou stéréo "
+                      "selon l'Out. Nommé <font size=8>&lt;Out&gt;-&lt;NOM&gt;-&lt;CHANSON&gt;.wav</font> "
+                      "(ex. 1-2-KEYS-…) : le Manager lit ce préfixe pour attribuer la sortie. L'envoi vers le master "
+                      "est activé le temps du rendu puis remis comme avant."),
+            ("MIDI", "Toutes les pistes MIDI sont fusionnées dans un seul <font size=8>&lt;CHANSON&gt;.mid</font> "
+                     "(le B.Beat n'en accepte qu'un), canaux inchangés."),
+            ("Video", "Rendue en <font size=8>&lt;CHANSON&gt;.mp4</font>. Choisir une fois le format vidéo : "
+                      "<b>Render dialog...</b>, format MP4 (H.264 + AAC), Save, puis <b>Capture from Render dialog</b>."),
+            ("PDF", "Une grille d'accords par piste : les notes de ses items placées dans les mesures, les parties "
+                    "(régions imbriquées) en début de ligne, les commentaires de la piste Comment en italique. "
+                    "Le Manager accepte plusieurs PDF (un par instrument)."),
+            ("Lyrics", "Paroles de la piste Lyrics dans le .mid, lues par le prompteur du B.Beat (début de l'item = "
+                       "temps de la ligne ; plus d'une seconde de silence = écran vidé). Out <b>MIDI + PDF</b> : "
+                       "en plus, une feuille de paroles PDF."),
+            ("Skip", "Piste non exportée."),
+        ]),
+        ("p", "Le préfixe du nom des pistes sert de réglage de départ : « 1-2-KEYS » donne Out 1-2 et le nom KEYS. "
+              "Sorties 1 à 16 (mono) ou paires 1-2 à 15-16 (stéréo) ; le total ne doit pas dépasser 16 canaux "
+              "(affiché en rouge). <b>Reset from track names</b> recalcule les réglages des pistes sélectionnées."),
+        ("h2", "Click, templates et import"),
+        ("p", "La ligne <b>Click (metronome)</b> écrit un click d'après la carte de tempo et de mesures (accent sur "
+              "le premier temps), nommé « … REAPER » pour ne jamais prendre le nom d'une piste de click de la session. "
+              "Le Manager le reconnaît automatiquement (famille click). <b>Save as...</b> enregistre les réglages "
+              "comme <b>template de sortie</b>, commun à tous les projets ; <b>Load</b> l'applique aux pistes "
+              "sélectionnées en les reconnaissant par leur nom."),
+        ("ol", ["Dans le B.Beat Manager : <b>Create new AUDIO PROJECT</b>, coller le titre (Copy title).",
+                "<b>Open folder</b>, tout sélectionner (Ctrl+A) et glisser les fichiers (pas le dossier) sur la zone "
+                "grise, case « The file name starts with the output number » cochée.",
+                "Les pages des PDF se synchronisent dans SCORES (Sync. Next Page)."]),
+        ("h1", "15. Icônes et questions fréquentes"),
         ("p", "Huit icônes (trois états : normal, survol, actif) sont installées dans Data/toolbar_icons : clic droit "
               "sur une barre d'outils &gt; Customize toolbar &gt; Choose icon, puis l'icône du même nom. Redémarrer "
               "REAPER si elles n'apparaissent pas. Les icônes s'allument selon l'état : fenêtres REABACK, Set up et "
@@ -258,6 +301,8 @@ T["fr"] = {
             ("Next ne trouve plus une chanson.", "Elle est désactivée (rouge barré) : Alt+clic pour la réactiver."),
             ("La page smartphone / le prompteur n'affichent rien.", "Le script REABACK / Reaback-prompter n'est pas lancé dans REAPER."),
             ("Les retours à la ligne des notes s'affichent mal.", "Mettre à jour vers la version 1.3 (le prompteur y décode correctement le texte)."),
+            ("Export to B.Beat : un stem est silencieux.", "La piste est mutée ou un solo est actif sur une autre piste : un stem rend la piste telle qu'on l'entend."),
+            ("Export to B.Beat : pas de vidéo.", "Le format vidéo n'a pas été capturé (Render dialog..., puis Capture from Render dialog)."),
         ]),
     ],
 }
@@ -445,7 +490,50 @@ T["en"] = {
                           "cursor."),
             ("Windows set manager", "REAPER's window sets (screensets) window."),
         ]),
-        ("h1", "14. Icons and FAQ"),
+        ("h1", "14. Export to B.Beat"),
+        ("p", "Section at the bottom of the <b>Reaback Set up</b> window. It prepares everything for the M-Live "
+              "<b>B.Beat</b> (and its <b>B.Beat Manager</b> software): no more exporting each track by hand or "
+              "syncing the lyrics again. For each checked song (parent region), a folder <font size=8>Export to "
+              "BBeat/&lt;SONG&gt;</font> is created next to the .rpp file, then emptied and rebuilt at each export."),
+        ("h2", "Preparing the export"),
+        ("ol", ["Save the project (the export goes next to the .rpp).",
+                "Check the songs in the list (<b>All</b> / <b>None</b>). Each line has <b>Copy title</b> (copies the "
+                "name, to paste as the title in the Manager) and <b>Open folder</b>.",
+                "Select the tracks to export in REAPER: they show up in the table.",
+                "Set the <b>Type</b>, the B.Beat <b>Out</b> and the <b>File name</b> of each track.",
+                "Click <b>Export ... song(s) to B.Beat</b>."]),
+        ("h2", "Track types"),
+        ("table2", [
+            ("Audio", "One 24-bit WAV per track, after FX and fader (without the master FX), mono or stereo "
+                      "according to Out. Named <font size=8>&lt;Out&gt;-&lt;NAME&gt;-&lt;SONG&gt;.wav</font> "
+                      "(e.g. 1-2-KEYS-…): the Manager reads this prefix to assign the output. The master send is "
+                      "turned on for the render, then set back."),
+            ("MIDI", "All MIDI tracks are merged into one <font size=8>&lt;SONG&gt;.mid</font> (the B.Beat accepts "
+                     "only one), channels untouched."),
+            ("Video", "Rendered to <font size=8>&lt;SONG&gt;.mp4</font>. Choose the video format once: <b>Render "
+                      "dialog...</b>, MP4 format (H.264 + AAC), Save, then <b>Capture from Render dialog</b>."),
+            ("PDF", "One chord chart per track: the notes of its items placed in the bars, the parts (nested regions) "
+                    "at the start of the lines, the comments of the Comment track in italics. The Manager accepts "
+                    "several PDFs (one per instrument)."),
+            ("Lyrics", "Lyrics of the Lyrics track in the .mid, read by the B.Beat prompter (item start = line time; "
+                       "more than one second of silence = screen cleared). Out <b>MIDI + PDF</b>: also a PDF lyrics "
+                       "sheet."),
+            ("Skip", "Track not exported."),
+        ]),
+        ("p", "The prefix of the track names is the starting setting: \"1-2-KEYS\" gives Out 1-2 and the name KEYS. "
+              "Outputs 1 to 16 (mono) or pairs 1-2 to 15-16 (stereo); the total must not exceed 16 channels (shown "
+              "in red). <b>Reset from track names</b> sets the selected tracks again from their names."),
+        ("h2", "Click, templates and import"),
+        ("p", "The <b>Click (metronome)</b> line writes a click from the tempo and time signature map (accent on the "
+              "first beat), named \"… REAPER\" so it never takes the name of a click track of the session. The "
+              "Manager recognizes it automatically (click family). <b>Save as...</b> stores the settings as an "
+              "<b>output template</b> shared by all projects; <b>Load</b> applies it to the selected tracks, "
+              "matched by name."),
+        ("ol", ["In the B.Beat Manager: <b>Create new AUDIO PROJECT</b>, paste the title (Copy title).",
+                "<b>Open folder</b>, select all (Ctrl+A) and drag the files (not the folder) onto the grey area, with "
+                "\"The file name starts with the output number\" checked.",
+                "PDF pages are synced in SCORES (Sync. Next Page)."]),
+        ("h1", "15. Icons and FAQ"),
         ("p", "Eight icons (three states: normal, hover, active) are installed in Data/toolbar_icons: right-click a "
               "toolbar &gt; Customize toolbar &gt; Choose icon, then the icon with the same name. Restart REAPER if "
               "they do not show up. Icons light up with the state: REABACK, Set up and prompter windows while they run, "
@@ -458,6 +546,8 @@ T["en"] = {
             ("Next no longer finds a song.", "It is disabled (red, struck through): Alt+click to enable it again."),
             ("The phone page / the prompter show nothing.", "The REABACK / Reaback-prompter script is not running in REAPER."),
             ("Line breaks of the notes look wrong.", "Update to version 1.3 (the prompter decodes the text correctly there)."),
+            ("Export to B.Beat: a stem is silent.", "The track is muted or another track is soloed: a stem renders the track as you hear it."),
+            ("Export to B.Beat: no video.", "The video format was not captured (Render dialog..., then Capture from Render dialog)."),
         ]),
     ],
 }
