@@ -14,7 +14,7 @@ from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, Image, Flowable)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.30"
+VERSION = "1.31"
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -189,7 +189,7 @@ T["fr"] = dict(
         ("Select", "Sélectionne les pistes du tag (prêtes pour un strip).", "Sélectionne toutes les pistes."),
     ],
     sd_more=["<b>Molette</b> au-dessus de la liste : tag suivant / précédent, appliqué aussitôt. Chaque tag est affiché "
-             "avec la couleur de sa première piste. <b>Clic droit</b> sur la barre : <b>Size</b> (taille de toute la barre, 10 à 36) et <b>Opacity</b> (opacité du fond, 20 à 100 %), aussi réglables dans l'onglet Display, réouverture au démarrage, Open / Close Strip Buddy, Close.",
+             "avec la couleur de sa première piste. <b>Clic droit</b> sur la barre : <b>Dock in REAPER docker</b> (range la barre dans un docker de REAPER, décocher pour la libérer), <b>Size</b> (taille de toute la barre, 10 à 36) et <b>Opacity</b> (opacité du fond, 20 à 100 %), aussi réglables dans l'onglet Display, réouverture au démarrage, Open / Close Strip Buddy, Close.",
              "Onglet <b>Display</b> de la fenêtre principale : <b>Display View</b> (TCP, MCP ou Both : où View cache les pistes), "
              "<b>Display Scroll</b> (TCP, MCP ou Both : où Scroll fait défiler), et, sous « When REAPER starts », deux cases : « Open the Strip Buddy window » (désactivée par défaut) ouvre la fenêtre principale à chaque démarrage de REAPER, « Open the Display » rouvre le Display.",
              "Zoom et Scroll précis utilisent js_ReaScriptAPI ; sans elle, le Zoom passe par SWS s'il est installé et le Scroll "
@@ -356,7 +356,7 @@ T["en"] = dict(
         ("Select", "Selects the tag's tracks (ready for a strip).", "Selects every track."),
     ],
     sd_more=["<b>Mouse wheel</b> over the list: next / previous tag, applied at once. Each tag shows the colour of its first "
-             "track. <b>Right-click</b> the bar: <b>Size</b> (size of the whole bar, 10 to 36) and <b>Opacity</b> (background opacity, 20 to 100%), also in the Display tab, reopen at startup, Open / Close Strip Buddy, Close.",
+             "track. <b>Right-click</b> the bar: <b>Dock in REAPER docker</b> (puts the bar in a REAPER docker, untick to float it again), <b>Size</b> (size of the whole bar, 10 to 36) and <b>Opacity</b> (background opacity, 20 to 100%), also in the Display tab, reopen at startup, Open / Close Strip Buddy, Close.",
              "<b>Display</b> tab of the main window: <b>Display View</b> (TCP, MCP or Both: where View hides tracks), "
              "<b>Display Scroll</b> (TCP, MCP or Both: where Scroll scrolls), and, under “When REAPER starts”, two boxes: “Open the Strip Buddy window” (off by default) opens the main window each time REAPER starts, “Open the Display” reopens the Display.",
              "Precise Zoom and Scroll use js_ReaScriptAPI; without it, Zoom goes through SWS if installed and Scroll through "
