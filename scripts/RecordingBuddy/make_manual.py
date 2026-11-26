@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.1"
+VERSION = "1.2"
 NAME = "ReNo Mellow - Recording Buddy"
 FOLDER = "RecordingBuddy"
 BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/RecordingBuddy/"
@@ -125,7 +125,7 @@ T["fr"] = {
             ("Flèches, X", "Monter, descendre, supprimer la passe."),
             ("Add pass", "Ajoute une passe (copie de la dernière)."),
             ("All pre-rolls from edit cursor", "Comme C, pour toutes les passes."),
-            ("Tailles", "Text size, Play button size, Display text size ; Show / Hide Display."),
+            ("Tailles", "Text size, Play button size, Display text size ; Show / Hide Display ; Dock the Display in a REAPER docker (range le Display dans un docker de REAPER, décocher pour le libérer)."),
         ]),
         ("p", "Sous le tableau : un avertissement si une passe enregistre à une autre vitesse que 100 %, et la durée "
               "totale estimée de la séquence."),
@@ -268,7 +268,7 @@ T["en"] = {
             ("Arrows, X", "Move the pass up, down, delete it."),
             ("Add pass", "Adds a pass (copy of the last one)."),
             ("All pre-rolls from edit cursor", "Same as C, for every pass."),
-            ("Sizes", "Text size, Play button size, Display text size; Show / Hide Display."),
+            ("Sizes", "Text size, Play button size, Display text size; Show / Hide Display; Dock the Display in a REAPER docker (puts the Display in a REAPER docker, untick to float it again)."),
         ]),
         ("p", "Under the table: a warning when a pass records at a rate other than 100 %, and the estimated total "
               "length of the sequence."),
