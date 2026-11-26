@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.6"
+VERSION = "1.7"
 NAME = "REABACK"
 FOLDER = "REABACK"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -225,7 +225,8 @@ T["fr"] = {
               "exécuté."),
         ("h2", "Configuration"),
         ("p", "Audio device settings, MIDI devices (entrées, sorties : même page de REAPER), Web control surface, "
-              "Project settings, Metronome settings, Routing matrix, Video window, External synchronization settings."),
+              "Project settings, Metronome settings, Routing matrix, Video window, External synchronization settings, "
+              "Live preferences (voir plus bas)."),
         ("h2", "Session Built"),
         ("table2", [
             ("Project templates / Open project / Save project as...", "Fenêtres de REAPER correspondantes."),
@@ -246,6 +247,28 @@ T["fr"] = {
                           "sans région, la sélection temporelle sert de zone."),
             ("Windows set manager", "Fenêtre des window sets (screensets) de REAPER."),
         ]),
+        ("h2", "Live preferences (bouton 10)"),
+        ("p", "Ouvre une fenêtre qui applique en un clic les <b>préférences de REAPER pour la scène</b> : ouvrir le "
+              "dernier projet au démarrage, créer les nouveaux projets avec le template <b>ReaBack</b> (avec proposition "
+              "d'enregistrer et ouverture des Project settings), Seeking (clic sur la règle seulement, <b>smooth seek</b> "
+              "jusqu'au marqueur ou à la région suivante), carte son qui reste ouverte à l'arrêt, tiny fade in coupé, "
+              "boutons des items et réglages vidéo. En haut, l'état des extensions (ReaImGui, js_ReaScriptAPI, ReaPack, "
+              "SWS) : vert si chargée, rouge avec la façon de l'installer sinon. <b>SWS</b> est nécessaire pour écrire "
+              "les préférences."),
+        ("table2", [
+            ("Capture my current settings", "Sur un REAPER déjà réglé pour la scène : enregistre les valeurs actuelles "
+                          "dans le profil <font size=8>Data/REABACK/live_prefs.txt</font> (à copier sur un autre ordinateur)."),
+            ("State", "<b>Live value</b> (vert) : le réglage est déjà à la valeur de scène ; <b>Different</b> : il sera "
+                          "changé par Apply ; <b>Not found: use Learn</b> : le réglage n'a pas été détecté."),
+            ("Learn", "Trouve un réglage non détecté : les Préférences s'ouvrent ; changer le réglage, Apply, le remettre "
+                          "à la valeur de scène, Apply, puis <b>Done</b>."),
+            ("Apply checked settings", "Écrit les réglages cochés. Les anciennes valeurs sont gardées ; le template "
+                          "ReaBack utilisé est celui de l'ordinateur."),
+            ("Restore previous values", "Remet les valeurs d'avant le dernier Apply."),
+            ("ReaImGui settings", "Réglages de l'extension ReaImGui, à faire à la main : la liste est affichée et un "
+                          "bouton ouvre la page des Préférences."),
+        ]),
+        ("p", "REAPER enregistre ses préférences dans reaper.ini à sa fermeture."),
         ("h1", "14. Export to B.Beat"),
         ("p", "Section en bas de la fenêtre <b>Reaback Set up</b>. Elle prépare tout ce qu'il faut pour le <b>B.Beat</b> "
               "de M-Live (et son logiciel <b>B.Beat Manager</b>) : plus besoin d'exporter chaque piste à la main ni de "
@@ -296,6 +319,7 @@ T["fr"] = {
               "prompteur tant qu'ils tournent, Play/Stop en lecture, Live loop quand la boucle est active."),
         ("qa", [
             ("La fenêtre ne s'ouvre pas.", "ReaImGui n'est pas installé : l'installer via ReaPack et redémarrer REAPER."),
+            ("Live preferences : Apply est grisé.", "SWS n'est pas installé : l'installer et redémarrer REAPER."),
             ("Le bouton Count-in ne fait rien.", "SWS n'est pas installé ou l'action n'existe pas dans votre version."),
             ("Apply IDs refuse.", "Un ID calculé dépasse 9999 (avertissement rouge) : réduire les chansons ou les imbrications."),
             ("Une partie est traitée comme une chanson.", "Elle dépasse de sa mère ou partage ses bornes : la rentrer strictement dedans."),
@@ -471,7 +495,8 @@ T["en"] = {
               "a button shows the action used, and the bottom line tells what was run."),
         ("h2", "Configuration"),
         ("p", "Audio device settings, MIDI devices (inputs, outputs: the same REAPER page), Web control surface, "
-              "Project settings, Metronome settings, Routing matrix, Video window, External synchronization settings."),
+              "Project settings, Metronome settings, Routing matrix, Video window, External synchronization settings, "
+              "Live preferences (see below)."),
         ("h2", "Session Built"),
         ("table2", [
             ("Project templates / Open project / Save project as...", "The matching REAPER windows."),
@@ -492,6 +517,27 @@ T["en"] = {
                           "selection is used."),
             ("Windows set manager", "REAPER's window sets (screensets) window."),
         ]),
+        ("h2", "Live preferences (button 10)"),
+        ("p", "Opens a window that applies the <b>REAPER preferences for the stage</b> in one click: open the last "
+              "project on startup, create new projects from the <b>ReaBack</b> template (with prompt to save and "
+              "project settings opened), Seeking (click on the ruler only, <b>smooth seek</b> to the next marker or "
+              "region), audio device kept open when stopped, tiny fade in off, media item buttons and video settings. "
+              "At the top, the state of the extensions (ReaImGui, js_ReaScriptAPI, ReaPack, SWS): green when loaded, "
+              "red with how to install it otherwise. <b>SWS</b> is required to write the preferences."),
+        ("table2", [
+            ("Capture my current settings", "On a REAPER already set up for the stage: saves the current values in "
+                          "the profile <font size=8>Data/REABACK/live_prefs.txt</font> (copy it to another computer)."),
+            ("State", "<b>Live value</b> (green): the setting already has its stage value; <b>Different</b>: Apply "
+                          "will change it; <b>Not found: use Learn</b>: the setting was not detected."),
+            ("Learn", "Finds a setting that was not detected: Preferences opens; change the setting, Apply, put it "
+                          "back to the stage value, Apply, then <b>Done</b>."),
+            ("Apply checked settings", "Writes the checked settings. The old values are kept; the ReaBack template "
+                          "used is the one of this computer."),
+            ("Restore previous values", "Puts back the values from before the last Apply."),
+            ("ReaImGui settings", "Settings of the ReaImGui extension, to set by hand: the list is shown and a button "
+                          "opens the Preferences page."),
+        ]),
+        ("p", "REAPER saves its preferences to reaper.ini when it closes."),
         ("h1", "14. Export to B.Beat"),
         ("p", "Section at the bottom of the <b>Reaback Set up</b> window. It prepares everything for the M-Live "
               "<b>B.Beat</b> (and its <b>B.Beat Manager</b> software): no more exporting each track by hand or "
@@ -542,6 +588,7 @@ T["en"] = {
               "Play/Stop while playing, Live loop when repeat is on."),
         ("qa", [
             ("The window does not open.", "ReaImGui is not installed: install it via ReaPack and restart REAPER."),
+            ("Live preferences: Apply is greyed out.", "SWS is not installed: install it and restart REAPER."),
             ("The Count-in button does nothing.", "SWS is not installed or the action does not exist in your version."),
             ("Apply IDs refuses.", "A computed ID exceeds 9999 (red warning): reduce songs or nesting."),
             ("A part is treated as a song.", "It goes beyond its parent or shares its edges: put it strictly inside."),
