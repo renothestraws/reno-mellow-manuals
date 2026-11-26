@@ -17,7 +17,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.2"
+VERSION = "1.3"
 NAME = "ReNo Mellow - Chord Buddy"
 BASE = "https://github.com/renothestraws/reno-mellow-manuals/raw/main/scripts/ChordBuddy/"
 URL_FR = BASE + "ChordBuddy_manuel_FR.pdf"
@@ -157,6 +157,8 @@ T["fr"] = {
             ("Open", "Ouvre la fenêtre Chord Buddy (rien ne se passe si elle est déjà ouverte)."),
             ("Export", "Exporte les accords sélectionnés avec les modes cochés dans Set up (section 8)."),
             ("Clic droit sur Export", "Menu : exporter avec un seul mode, cette fois seulement."),
+            ("Clic droit sur une zone vide", "Menu : Open Chord Buddy, Dock in REAPER docker (range le Display dans un "
+                                             "docker de REAPER, décocher pour le libérer), Close."),
             ("Relancer l'action Display", "Fermer le Display."),
         ]),
         ("p", "Noms reconnus : triades (majeur, mineur, dim, aug), sus2, sus4, 5, 6, m6, 7, maj7, m7, m7b5, dim7, mMaj7, "
@@ -312,6 +314,8 @@ T["en"] = {
             ("Open", "Opens the Chord Buddy window (nothing happens if it is already open)."),
             ("Export", "Exports the selected chords with the modes ticked in Set up (section 8)."),
             ("Right-click on Export", "Menu: export with one mode, this time only."),
+            ("Right-click an empty spot", "Menu: Open Chord Buddy, Dock in REAPER docker (puts the Display in a REAPER "
+                                          "docker, untick to float it again), Close."),
             ("Run the Display action again", "Close the Display."),
         ]),
         ("p", "Recognized names: triads (major, minor, dim, aug), sus2, sus4, 5, 6, m6, 7, maj7, m7, m7b5, dim7, mMaj7, "

@@ -16,7 +16,7 @@ from reportlab.platypus.tableofcontents import TableOfContents
 from PIL import Image as PILImage
 
 LANG, OUT, ICON = sys.argv[1], sys.argv[2], sys.argv[3]
-VERSION = "1.11"
+VERSION = "1.12"
 FR = LANG == "fr"
 def L(fr, en): return fr if FR else en
 
@@ -361,8 +361,8 @@ S.append(KeepTogether([P(L("6. La bulle Display", "6. The Display bubble"), "h1"
            [L("Double-clic", "Double-click"), L("ouvre la Toolbox correspondante", "opens the matching Toolbox")],
            [L("Survol du nom de l'outil", "Hover over the tool name"), L("bulle avec les trois actions de l'outil (main, alt, alt2)", "tooltip with the tool's three actions (main, alt, alt2)")],
            [L("Survol du reste", "Hover elsewhere"), L("bulle d'aide avec ces gestes", "help tooltip listing these gestures")],
-           [L("Clic droit", "Right-click"), L("menu : Open Toolbox, Next tool, Previous tool, Text size, Close",
-                                              "menu: Open Toolbox, Next tool, Previous tool, Text size, Close")]],
+           [L("Clic droit", "Right-click"), L("menu : Open Toolbox, Next tool, Previous tool, Text size, Dock in REAPER docker (range la bulle dans un docker de REAPER, décocher pour la libérer), Close",
+                                              "menu: Open Toolbox, Next tool, Previous tool, Text size, Dock in REAPER docker (puts the bubble in a REAPER docker, untick to float it again), Close")]],
           [40 * mm, 130 * mm])]))
 S.append(Spacer(1, 5))
 S += B([L("La bulle <b>retient sa place</b> et, si elle était ouverte à la fermeture de REAPER, <b>se rouvre "
