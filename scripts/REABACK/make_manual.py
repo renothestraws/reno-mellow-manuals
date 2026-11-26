@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.5"
+VERSION = "1.6"
 NAME = "REABACK"
 FOLDER = "REABACK"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -241,8 +241,9 @@ T["fr"] = {
                           "l'éditeur MIDI (docké, synchronisé à l'arrangement si l'action existe)."),
             ("Timecode track", "Piste dont le nom contient Timecode : vidée, sans envoi au master, timecode generator "
                           "sur tout le projet, propriétés de la source ouvertes."),
-            ("Lock / Unlock items of the region", "Verrouille ou déverrouille les items de la région la plus large "
-                          "sous le curseur d'édition."),
+            ("Lock / Unlock items of the region", "Verrouille ou déverrouille les items qui commencent dans la "
+                          "région la plus large sous le curseur d'édition (même si leur fin dépasse) ; "
+                          "sans région, la sélection temporelle sert de zone."),
             ("Windows set manager", "Fenêtre des window sets (screensets) de REAPER."),
         ]),
         ("h1", "14. Export to B.Beat"),
@@ -486,8 +487,9 @@ T["en"] = {
                           "MIDI editor (docked, synced to the arrange view if the action exists)."),
             ("Timecode track", "Track whose name contains Timecode: cleared, no master send, timecode generator over "
                           "the whole project, source properties opened."),
-            ("Lock / Unlock items of the region", "Locks or unlocks the items of the widest region under the edit "
-                          "cursor."),
+            ("Lock / Unlock items of the region", "Locks or unlocks the items that start in the widest region under "
+                          "the edit cursor (even if they end past it); without a region, the time "
+                          "selection is used."),
             ("Windows set manager", "REAPER's window sets (screensets) window."),
         ]),
         ("h1", "14. Export to B.Beat"),
