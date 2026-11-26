@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.5"
+VERSION = "1.6"
 NAME = "ReNo Mellow - Grid Buddy"
 FOLDER = "GridBuddy"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -153,7 +153,8 @@ T["fr"] = {
         ("p", "Deux petites fenêtres sans barre de titre, indépendantes, à placer où l'on veut : le <b>Display</b> "
               "de l'arrangement (action Main) et le <b>Display MIDI</b> (action « Grid Buddy MIDI - Display », "
               "visible seulement quand un éditeur MIDI est ouvert). Chacun montre l'aimant du snap et la grille "
-              "(barre bleue pour le swing dans l'arrangement)."),
+              "(barre bleue pour le swing dans l'arrangement). En bas du menu du Display, <b>Dock in REAPER docker</b> le "
+              "range dans un docker de REAPER (décocher pour le libérer) ; l'état est retenu au prochain lancement."),
         ("draw", "display"),
         ("table_g", [
             ("Molette", "Taille suivante (vers le haut = plus fin). Après la plus fine viennent 1/8T, 1/16T, "
@@ -294,7 +295,8 @@ T["en"] = {
         ("p", "Two small independent windows without a title bar, to place anywhere: the arrange <b>Display</b> "
               "(Main action) and the <b>MIDI Display</b> (action « Grid Buddy MIDI - Display », shown only while a "
               "MIDI editor is open). Each shows the snap magnet and the grid (blue bar for the swing in the arrange "
-              "view)."),
+              "view). At the bottom of the Display's menu, <b>Dock in REAPER docker</b> puts it in a REAPER docker "
+              "(untick to float it again); this is remembered at the next launch."),
         ("draw", "display"),
         ("table_g", [
             ("Wheel", "Next size (up = finer). Past the finest come 1/8T, 1/16T, 1/32T; past the widest "
