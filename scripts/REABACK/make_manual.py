@@ -16,7 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                 TableStyle, KeepTogether, PageBreak, ListFlowable, ListItem, Image)
 from reportlab.platypus.tableofcontents import TableOfContents
 
-VERSION = "1.7"
+VERSION = "1.8"
 NAME = "REABACK"
 FOLDER = "REABACK"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -289,8 +289,10 @@ T["fr"] = {
                       "est activé le temps du rendu puis remis comme avant."),
             ("MIDI", "Toutes les pistes MIDI sont fusionnées dans un seul <font size=8>&lt;CHANSON&gt;.mid</font> "
                      "(le B.Beat n'en accepte qu'un), canaux inchangés."),
-            ("Video", "Rendue en <font size=8>&lt;CHANSON&gt;.mp4</font>. Choisir une fois le format vidéo : "
-                      "<b>Render dialog...</b>, format MP4 (H.264 + AAC), Save, puis <b>Capture from Render dialog</b>."),
+            ("Video", "Rendue en <font size=8>&lt;CHANSON&gt;.mp4</font>. Par défaut, le <b>preset B.Beat</b> intégré : "
+                      "H.264 10 Mbps, 1920 x 1080, 25 fps (encodeur Windows Media), rien à régler. Pour d'autres réglages "
+                      "(obligatoire sur macOS) : <b>Render dialog...</b>, format H.264, Save, puis <b>Capture from Render "
+                      "dialog</b> ; <b>Use B.Beat preset</b> revient au preset."),
             ("PDF", "Une grille d'accords par piste : les notes de ses items placées dans les mesures, les parties "
                     "(régions imbriquées) en début de ligne, les commentaires de la piste Comment en italique. "
                     "Le Manager accepte plusieurs PDF (un par instrument)."),
@@ -327,7 +329,7 @@ T["fr"] = {
             ("La page smartphone / le prompteur n'affichent rien.", "Le script REABACK / Reaback-prompter n'est pas lancé dans REAPER."),
             ("Les retours à la ligne des notes s'affichent mal.", "Mettre à jour vers la version 1.3 (le prompteur y décode correctement le texte)."),
             ("Export to B.Beat : un stem est silencieux.", "La piste est mutée ou un solo est actif sur une autre piste : un stem rend la piste telle qu'on l'entend."),
-            ("Export to B.Beat : pas de vidéo.", "Le format vidéo n'a pas été capturé (Render dialog..., puis Capture from Render dialog)."),
+            ("Export to B.Beat : pas de vidéo.", "Aucune piste n'est réglée sur Video, ou (macOS) le preset Windows Media n'existe pas : capturer un format H.264 (Render dialog..., puis Capture from Render dialog)."),
         ]),
     ],
 }
@@ -558,8 +560,10 @@ T["en"] = {
                       "turned on for the render, then set back."),
             ("MIDI", "All MIDI tracks are merged into one <font size=8>&lt;SONG&gt;.mid</font> (the B.Beat accepts "
                      "only one), channels untouched."),
-            ("Video", "Rendered to <font size=8>&lt;SONG&gt;.mp4</font>. Choose the video format once: <b>Render "
-                      "dialog...</b>, MP4 format (H.264 + AAC), Save, then <b>Capture from Render dialog</b>."),
+            ("Video", "Rendered to <font size=8>&lt;SONG&gt;.mp4</font>. By default, the built-in <b>B.Beat "
+                      "preset</b>: H.264 10 Mbps, 1920 x 1080, 25 fps (Windows Media encoder), nothing to set. For other "
+                      "settings (required on macOS): <b>Render dialog...</b>, an H.264 format, Save, then <b>Capture from "
+                      "Render dialog</b>; <b>Use B.Beat preset</b> goes back to the preset."),
             ("PDF", "One chord chart per track: the notes of its items placed in the bars, the parts (nested regions) "
                     "at the start of the lines, the comments of the Comment track in italics. The Manager accepts "
                     "several PDFs (one per instrument)."),
@@ -596,7 +600,7 @@ T["en"] = {
             ("The phone page / the prompter show nothing.", "The REABACK / Reaback-prompter script is not running in REAPER."),
             ("Line breaks of the notes look wrong.", "Update to version 1.3 (the prompter decodes the text correctly there)."),
             ("Export to B.Beat: a stem is silent.", "The track is muted or another track is soloed: a stem renders the track as you hear it."),
-            ("Export to B.Beat: no video.", "The video format was not captured (Render dialog..., then Capture from Render dialog)."),
+            ("Export to B.Beat: no video.", "No track is set to Video, or (macOS) the Windows Media preset does not exist: capture an H.264 format (Render dialog..., then Capture from Render dialog)."),
         ]),
     ],
 }
